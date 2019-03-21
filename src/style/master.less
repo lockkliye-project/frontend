@@ -1,0 +1,130 @@
+/* Cursor-Selection Color */
+::selection {
+  background-color: #ccc;
+}
+
+/* Custom-Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #252525;
+}
+
+::-webkit-scrollbar-thumb {
+  background: @brick;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff6600;
+}
+
+/* Custom input */
+textarea,
+input,
+button {
+  outline: none;
+  border: none;
+}
+
+input,
+textarea,
+li {
+  user-select: all;
+}
+
+input,
+textarea {
+  resize: none;
+  padding: 2px;
+
+  color: @anthrazit;
+  background-color: #aaa;
+  //border-radius: 25px;
+}
+
+input:hover,
+textarea:hover {
+  background-color: #ccc;
+}
+
+input:focus,
+textarea:focus {
+  background-color: @brick;
+}
+
+input:focus::placeholder,
+textarea:focus:placeholder {
+  color: transparent;
+}
+
+::placeholder {
+  padding: 0 2px;
+  opacity: 0.25;
+  color: black;
+  font-style: italic;
+}
+
+/* Button-Style */
+button {
+  padding: 5px 10px;
+  background-color: @brick;
+  color: #fff;
+}
+
+button:hover {
+  cursor: pointer;
+  filter: brightness(120%);
+}
+
+button:active {
+  filter: brightness(90%);
+}
+
+/* Unordered List */
+ul {
+  overflow: hidden;
+  overflow-y: scroll;
+
+  padding: 10px;
+  height: 328px;
+  width: 100px;
+
+  list-style-type: none;
+  border: none;
+
+  background-color: #333;
+
+  li {
+    padding: 5px 0;
+    padding-left: 5px;
+    margin-bottom: 10px;
+    width: 95%;
+
+    color: #fff;
+  }
+
+  li:hover {
+    cursor: pointer;
+
+    color: #000;
+    background-color: @brick;
+  }
+
+  li:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* Seperators */
+hr {
+  height: 1px;
+  border: none;
+  background-color: #777;
+}
+
+.vertical {
+  color: @anthrazit;
+  width: 1px;
+}
