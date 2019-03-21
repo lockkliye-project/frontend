@@ -1,8 +1,8 @@
-#alerts {
+#alertBox {
   z-index: 1;
   /* The alert message boxes */
 }
-#alerts .alert {
+#alertBox .alert {
   display: block;
   padding: 15px;
   margin-bottom: 15px;
@@ -10,30 +10,30 @@
   left: 10px;
   color: #000;
 }
-#alerts .alert:hover {
+#alertBox .alert:hover {
   cursor: pointer;
 }
-#alerts #error {
+#alertBox #error {
   background-color: #ff4433;
 }
-#alerts #warning {
+#alertBox #warning {
   background-color: #ffcc00;
 }
-#alerts #info {
+#alertBox #info {
   background-color: #00ccff;
 }
-#alerts #success {
+#alertBox #success {
   background-color: #44ff33;
 }
-#alerts #error:hover {
+#alertBox #error:hover {
   background-color: #ff7366;
 }
-#alerts #warning:hover {
+#alertBox #warning:hover {
   background-color: #ffd633;
 }
-#alerts #info:hover {
+#alertBox #info:hover {
   background-color: #33d6ff;
 }
-#alerts #success:hover {
+#alertBox #success:hover {
   background-color: #73ff66;
 }

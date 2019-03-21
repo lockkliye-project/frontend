@@ -6,21 +6,22 @@ class Explorer extends Component {
   render() {
     return (
       <nav>
-        <div id='navigator'>
+        <div id='navigator' className='frame'>
           <ul>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
+            <li className='nav'>1</li>
           </ul>
+          <div className='resizer' />
         </div>
 
-        <div id='resizer' />
+        <div id='list' className='frame'>
+          <ul>
+            <li className='entry'>1</li>
+          </ul>
+          <div className='resizer' />
+        </div>
       </nav>
     );
   }
 }
 
 export default Explorer;
-
-//

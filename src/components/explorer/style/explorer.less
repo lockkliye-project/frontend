@@ -8,18 +8,18 @@ nav {
 
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   height: 100%;
-  width: fit-content;
-  min-width: 10%;
+  min-width: fit-content;
+  width: 50%;
   max-width: 80%;
 
   background-color: @bg;
 
-  #navigator {
+  .frame {
     padding: 25px;
     height: 100%;
     width: 50%;
+    max-width: 100%;
 
     ul {
       padding: 0;
@@ -35,14 +35,20 @@ nav {
     }
   }
 
-  #resizer {
+  #navigator {
+  }
+
+  #list {
+  }
+
+  .resizer {
     height: 100%;
     width: 5px;
 
     background-color: @bg;
   }
 
-  #resizer:hover {
+  .resizer:hover {
     cursor: w-resize;
 
     background-color: lighten(@bg, @lighten);

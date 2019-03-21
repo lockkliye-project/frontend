@@ -1,7 +1,7 @@
 import React from "react";
 
-function Alerts(props) {
+function AlertBox(props) {
   return <div id='alerts' />;
 }
 
-export default Alerts;
+export default AlertBox;

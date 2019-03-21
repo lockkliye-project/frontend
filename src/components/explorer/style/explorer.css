@@ -3,34 +3,34 @@ nav {
   overflow-y: auto;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   height: 100%;
-  width: fit-content;
-  min-width: 10%;
+  min-width: fit-content;
+  width: 50%;
   max-width: 80%;
   background-color: #222;
 }
-nav #navigator {
+nav .frame {
   padding: 25px;
   height: 100%;
   width: 50%;
+  max-width: 100%;
 }
-nav #navigator ul {
+nav .frame ul {
   padding: 0;
   margin: 0;
   float: left;
   list-style-type: none;
 }
-nav #navigator ul li {
+nav .frame ul li {
   height: fit-content;
   width: fit-content;
 }
-nav #resizer {
+nav .resizer {
   height: 100%;
   width: 5px;
   background-color: #222;
 }
-nav #resizer:hover {
+nav .resizer:hover {
   cursor: w-resize;
   background-color: #3c3c3c;
 }
