@@ -1,16 +1,33 @@
 nav {
+  overflow-x: hidden;
+  overflow-y: auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100%;
   width: fit-content;
+  min-width: 10%;
+  max-width: 80%;
   background-color: #222;
 }
 nav #navigator {
+  padding: 25px;
   height: 100%;
-  width: 90%;
+  width: 50%;
+}
+nav #navigator ul {
+  padding: 0;
+  margin: 0;
+  float: left;
+  list-style-type: none;
+}
+nav #navigator ul li {
+  height: fit-content;
+  width: fit-content;
 }
 nav #resizer {
   height: 100%;
-  width: 10%;
+  width: 5px;
   background-color: #222;
 }
 nav #resizer:hover {

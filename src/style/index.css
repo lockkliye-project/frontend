@@ -28,13 +28,6 @@
   width: 100%;
   z-index: 0;
 }
-#root #app nav,
-#root #app main {
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding: 5%;
-  height: 100%;
-}
 #root #bg {
   z-index: -1;
 }
