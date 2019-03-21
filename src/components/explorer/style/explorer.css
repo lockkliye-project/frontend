@@ -1,4 +1,19 @@
 nav {
+  display: flex;
+  flex-direction: column;
   width: fit-content;
   background-color: #222;
+}
+nav #navigator {
+  height: 100%;
+  width: 90%;
+}
+nav #resizer {
+  height: 100%;
+  width: 10%;
+  background-color: #222;
+}
+nav #resizer:hover {
+  cursor: w-resize;
+  background-color: #3c3c3c;
 }
