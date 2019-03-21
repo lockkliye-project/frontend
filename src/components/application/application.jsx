@@ -17,11 +17,15 @@ class Application extends Component {
     this.setState({ data: test_entries }, () => {});
   }
 
+  pop() {
+    return this.state.data;
+  }
+
   render() {
     return (
       <div id='app'>
-        <Explorer />
-        <Display />
+        <Explorer data={this.state.data} />
+        <Display currentCard={this.state.currentCard} />
       </div>
     );
   }

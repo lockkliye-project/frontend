@@ -5,21 +5,21 @@ import "./style/explorer.css";
 class Explorer extends Component {
   render() {
     return (
-      <nav>
-        <div id='navigator' className='frame'>
+      <div id='explorer' className='screen'>
+        <nav className='frame'>
           <ul>
             <li className='nav'>1</li>
           </ul>
-          <div className='resizer' />
-        </div>
+        </nav>
+        <div className='resizer' />
 
         <div id='list' className='frame'>
           <ul>
             <li className='entry'>1</li>
           </ul>
-          <div className='resizer' />
         </div>
-      </nav>
+        <div className='resizer' />
+      </div>
     );
   }
 }

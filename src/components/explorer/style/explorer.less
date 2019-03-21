@@ -1,19 +1,10 @@
-@bg: #222;
+@bg: #111;
 
-@lighten: 10%;
+@lighten: 2%;
 
-nav {
-  overflow-x: hidden;
-  overflow-y: auto;
-
+#explorer {
   display: flex;
   flex-direction: row;
-  height: 100%;
-  min-width: fit-content;
-  width: 50%;
-  max-width: 80%;
-
-  background-color: @bg;
 
   .frame {
     padding: 25px;
@@ -35,17 +26,25 @@ nav {
     }
   }
 
-  #navigator {
+  nav {
+    background-color: @bg;
+
+    li {
+      color: #00ff33;
+    }
   }
 
   #list {
+    background-color: lighten(@bg, 5);
   }
 
   .resizer {
     height: 100%;
-    width: 5px;
+    width: 3px;
 
-    background-color: @bg;
+    box-shadow: 1px 0 0;
+
+    background-color: darken(@bg, @lighten);
   }
 
   .resizer:hover {

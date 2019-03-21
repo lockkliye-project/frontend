@@ -1,36 +1,39 @@
-nav {
-  overflow-x: hidden;
-  overflow-y: auto;
+#explorer {
   display: flex;
   flex-direction: row;
-  height: 100%;
-  min-width: fit-content;
-  width: 50%;
-  max-width: 80%;
-  background-color: #222;
 }
-nav .frame {
+#explorer .frame {
   padding: 25px;
   height: 100%;
   width: 50%;
   max-width: 100%;
 }
-nav .frame ul {
+#explorer .frame ul {
   padding: 0;
   margin: 0;
   float: left;
   list-style-type: none;
 }
-nav .frame ul li {
+#explorer .frame ul li {
   height: fit-content;
   width: fit-content;
 }
-nav .resizer {
-  height: 100%;
-  width: 5px;
-  background-color: #222;
+#explorer nav {
+  background-color: #111;
 }
-nav .resizer:hover {
+#explorer nav li {
+  color: #00ff33;
+}
+#explorer #list {
+  background-color: #1e1e1e;
+}
+#explorer .resizer {
+  height: 100%;
+  width: 3px;
+  box-shadow: 1px 0 0;
+  background-color: #0c0c0c;
+}
+#explorer .resizer:hover {
   cursor: w-resize;
-  background-color: #3c3c3c;
+  background-color: #161616;
 }
