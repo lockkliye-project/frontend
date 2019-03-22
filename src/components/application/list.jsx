@@ -3,7 +3,9 @@ import React, { Component } from "react";
 import "./style/list.css";
 
 class List extends Component {
-  state = {};
+  state = {
+    collapsed: false
+  };
 
   render() {
     return (
@@ -14,7 +16,12 @@ class List extends Component {
         <ul>
           <li className='entry'>entry</li>
         </ul>
-        <div className='resizer' />
+        <div
+          className='collapser'
+          onClick={() => {
+            this.setState({ collapsed: !this.state.collapsed });
+          }}
+        />
       </div>
     );
   }
