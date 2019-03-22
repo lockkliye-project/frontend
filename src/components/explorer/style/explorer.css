@@ -1,9 +1,10 @@
 #explorer {
   display: flex;
   flex-direction: row;
+  background: url("../../../res/img/pattern_b.png");
+  background-size: 10%;
 }
 #explorer .frame {
-  padding: 25px;
   height: 100%;
   width: 50%;
   max-width: 100%;
@@ -11,29 +12,38 @@
 #explorer .frame ul {
   padding: 0;
   margin: 0;
-  float: left;
+  width: 100%;
   list-style-type: none;
 }
 #explorer .frame ul li {
-  height: fit-content;
-  width: fit-content;
+  padding: 25px;
+  width: 100%;
 }
-#explorer nav {
-  background-color: #111;
+#explorer .frame ul li:hover {
+  cursor: pointer;
 }
 #explorer nav li {
   color: #00ff33;
 }
+#explorer nav li:hover {
+  background-color: #1e1e1e;
+}
 #explorer #list {
   background-color: #1e1e1e;
+}
+#explorer #list li:hover {
+  background-color: #2b2b2b;
 }
 #explorer .resizer {
   height: 100%;
   width: 3px;
-  box-shadow: 1px 0 0;
-  background-color: #0c0c0c;
+  background-color: #111;
+  transition: 0.25s all;
 }
 #explorer .resizer:hover {
   cursor: w-resize;
-  background-color: #161616;
+  background-color: #000 !important;
+}
+#explorer #r2 {
+  background-color: #1e1e1e;
 }

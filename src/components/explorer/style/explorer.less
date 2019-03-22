@@ -1,13 +1,16 @@
 @bg: #111;
 
 @lighten: 2%;
+@pattern: 10%;
 
 #explorer {
   display: flex;
   flex-direction: row;
 
+  background: url("../../../res/img/pattern_b.png");
+  background-size: @pattern;
+
   .frame {
-    padding: 25px;
     height: 100%;
     width: 50%;
     max-width: 100%;
@@ -15,41 +18,56 @@
     ul {
       padding: 0;
       margin: 0;
-      float: left;
+      width: 100%;
 
       list-style-type: none;
 
       li {
-        height: fit-content;
-        width: fit-content;
+        padding: 25px;
+
+        width: 100%;
+      }
+
+      li:hover {
+        cursor: pointer;
       }
     }
   }
 
   nav {
-    background-color: @bg;
-
     li {
       color: #00ff33;
+    }
+
+    li:hover {
+      background-color: lighten(@bg, 5);
     }
   }
 
   #list {
     background-color: lighten(@bg, 5);
+
+    li:hover {
+      background-color: lighten(@bg, 10);
+    }
   }
 
   .resizer {
     height: 100%;
     width: 3px;
 
-    box-shadow: 1px 0 0;
+    background-color: @bg;
 
-    background-color: darken(@bg, @lighten);
+    transition: 0.25s all;
   }
 
   .resizer:hover {
     cursor: w-resize;
 
-    background-color: lighten(@bg, @lighten);
+    background-color: #000 !important;
+  }
+
+  #r2 {
+    background-color: lighten(@bg, 5);
   }
 }

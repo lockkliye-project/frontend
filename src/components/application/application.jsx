@@ -9,12 +9,15 @@ import "./style/application.css";
 
 class Application extends Component {
   state = {
+    promiseResolved: false,
     data: null,
     currentCard: null
   };
 
   componentDidMount() {
-    this.setState({ data: test_entries }, () => {});
+    this.setState({ data: test_entries }, () => {
+      this.setState({ promiseResolved: true });
+    });
   }
 
   pop() {
@@ -22,6 +25,7 @@ class Application extends Component {
   }
 
   render() {
+    if (!this.state.promiseResolved) return null;
     return (
       <div id='app'>
         <Explorer data={this.state.data} />

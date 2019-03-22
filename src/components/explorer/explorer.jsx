@@ -8,17 +8,19 @@ class Explorer extends Component {
       <div id='explorer' className='screen'>
         <nav className='frame'>
           <ul>
-            <li className='nav'>1</li>
+            {Object.keys(this.props.data).map(entry => {
+              return <li className='nav'>{entry}</li>;
+            })}
           </ul>
         </nav>
         <div className='resizer' />
 
         <div id='list' className='frame'>
           <ul>
-            <li className='entry'>1</li>
+            <li className='entry'>entry</li>
           </ul>
         </div>
-        <div className='resizer' />
+        <div id='r2' className='resizer' />
       </div>
     );
   }

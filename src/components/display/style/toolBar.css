@@ -1,5 +1,7 @@
 #toolBar {
+  position: fixed;
   height: 50px;
   width: 100%;
-  background-color: #ff8800;
+  background-color: #111;
+  opacity: 0.5;
 }
