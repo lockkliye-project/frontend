@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
-import Explorer from "../explorer/explorer";
+import Navigator from "./navigator";
+import List from "./list";
 import Display from "../display/display";
 
 import test_entries from "../../test_entries.json";
@@ -28,7 +29,8 @@ class Application extends Component {
     if (!this.state.promiseResolved) return null;
     return (
       <div id='app'>
-        <Explorer data={this.state.data} />
+        <Navigator data={this.state.data} />
+        <List />
         <Display currentCard={this.state.currentCard} />
       </div>
     );

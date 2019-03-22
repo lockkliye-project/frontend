@@ -10,7 +10,7 @@
   outline: none;
   border: none;
   font-family: Gothic;
-  font-size: 12px;
+  font-size: 14px;
   color: #fff;
 }
 .hidden {
@@ -20,7 +20,4 @@
   overflow: hidden;
   height: 100vh;
   width: 100vw;
-}
-#root #bg {
-  z-index: -1;
 }

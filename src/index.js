@@ -12,7 +12,6 @@ ReactDOM.render(
   <React.Fragment>
     <AlertBox />
     <Application />
-    <div id='bg' />
   </React.Fragment>,
   document.getElementById("root")
 );

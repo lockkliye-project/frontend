@@ -1,0 +1,13 @@
+nav {
+  background: url("../../../res/img/pattern_b1.png");
+}
+nav li {
+  color: #ff8800;
+  border-bottom: 1px solid #111;
+}
+nav li.current {
+  background-color: #2b2b2b;
+}
+nav li:hover {
+  background-color: #1e1e1e;
+}

@@ -1,8 +1,8 @@
 #display {
   height: 100%;
-  width: 100%;
-  background: url("../../../res/img/pattern_b.png");
-  background-size: 10%;
+  width: 100% !important;
+  background: url("../../../res/img/pattern_b3.png");
+  background-size: 5%;
 }
 #display main {
   padding: 25px;
