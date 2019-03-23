@@ -1,12 +1,26 @@
 #display {
+  display: block;
   height: 100%;
   width: 100% !important;
   background: url("../../../res/img/pattern_b3.png");
   background-size: 5%;
 }
 #display main {
-  padding: 25px;
-  padding-top: 75px;
+  overflow-y: auto;
+  margin: 25px;
+  margin-top: 75px;
   height: 100%;
   width: 100%;
+}
+#display main .word {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  margin-right: 4px;
+  width: fit-content;
+}
+#display main .word:hover {
+  cursor: pointer;
+  color: #ff8800;
+  background-color: #555;
 }

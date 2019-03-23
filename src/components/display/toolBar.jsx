@@ -6,7 +6,11 @@ class ToolBar extends Component {
   state = {};
 
   render() {
-    return <div id='toolBar' />;
+    return (
+      <div id='toolBar'>
+        <button id='tapEdit' />
+      </div>
+    );
   }
 }
 

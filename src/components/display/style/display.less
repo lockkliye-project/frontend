@@ -2,6 +2,8 @@
 @pattern: 5%;
 
 #display {
+  display: block;
+
   height: 100%;
   width: 100% !important;
 
@@ -9,9 +11,26 @@
   background-size: @pattern;
 
   main {
-    padding: 25px;
-    padding-top: 50px + 25px;
+    overflow-y: auto;
+    margin: 25px;
+    margin-top: 50px + 25px;
     height: 100%;
     width: 100%;
+
+    .word {
+      display: inline-block;
+
+      padding: 0;
+      margin: 0;
+      margin-right: 4px;
+      width: fit-content;
+    }
+
+    .word:hover {
+      cursor: pointer;
+
+      color: #ff8800;
+      background-color: #555;
+    }
   }
 }
