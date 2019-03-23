@@ -1,0 +1,21 @@
+{
+  "shopping list": {
+    "vegetables": [],
+    "meat": [],
+    "miscellonous": [],
+    "electronics": [],
+    "hygene": [],
+    "kids": []
+  },
+
+  "todo": {
+    "programming": [],
+    "school": []
+  },
+
+  "notes": {
+    "schedules": {
+      "family": []
+    }
+  }
+}

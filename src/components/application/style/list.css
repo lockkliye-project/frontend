@@ -1,0 +1,6 @@
+#list {
+  background: url("../../../res/img/pattern_b2.png");
+}
+#list li:hover {
+  background-color: #2b2b2b;
+}

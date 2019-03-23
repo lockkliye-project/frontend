@@ -1,0 +1,18 @@
+@bg: #111;
+
+nav {
+  background: url("../../../res/img/pattern_b1.png");
+
+  li {
+    color: #ff8800;
+    border-bottom: 1px solid @bg;
+  }
+
+  li.current {
+    background-color: lighten(@bg, 10);
+  }
+
+  li:hover {
+    background-color: lighten(@bg, 5);
+  }
+}
