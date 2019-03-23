@@ -7,8 +7,8 @@
 }
 #display main {
   overflow-y: auto;
-  margin: 25px;
-  margin-top: 75px;
+  padding: 25px;
+  padding-top: 75px;
   height: 100%;
   width: 100%;
 }
@@ -19,7 +19,12 @@
   margin-right: 4px;
   width: fit-content;
 }
-#display main .word:hover {
+#display main .word.selector:hover {
+  cursor: pointer;
+  color: #ff8800;
+  background-color: #555;
+}
+#display main .word.selector:hover {
   cursor: pointer;
   color: #ff8800;
   background-color: #555;

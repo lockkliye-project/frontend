@@ -10,14 +10,12 @@ class Display extends Component {
   };
 
   filter = text => {
-    if (!text.includes("<div>")) return text;
-
-    let filteredText = text.replace(/<br>/g, "");
-    filteredText = text.replace(/(<formatted>).+?\s+(<formatted>)/g, "");
-    filteredText = filteredText.replace(/<div>/g, "<br>");
-    filteredText = filteredText.replace(/<\/div>/g, "");
-    filteredText = filteredText.replace(/&nbsp;/g, " ");
-    return filteredText;
+    console.log(text);
+    text = text.replace(/<br>/g, "");
+    text = text.replace(/<div>/g, "§");
+    text = text.replace(/<\/div>/g, "");
+    text = text.replace(/&nbsp;/g, " ");
+    console.log(text);
   };
 
   word = string => {
@@ -55,10 +53,10 @@ class Display extends Component {
         <ToolBar />
         <main
           contentEditable='true'
-          onInput={e => {}}
-          onBlur={e => {
-            e.target.appendChild(this.package(this.filter(e.target.innerHTML)));
+          onInput={e => {
+            this.filter(e.target.innerHTML);
           }}
+          onBlur={e => {}}
         />
       </div>
     );

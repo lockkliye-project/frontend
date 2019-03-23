@@ -12,8 +12,9 @@
 
   main {
     overflow-y: auto;
-    margin: 25px;
-    margin-top: 50px + 25px;
+
+    padding: 25px;
+    padding-top: 50px + 25px;
     height: 100%;
     width: 100%;
 
@@ -26,7 +27,14 @@
       width: fit-content;
     }
 
-    .word:hover {
+    .word.selector:hover {
+      cursor: pointer;
+
+      color: #ff8800;
+      background-color: #555;
+    }
+
+    .word.selector:hover {
       cursor: pointer;
 
       color: #ff8800;
