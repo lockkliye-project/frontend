@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import ToolBar from "./toolBar";
+import ToolBar from './toolBar';
 
-import "./style/display.css";
+import './style/display.css';
 
 class Display extends Component {
   state = {
@@ -11,30 +11,30 @@ class Display extends Component {
 
   filter = text => {
     console.log(text);
-    text = text.replace(/<br>/g, "");
-    text = text.replace(/<div>/g, "§");
-    text = text.replace(/<\/div>/g, "");
-    text = text.replace(/&nbsp;/g, " ");
+    text = text.replace(/<br>/g, '');
+    text = text.replace(/<div>/g, '§');
+    text = text.replace(/<\/div>/g, '');
+    text = text.replace(/&nbsp;/g, ' ');
     console.log(text);
   };
 
   word = string => {
-    let p = document.createElement("p");
+    let p = document.createElement('p');
     p.id = string;
-    p.className = "word";
+    p.className = 'word';
     p.innerHTML = string;
     return p;
   };
 
-  line = string => {};
+  line = string => { };
 
-  paragraph = string => {};
+  paragraph = string => { };
 
   package = text => {
     console.log(text);
     text = text.split(/[\s]/g);
     console.log(text);
-    let packagedText = document.createElement("div");
+    let packagedText = document.createElement('div');
 
     for (let string of text) {
       console.log(string);
@@ -43,7 +43,7 @@ class Display extends Component {
 
     console.log(packagedText);
     packagedText.innerHTML =
-      "<formatted>" + packagedText.innerHTML + "</formatted>";
+      '<formatted>' + packagedText.innerHTML + '</formatted>';
     return packagedText;
   };
 
@@ -56,7 +56,7 @@ class Display extends Component {
           onInput={e => {
             this.filter(e.target.innerHTML);
           }}
-          onBlur={e => {}}
+          onBlur={e => { }}
         />
       </div>
     );

@@ -1,30 +1,23 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import "./style/list.css";
+import './style/list.css';
 
 class List extends Component {
-  state = {
-    collapsed: false
-  };
+	state = {};
 
-  render() {
-    return (
-      <div
-        id='list'
-        className={`screen ${this.state.collapsed ? "collapsed" : ""}`}
-      >
-        <ul>
-          <li className='entry'>entry</li>
-        </ul>
-        <div
-          className='collapser'
-          onClick={() => {
-            this.setState({ collapsed: !this.state.collapsed });
-          }}
-        />
-      </div>
-    );
-  }
+	render() {
+		return (
+			<ul id={this.props.id} className='list'>
+				{Object.keys(this.props.data).map(entry => {
+					return (
+						<li key={entry} className='nav'>
+							{entry}
+						</li>
+					);
+				})}
+			</ul>
+		);
+	}
 }
 
 export default List;

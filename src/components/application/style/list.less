@@ -1,9 +1,19 @@
 @bg: #111;
 
-#list {
-  background: url("../../../res/img/pattern_b2.png");
+.list {
+	ul {
+		li {
+			color: #aaa;
+			border-bottom: 1px solid @bg;
+		}
 
-  li:hover {
-    background-color: lighten(@bg, 10);
-  }
+		li:hover {
+			background-color: lighten(@bg, 5);
+		}
+
+		.current {
+			color: #fff;
+			background-color: lighten(@bg, 10);
+		}
+	}
 }

@@ -1,13 +1,28 @@
-nav {
-  background: url("../../../res/img/pattern_b1.png");
+#nav #list1 {
+  background: url('../../../res/img/pattern_b1.png');
 }
-nav li {
-  color: #ff8800;
+#nav #list1 li {
+  color: #aaa;
   border-bottom: 1px solid #111;
 }
-nav li.current {
+#nav #list1 li:hover {
+  background-color: #1e1e1e;
+}
+#nav #list2 {
+  background: url('../../../res/img/pattern_b2.png');
+}
+#nav #list2 li {
+  color: #aaa;
+  border-bottom: 1px solid #111;
+}
+#nav #list2 li:hover {
+  color: #ccc;
   background-color: #2b2b2b;
 }
-nav li:hover {
-  background-color: #1e1e1e;
+#nav .list {
+  background-size: inherit !important;
+}
+#nav .list .current {
+  color: #fff;
+  background-color: #373737;
 }
