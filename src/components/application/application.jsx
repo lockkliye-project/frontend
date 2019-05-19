@@ -9,7 +9,7 @@ import './style/Application.css';
 
 class Application extends Component {
 	state = {
-		promiseResolved: false,
+		_promiseResolved: false,
 		data: {},
 		currentCard: null
 	};
@@ -28,21 +28,22 @@ class Application extends Component {
 		eachRecursive(test_entries);
 		*/
 
-		this.setState({ data: test_entries }, () => {
-			this.setState({ promiseResolved: true });
-		});
+		this.setState({ data: test_entries, _promiseResolved: true });
 	}
 
-	pop() {
-		return this.state.data;
-	}
+	popCurrentCard = data => {
+		this.setState({ currentCard: data });
+	};
 
 	render() {
-		if (!this.state.promiseResolved) return null;
+		if (!this.state._promiseResolved) return null;
 
 		return (
 			<div id='app'>
-				<Navigator data={this.state.data} />
+				<Navigator
+					data={this.state.data}
+					popCurrentCard={this.popCurrentCard}
+				/>
 				<Display currentCard={this.state.currentCard} />
 			</div>
 		);

@@ -9,21 +9,34 @@ const listStartSize = 250;
 
 class Navigator extends Component {
 	state = {
-		data: {},
-		subData: {}
+		_promiseResolved: false,
+		treeDepth: 0,
+		index: -1,
+		lists: [],
+		data: {}
 	};
 
-	updateSubdata = data => {
-		console.log(data);
+	componentDidMount = async () => {
+		this.setState({ data: this.props.data, _promiseResolved: true }, () => {
+			this.createSubList(this.props.data);
+		});
 	};
 
-	getList = data => {
-		if (data === {}) return;
-		return <List data={data} />;
+	createSubList = data => {
+		let lists = this.state.lists;
+		lists.push(
+			<List
+				key={Math.random() * 1000}
+				data={data}
+				popCurrentCard={this.props.popCurrentCard}
+				createSubList={this.createSubList}
+			/>
+		);
+		this.setState({ lists: lists });
 	};
 
 	render() {
-		console.log(this.props.data);
+		if (!this.state._promiseResolved) return null;
 
 		return (
 			<Resizable
@@ -32,8 +45,9 @@ class Navigator extends Component {
 				startSize={listStartSize}
 				content={
 					<React.Fragment>
-						<List data={this.props.data} updateSubdata={this.updateSubdata} />
-						{this.getList(this.state.subData)}
+						{this.state.lists.map(list => {
+							return list;
+						})}
 					</React.Fragment>
 				}
 			/>

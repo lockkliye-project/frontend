@@ -1,27 +1,27 @@
 {
 	"shopping list": {
 		"home": {
-			"vegetables": [{ "Tomato": "Dressing" }],
-			"meat": [],
-			"miscellonous": [],
-			"electronics": [],
-			"hygene": [],
-			"kids": []
+			"vegetables": { "Tomato": "Dressing" },
+			"meat": {},
+			"miscellonous": {},
+			"electronics": {},
+			"hygene": {},
+			"kids": {}
 		},
 
 		"work": {
 			"office suppies": {
-				"pens": []
+				"pens": {}
 			}
 		}
 	},
 	"todo": {
-		"programming": [],
-		"school": []
+		"programming": {},
+		"school": {}
 	},
 	"notes": {
 		"schedules": {
-			"family": []
+			"family": {}
 		}
 	}
 }

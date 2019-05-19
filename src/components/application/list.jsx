@@ -6,15 +6,20 @@ class List extends Component {
 	state = {};
 
 	render() {
+		const data = this.props.data;
+
 		return (
 			<ul id={this.props.id} className='list'>
-				{Object.keys(this.props.data).map(entry => {
+				{Object.keys(data).map(entry => {
 					return (
 						<li
 							key={entry}
 							className='nav'
 							onClick={() => {
-								this.props.updateSubdata(entry);
+								const entryData = data[entry];
+								typeof entryData === 'string' || entryData instanceof String
+									? this.props.popCurrentCard(entryData)
+									: this.props.createSubList(entryData);
 							}}
 						>
 							{entry}

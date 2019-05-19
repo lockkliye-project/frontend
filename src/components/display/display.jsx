@@ -9,6 +9,19 @@ class Display extends Component {
 		dirtyFlag: false
 	};
 
+	render() {
+		return (
+			<div id='display' className='screen'>
+				<Toolbar />
+				<main contentEditable>{this.props.currentCard}</main>
+			</div>
+		);
+	}
+}
+
+export default Display;
+
+/*
 	filter = text => {
 		console.log(text);
 		text = text.replace(/<br>/g, '');
@@ -61,6 +74,4 @@ class Display extends Component {
 			</div>
 		);
 	}
-}
-
-export default Display;
+	*/
