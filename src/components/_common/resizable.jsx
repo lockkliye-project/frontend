@@ -17,6 +17,8 @@ class Resizable extends Component {
 		};
 	};
 
+	componentDidUpdate = () => {};
+
 	startResizing = () => {
 		this.setState({ isDragged: true });
 	};
@@ -24,7 +26,7 @@ class Resizable extends Component {
 	resize = e => {
 		if (!this.state.isDragged) return;
 
-		this.setState({ width: e.pageX });
+		this.setState({ width: e.clientX + e.offsetX });
 	};
 
 	stopResizing = () => {
