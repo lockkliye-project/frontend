@@ -5,8 +5,22 @@ import Resizable from '../_common/resizable';
 
 import './style/navigator.css';
 
+const listStartSize = 250;
+
 class Navigator extends Component {
-	state = {};
+	state = {
+		data: {},
+		subData: {}
+	};
+
+	updateSubdata = data => {
+		console.log(data);
+	};
+
+	getList = data => {
+		if (data === {}) return;
+		return <List data={data} />;
+	};
 
 	render() {
 		console.log(this.props.data);
@@ -15,11 +29,11 @@ class Navigator extends Component {
 			<Resizable
 				id='nav'
 				className='screen'
-				startSize={500}
+				startSize={listStartSize}
 				content={
 					<React.Fragment>
-						<List id='list1' data={this.props.data} />
-						<List id='list2' data={{}} />
+						<List data={this.props.data} updateSubdata={this.updateSubdata} />
+						{this.getList(this.state.subData)}
 					</React.Fragment>
 				}
 			/>

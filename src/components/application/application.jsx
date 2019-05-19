@@ -15,6 +15,19 @@ class Application extends Component {
 	};
 
 	componentDidMount() {
+		/*
+		let eachRecursive = obj => {
+			Object.keys(obj).forEach(key => {
+				if (typeof obj[key] == 'object' && obj[key] !== null) {
+					eachRecursive(obj[key]);
+				} else {
+					console.log('Value: ' + obj[key]);
+				}
+			});
+		};
+		eachRecursive(test_entries);
+		*/
+
 		this.setState({ data: test_entries }, () => {
 			this.setState({ promiseResolved: true });
 		});

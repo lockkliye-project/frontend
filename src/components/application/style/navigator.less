@@ -1,39 +1,22 @@
 @bg: #111;
 
 #nav {
-	#list1 {
-		background: url('../../../res/img/pattern_b1.png');
-
-		li {
-			color: #aaa;
-			border-bottom: 1px solid @bg;
-		}
-
-		li:hover {
-			background-color: lighten(@bg, 5);
-		}
-	}
-
-	#list2 {
-		background: url('../../../res/img/pattern_b2.png');
-
-		li {
-			color: #aaa;
-			border-bottom: 1px solid @bg;
-		}
-
-		li:hover {
-			color: #ccc;
-			background-color: lighten(@bg, 10);
-		}
-	}
-
 	.list {
-		background-size: inherit !important;
+		background: url('../../../res/img/pattern_b2.png');
+		border-right: 1px solid @bg;
+
+		li {
+			color: #aaa;
+			border-bottom: 1px solid @bg;
+		}
+
+		li:hover {
+			background-color: lighten(@bg, 7);
+		}
 
 		.current {
 			color: #fff;
-			background-color: lighten(@bg, 15);
+			background-color: lighten(@bg, 14);
 		}
 	}
 }

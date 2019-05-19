@@ -11,7 +11,6 @@
   right: 0;
   height: 30px;
   width: 10px;
-  transition: 250ms all;
   background-color: #444;
 }
 .resizable .dragger:hover {
