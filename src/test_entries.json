@@ -1,19 +1,27 @@
 {
-  "shopping list": {
-    "vegetables": [],
-    "meat": [],
-    "miscellonous": [],
-    "electronics": [],
-    "hygene": [],
-    "kids": []
-  },
-  "todo": {
-    "programming": [],
-    "school": []
-  },
-  "notes": {
-    "schedules": {
-      "family": []
-    }
-  }
+	"shopping list": {
+		"home": {
+			"vegetables": [{ "Tomato": "Dressing" }],
+			"meat": [],
+			"miscellonous": [],
+			"electronics": [],
+			"hygene": [],
+			"kids": []
+		},
+
+		"work": {
+			"office suppies": {
+				"pens": []
+			}
+		}
+	},
+	"todo": {
+		"programming": [],
+		"school": []
+	},
+	"notes": {
+		"schedules": {
+			"family": []
+		}
+	}
 }
