@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-import Navigator from './navigator';
-import Display from '../display/display';
+import Navigator from './Navigator';
+import Display from '../Display/Display';
 
 import test_entries from '../../test_entries.json';
 
-import './style/application.css';
+import './style/Application.css';
 
 class Application extends Component {
 	state = {

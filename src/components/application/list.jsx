@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './style/list.css';
+import './style/List.css';
 
 class List extends Component {
 	state = {};

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './style/resizable.css';
+import './style/Resizable.css';
 
 class Resizable extends Component {
 	state = {

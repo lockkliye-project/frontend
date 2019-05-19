@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import List from './list';
-import Resizable from '../_common/resizable';
+import List from './List';
+import Resizable from '../_common/Resizable';
 
-import './style/navigator.css';
+import './style/Navigator.css';
 
 const listStartSize = 250;
 

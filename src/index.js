@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import AlertBox from './components/alertBox/alertBox';
-import Application from './components/application/application';
+import NotificationContainer from './components/NotificationContainer/NotificationContainer';
+import Application from './components/Application/Application';
 
 import * as serviceWorker from './services/serviceWorker';
 
@@ -10,7 +10,7 @@ import './style/index.css';
 
 ReactDOM.render(
 	<React.Fragment>
-		<AlertBox />
+		<NotificationContainer />
 		<Application />
 	</React.Fragment>,
 	document.getElementById('root')

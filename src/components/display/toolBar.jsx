@@ -1,17 +1,17 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import "./style/toolBar.css";
+import './style/Toolbar.css';
 
-class ToolBar extends Component {
-  state = {};
+class Toolbar extends Component {
+	state = {};
 
-  render() {
-    return (
-      <div id='toolBar'>
-        <button id='tapEdit' />
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div id='toolbar'>
+				<button id='tapEdit' />
+			</div>
+		);
+	}
 }
 
-export default ToolBar;
+export default Toolbar;
