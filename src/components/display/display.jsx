@@ -1,77 +1,92 @@
 import React, { Component } from 'react';
 
+import Word from './Word';
 import Toolbar from './Toolbar';
 
 import './style/Display.css';
 
+/**
+ *
+ */
 class Display extends Component {
 	state = {
-		dirtyFlag: false
+		_promiseResolved: false,
+
+		text: '',
+		words: [],
+		dirtyFlag: false,
+		currentCard: null
+	};
+
+	componentDidMount = async () => {
+		this.setState({
+			currentCard: this.props.currentCard,
+			_promiseResolved: true
+		});
+	};
+
+	/**
+	 *
+	 */
+	wordHandler = () => {};
+
+	/**
+	 *
+	 */
+	filter = text => {};
+
+	/**
+	 *
+	 */
+	package = element => {
+		console.log(element);
+		let text = element.innerHTML;
+		console.log(text);
+
+		text = text.replace(/<div><br><\/div>/gm, '<br>');
+		text = text.replace(/<p><\/p>/gm, '');
+		text = text.replace(/ /gm, '&nbsp;');
+		console.log(text);
+
+		let words = text.split(/&nbsp;|<br>|<p>.*<\/p>/).filter(el => {
+			return el !== '';
+		});
+		words.forEach(word => {
+			let pattern = new RegExp(word, 'gm');
+			text = text.replace(pattern, word);
+		});
+		console.log(text);
+
+		element.childNodes.forEach(child => {
+			if (child.innerHTML !== '<br>') child.className = 'line';
+		});
+
+		//element.innerHTML = text;
 	};
 
 	render() {
+		if (!this.state._promiseResolved) return null;
+
 		return (
 			<div id='display' className='screen'>
 				<Toolbar />
-				<main contentEditable>{this.props.currentCard}</main>
+				<main
+					contentEditable
+					onInput={e => {
+						//this.filter(e.target.innerHTML);
+						//this.filter(e.target.textContent);
+					}}
+					onBlur={e => {
+						console.log(e.target);
+						this.package(e.target);
+						console.log(e.target);
+					}}
+				>
+					{/*this.state.currentCard*/}
+				</main>
 			</div>
 		);
 	}
 }
 
 export default Display;
-
-/*
-	filter = text => {
-		console.log(text);
-		text = text.replace(/<br>/g, '');
-		text = text.replace(/<div>/g, '§');
-		text = text.replace(/<\/div>/g, '');
-		text = text.replace(/&nbsp;/g, ' ');
-		console.log(text);
-	};
-
-	word = string => {
-		let p = document.createElement('p');
-		p.id = string;
-		p.className = 'word';
-		p.innerHTML = string;
-		return p;
-	};
-
-	line = string => {};
-
-	paragraph = string => {};
-
-	package = text => {
-		console.log(text);
-		text = text.split(/[\s]/g);
-		console.log(text);
-		let packagedText = document.createElement('div');
-
-		for (let string of text) {
-			console.log(string);
-			packagedText.appendChild(this.word(string));
-		}
-
-		console.log(packagedText);
-		packagedText.innerHTML =
-			'<formatted>' + packagedText.innerHTML + '</formatted>';
-		return packagedText;
-	};
-
-	render() {
-		return (
-			<div id='display' className='screen'>
-				<Toolbar />
-				<main
-					contentEditable='true'
-					onInput={e => {
-						this.filter(e.target.innerHTML);
-					}}
-					onBlur={e => {}}
-				/>
-			</div>
-		);
-	}
-	*/
