@@ -14,6 +14,7 @@ class Display extends Component {
 
 		text: '',
 		words: [],
+		lines: 0,
 		dirtyFlag: false,
 		currentCard: null
 	};
@@ -61,7 +62,17 @@ class Display extends Component {
 			if (child.innerHTML !== '<br>') child.className = 'line';
 		});
 
+		this.setState({ lines: element.childNodes.length });
+
 		//element.innerHTML = text;
+	};
+
+	writeLines = n => {
+		let arr = [];
+		for (let i = 0; i < n; i++) {
+			arr.push(<p key={i}>{i}</p>);
+		}
+		return arr;
 	};
 
 	render() {
@@ -70,19 +81,26 @@ class Display extends Component {
 		return (
 			<div id='display' className='screen'>
 				<Toolbar />
-				<main
-					contentEditable
-					onInput={e => {
-						//this.filter(e.target.innerHTML);
-						//this.filter(e.target.textContent);
-					}}
-					onBlur={e => {
-						console.log(e.target);
-						this.package(e.target);
-						console.log(e.target);
-					}}
-				>
-					{/*this.state.currentCard*/}
+				<main>
+					<div id='lines'>
+						{this.writeLines(this.state.lines).map(p => {
+							return p;
+						})}
+					</div>
+
+					<div
+						id='text'
+						contentEditable
+						onInput={e => {
+							//this.filter(e.target.innerHTML);
+							//this.filter(e.target.textContent);
+						}}
+						onBlur={e => {
+							console.log(e.target);
+							this.package(e.target);
+							console.log(e.target);
+						}}
+					/>
 				</main>
 			</div>
 		);

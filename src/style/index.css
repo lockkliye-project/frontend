@@ -1,1 +1,1 @@
-@font-face{font-family:Gothic;src:url(../res/fonts/century_gothic.ttf)}*{margin:0;padding:0;box-sizing:border-box;box-shadow:none;outline:none;border:none;font-family:Gothic;font-size:14px;color:#fff}.hidden{display:none}#root{overflow:hidden;height:100vh;width:100vw}
+@font-face{font-family:Gothic;src:url(../res/fonts/century_gothic.ttf)}*{margin:0;padding:0;box-sizing:border-box;box-shadow:none;outline:none;border:none;font-family:Gothic;font-size:14px;color:#fff}*:hover{cursor:default}.hidden{display:none}#root{overflow:hidden;height:100vh;width:100vw}

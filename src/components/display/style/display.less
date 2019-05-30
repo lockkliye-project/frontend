@@ -10,17 +10,39 @@
 	z-index: 1;
 
 	main {
-		overflow-y: auto;
-
-		padding: 25px;
-		padding-top: 50px + 25px;
+		display: flex;
+		flex-direction: row;
+		margin-top: 50px;
 		height: 100%;
 		width: 100%;
 
-		.line:hover {
-			cursor: pointer;
+		#lines {
+			padding: 25px;
+			height: 100%;
+			width: fit-content;
 
-			background-color: #353535;
+			p {
+				color: #555;
+			}
+		}
+
+		#text {
+			overflow-y: auto;
+
+			padding: 25px;
+			height: 100%;
+			width: 100%;
+
+			border-left: 0.1rem solid #111;
+
+			.line {
+			}
+
+			.line:hover {
+				cursor: text;
+
+				background-color: #353535;
+			}
 		}
 	}
 }
