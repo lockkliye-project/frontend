@@ -5,18 +5,27 @@ import Toolbar from './Toolbar';
 
 import './style/Display.css';
 
+const keycodes = {
+	9: '    ', // Tab
+	13: '\n', // Enter
+	32: ' ' // Space
+};
+
 /**
  *
  */
 class Display extends Component {
-	state = {
-		_promiseResolved: false,
+	_isMounted = false;
 
-		text: '',
-		words: [],
-		lines: 0,
-		dirtyFlag: false,
-		currentCard: null
+	state = {
+		dirty: false, //
+
+		text: '', //
+		words: [], //
+		currentCard: null, //
+
+		lines: 0, //
+		currentLine: 0
 	};
 
 	componentDidMount = async () => {
@@ -24,49 +33,15 @@ class Display extends Component {
 			currentCard: this.props.currentCard,
 			_promiseResolved: true
 		});
+
+		this._isMounted = true;
 	};
 
 	/**
 	 *
-	 */
-	wordHandler = () => {};
-
-	/**
 	 *
+	 * @param {Number} n,
 	 */
-	filter = text => {};
-
-	/**
-	 *
-	 */
-	package = element => {
-		console.log(element);
-		let text = element.innerHTML;
-		console.log(text);
-
-		text = text.replace(/<div><br><\/div>/gm, '<br>');
-		text = text.replace(/<p><\/p>/gm, '');
-		text = text.replace(/ /gm, '&nbsp;');
-		console.log(text);
-
-		let words = text.split(/&nbsp;|<br>|<p>.*<\/p>/).filter(el => {
-			return el !== '';
-		});
-		words.forEach(word => {
-			let pattern = new RegExp(word, 'gm');
-			text = text.replace(pattern, word);
-		});
-		console.log(text);
-
-		element.childNodes.forEach(child => {
-			if (child.innerHTML !== '<br>') child.className = 'line';
-		});
-
-		this.setState({ lines: element.childNodes.length });
-
-		//element.innerHTML = text;
-	};
-
 	writeLines = n => {
 		let arr = [];
 		for (let i = 0; i < n; i++) {
@@ -75,8 +50,19 @@ class Display extends Component {
 		return arr;
 	};
 
+	/**
+	 * @param {Event} e,
+	 */
+	keypress = e => {
+		// Cancels the default keystroke-event
+		//e.preventDefault();
+		//e.stopPropagation();
+
+		console.log(e.key + ' ' + e.keyCode);
+	};
+
 	render() {
-		if (!this.state._promiseResolved) return null;
+		if (!this._isMounted) return null;
 
 		return (
 			<div id='display' className='screen'>
@@ -91,16 +77,16 @@ class Display extends Component {
 					<div
 						id='text'
 						contentEditable
-						onInput={e => {
-							//this.filter(e.target.innerHTML);
-							//this.filter(e.target.textContent);
+						onKeyDown={e => {
+							this.keypress(e);
 						}}
+						onInput={e => {}}
 						onBlur={e => {
-							console.log(e.target);
-							this.package(e.target);
-							console.log(e.target);
+							//this.package(e.target);
 						}}
-					/>
+					>
+						{this.state.text}
+					</div>
 				</main>
 			</div>
 		);
@@ -108,3 +94,51 @@ class Display extends Component {
 }
 
 export default Display;
+
+/*
+package = element => {
+	let text = element.innerHTML;
+
+	console.log(text);
+	let words = text.split(/\s+/).filter(el => {
+		return el !== '';
+	});
+	console.log(words);
+	for (let i = 0, n = words.length; i < n; i++) {
+		words[i] = <Word content={words[i]} />;
+	}
+	console.log(words);
+
+	element.childNodes.forEach(child => {
+		if (child.innerHTML !== '<br>') child.className = 'line';
+	});
+	this.setState({ lines: element.childNodes.length });
+
+	this.setState({ text: words });
+};
+*/
+
+/*
+package = element => {
+	console.log(element);
+	let text = element.innerHTML;
+	console.log(text);
+
+	text = text.replace(/<div><br><\/div>/gm, '<br>');
+	text = text.replace(/<p><\/p>/gm, '');
+	text = text.replace(/&nbsp;/gm, ' ');
+	console.log(text);
+
+	let words = text.split(/&nbsp;|<br>|<p>.*<\/p>/).filter(el => {
+		return el !== '';
+	});
+	console.log(element.textContent);
+
+	element.childNodes.forEach(child => {
+		if (child.innerHTML !== '<br>') child.className = 'line';
+	});
+	this.setState({ lines: element.childNodes.length });
+
+	element.innerHTML = text;
+};
+*/

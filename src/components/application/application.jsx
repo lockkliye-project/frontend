@@ -28,6 +28,12 @@ class Application extends Component {
 		eachRecursive(test_entries);
 		*/
 
+		/* */
+		document.addEventListener('contextmenu', e => {
+			e.preventDefault();
+			console.log('pos: ' + e.pageX, e.pageY);
+		});
+
 		this.setState({ data: test_entries, _promiseResolved: true });
 	}
 
