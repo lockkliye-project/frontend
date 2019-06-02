@@ -1,12 +1,13 @@
+@import '../../../style/global.less';
+
 #app {
 	display: flex;
 	flex-direction: row;
-	flex: 1 1 0;
 
 	height: 100%;
 	width: 100%;
 
-	z-index: 0;
+	z-index: @zNeutral;
 
 	.screen {
 		overflow: hidden;
@@ -15,9 +16,10 @@
 
 		display: flex;
 		height: 100%;
-		width: fit-content;
 
 		background-size: 50px;
+
+		z-index: inherit;
 
 		ul {
 			overflow-x: hidden;

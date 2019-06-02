@@ -20,21 +20,41 @@ class Display extends Component {
 	state = {
 		dirty: false, //
 
-		text: '', //
+		index: [0, 0],
+		text: [<Word content='Hello' />, <Word content='World' />], //
 		words: [], //
 		currentCard: null, //
 
-		lines: 0, //
-		currentLine: 0
+		lines: 0 //
 	};
 
 	componentDidMount = async () => {
+		console.error = () => {};
+
 		this.setState({
 			currentCard: this.props.currentCard,
 			_promiseResolved: true
 		});
 
 		this._isMounted = true;
+	};
+	keypress = e => {
+		this.getCaretIndex();
+
+		console.log(e.key + ' ' + e.keyCode);
+	};
+
+	mouseclick = () => {
+		this.getCaretIndex();
+	};
+
+	getCaretIndex = () => {
+		let selection = document.getSelection();
+		let text = selection.anchorNode.textContent.slice(0, selection.focusOffset);
+
+		let line = text.split('\n').length;
+		let column = text.split('\n').pop().length;
+		this.setState({ index: [line, column] });
 	};
 
 	/**
@@ -50,19 +70,11 @@ class Display extends Component {
 		return arr;
 	};
 
-	/**
-	 * @param {Event} e,
-	 */
-	keypress = e => {
-		// Cancels the default keystroke-event
-		//e.preventDefault();
-		//e.stopPropagation();
-
-		console.log(e.key + ' ' + e.keyCode);
-	};
-
 	render() {
 		if (!this._isMounted) return null;
+
+		console.log(this.state.index);
+		console.log(this.state.text);
 
 		return (
 			<div id='display' className='screen'>
@@ -76,16 +88,16 @@ class Display extends Component {
 
 					<div
 						id='text'
-						contentEditable
 						onKeyDown={e => {
 							this.keypress(e);
 						}}
-						onInput={e => {}}
-						onBlur={e => {
-							//this.package(e.target);
+						onClick={() => {
+							this.mouseclick();
 						}}
 					>
-						{this.state.text}
+						{this.state.text.map(word => {
+							return word;
+						})}
 					</div>
 				</main>
 			</div>
@@ -94,6 +106,36 @@ class Display extends Component {
 }
 
 export default Display;
+
+/*
+keypress = e => {
+	this.getCaretIndex();
+
+	e.preventDefault();
+	e.stopPropagation();
+
+	let text = this.state.text;
+	let index = this.state.index[1];
+	text = [text.slice(0, index), e.key, text.slice(index)].join('');
+
+	this.setState({ text: text });
+
+	console.log(e.key + ' ' + e.keyCode);
+};
+
+mouseclick = () => {
+	this.getCaretIndex();
+};
+
+getCaretIndex = () => {
+	let selection = document.getSelection();
+	let text = selection.anchorNode.textContent.slice(0, selection.focusOffset);
+
+	let line = text.split('\n').length;
+	let column = text.split('\n').pop().length;
+	this.setState({ index: [line, column] });
+};
+*/
 
 /*
 package = element => {

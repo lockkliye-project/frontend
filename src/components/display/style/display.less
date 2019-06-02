@@ -1,5 +1,7 @@
+@import '../../../style/global.less';
+
 #display {
-	display: block;
+	overflow-y: hidden;
 
 	height: 100%;
 	width: 100% !important;
@@ -7,20 +9,28 @@
 	background: url('../../../res/img/pattern_b3.png');
 	background-size: 5%;
 
-	z-index: 1;
+	z-index: @zNeutral;
 
 	main {
 		overflow-y: auto;
 
+		position: absolute;
+
 		display: flex;
 		flex-direction: row;
-		margin-top: 50px;
+		padding-top: 50px;
 		height: 100%;
 		width: 100%;
 
-		#lines {
+		z-index: inherit;
+
+		#lines,
+		#text {
 			padding: 25px;
 			height: 100%;
+		}
+
+		#lines {
 			width: fit-content;
 
 			border-right: 0.1rem solid #111;
@@ -31,8 +41,6 @@
 		}
 
 		#text {
-			padding: 25px;
-			height: 100%;
 			width: 100%;
 
 			white-space: pre;
