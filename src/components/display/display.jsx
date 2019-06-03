@@ -6,10 +6,25 @@ import Toolbar from './Toolbar';
 import './style/Display.css';
 
 const keycodes = {
-	9: '    ', // Tab
+	8: '\b', // Backspace
+	9: '\t', // Tab
 	13: '\n', // Enter
 	32: ' ' // Space
 };
+
+const blacklist = [
+	'Shift',
+	'Control',
+	'Meta',
+	'Alt',
+	'Dead',
+	'Escape',
+	'CapsLock',
+	'ArrowUp',
+	'ArrowLeft',
+	'ArrowRight',
+	'ArrowDown'
+];
 
 /**
  *
@@ -18,10 +33,11 @@ class Display extends Component {
 	_isMounted = false;
 
 	state = {
+		editMode: false,
 		dirty: false, //
 
 		index: [0, 0],
-		text: [<Word content='Hello' />, <Word content='World' />], //
+		text: [], //
 		words: [], //
 		currentCard: null, //
 
@@ -38,13 +54,30 @@ class Display extends Component {
 
 		this._isMounted = true;
 	};
+
 	keypress = e => {
 		this.getCaretIndex();
 
-		console.log(e.key + ' ' + e.keyCode);
+		let contains = false;
+		blacklist.forEach(el => {
+			if (el === e.key) contains = true;
+		});
+		if (contains) return;
+
+		let key = keycodes[e.keyCode] !== undefined ? keycodes[e.keyCode] : e.key;
+
+		let text = this.state.text;
+		let index = this.state.index[1];
+		text = [text.slice(0, index), key, text.slice(index)].join('');
+
+		let el = e.target;
+		let range = document.createRange();
+		let sel = window.getSelection();
+
+		this.setState({ text: text });
 	};
 
-	mouseclick = () => {
+	mouseclick = e => {
 		this.getCaretIndex();
 	};
 
@@ -57,17 +90,19 @@ class Display extends Component {
 		this.setState({ index: [line, column] });
 	};
 
-	/**
-	 *
-	 *
-	 * @param {Number} n,
-	 */
 	writeLines = n => {
 		let arr = [];
 		for (let i = 0; i < n; i++) {
 			arr.push(<p key={i}>{i}</p>);
 		}
 		return arr;
+	};
+
+	populate = () => {
+		if (this.state.text.length <= 0) {
+			return [<Word id='placeholder' content=' ' />];
+		}
+		return this.state.text;
 	};
 
 	render() {
@@ -88,16 +123,21 @@ class Display extends Component {
 
 					<div
 						id='text'
+						contentEditable
 						onKeyDown={e => {
 							this.keypress(e);
 						}}
-						onClick={() => {
-							this.mouseclick();
+						onClick={e => {
+							this.mouseclick(e);
+							this.setState({ editMode: true });
+						}}
+						onBlur={e => {
+							this.setState({ editMode: false });
 						}}
 					>
-						{this.state.text.map(word => {
-							return word;
-						})}
+						{this.state.editMode
+							? (this.innerHTML = this.innerHTML)
+							: (this.innerHTML = this.state.text)}
 					</div>
 				</main>
 			</div>
@@ -106,36 +146,6 @@ class Display extends Component {
 }
 
 export default Display;
-
-/*
-keypress = e => {
-	this.getCaretIndex();
-
-	e.preventDefault();
-	e.stopPropagation();
-
-	let text = this.state.text;
-	let index = this.state.index[1];
-	text = [text.slice(0, index), e.key, text.slice(index)].join('');
-
-	this.setState({ text: text });
-
-	console.log(e.key + ' ' + e.keyCode);
-};
-
-mouseclick = () => {
-	this.getCaretIndex();
-};
-
-getCaretIndex = () => {
-	let selection = document.getSelection();
-	let text = selection.anchorNode.textContent.slice(0, selection.focusOffset);
-
-	let line = text.split('\n').length;
-	let column = text.split('\n').pop().length;
-	this.setState({ index: [line, column] });
-};
-*/
 
 /*
 package = element => {
