@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import './style/Word.css';
 
 class Word extends Component {
-	state = {};
-
 	word = string => {
 		let flags = [];
 		let flagString = '';
@@ -21,7 +19,13 @@ class Word extends Component {
 
 	render() {
 		return (
-			<p contentEditable className='word'>
+			<p
+				contentEditable
+				className='word'
+				onClick={() => {
+					this.popIndex(this.props.index);
+				}}
+			>
 				{this.props.content}
 			</p>
 		);

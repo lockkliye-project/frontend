@@ -5,7 +5,7 @@ import './style/Resizable.css';
 class Resizable extends Component {
 	state = {
 		isDragged: false,
-		width: this.props.startSize
+		collapsed: false
 	};
 
 	componentDidMount = () => {
@@ -37,13 +37,22 @@ class Resizable extends Component {
 		return (
 			<div
 				id={this.props.id}
-				className={this.props.className + ` resizable`}
+				className={
+					this.props.className +
+					` resizable ${this.state.collapsed ? ' collapsed' : ''}`
+				}
 				style={{ width: this.state.width }}
 			>
 				<div
 					className='dragger'
 					onMouseDown={() => {
 						this.startResizing();
+					}}
+				/>
+				<div
+					className='collapser'
+					onMouseDown={() => {
+						this.collapse();
 					}}
 				/>
 				{this.props.content}

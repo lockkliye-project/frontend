@@ -5,8 +5,6 @@ import Resizable from '../_common/Resizable';
 
 import './style/Navigator.css';
 
-const listStartSize = 250;
-
 class Navigator extends Component {
 	state = {
 		_promiseResolved: false,
@@ -42,7 +40,6 @@ class Navigator extends Component {
 			<Resizable
 				id='nav'
 				className='screen'
-				startSize={listStartSize}
 				content={
 					<React.Fragment>
 						{this.state.lists.map(list => {

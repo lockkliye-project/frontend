@@ -5,8 +5,8 @@ import Toolbar from './Toolbar';
 
 import './style/Display.css';
 
-const keycodes = {
-	9: '    ', // Tab
+const SPECIAL_KEYCODES = {
+	9: '	', // Tab
 	13: '\n', // Enter
 	32: ' ' // Space
 };
@@ -15,88 +15,111 @@ const keycodes = {
  *
  */
 class Display extends Component {
-	_isMounted = false;
+	constructor() {
+		super();
+
+		this.lineRef = React.createRef();
+		this.textRef = React.createRef();
+	}
 
 	state = {
 		dirty: false, //
 
-		index: [0, 0],
-		text: [<Word content='Hello' />, <Word content='World' />], //
-		words: [], //
-		currentCard: null, //
+		caretIndex: [0, 0], //
+		matrix: [[], []], //
 
-		lines: 0 //
+		lineCount: 1, //
+		wordCount: 0 //
 	};
 
-	componentDidMount = async () => {
-		console.error = () => {};
-
-		this.setState({
-			currentCard: this.props.currentCard,
-			_promiseResolved: true
-		});
-
-		this._isMounted = true;
-	};
-	keypress = e => {
-		this.getCaretIndex();
-
-		console.log(e.key + ' ' + e.keyCode);
+	setCaretIndex = (line = 0, column = 0) => {
+		let element = this.textRef.current;
+		let range = document.createRange();
+		let selection = window.getSelection();
+		console.log(element.childNodes);
+		range.setStart(element.childNodes[line], column);
+		range.collapse(true);
+		selection.removeAllRanges();
+		selection.addRange(range);
+		element.focus();
 	};
 
-	mouseclick = () => {
-		this.getCaretIndex();
-	};
-
+	/**
+	 *
+	 */
 	getCaretIndex = () => {
 		let selection = document.getSelection();
 		let text = selection.anchorNode.textContent.slice(0, selection.focusOffset);
 
 		let line = text.split('\n').length;
 		let column = text.split('\n').pop().length;
-		this.setState({ index: [line, column] });
+		return { line: line, column: column };
 	};
 
 	/**
 	 *
-	 *
-	 * @param {Number} n,
 	 */
-	writeLines = n => {
-		let arr = [];
-		for (let i = 0; i < n; i++) {
-			arr.push(<p key={i}>{i}</p>);
+	keyPress = e => {
+		/* */
+		e.preventDefault();
+		e.stopPropagation();
+
+		const index = this.getCaretIndex();
+		console.log(index);
+
+		let matrix = this.state.matrix;
+
+		/* */
+		if (SPECIAL_KEYCODES[e.keyCode]) {
+			matrix[index.line][index.column] = SPECIAL_KEYCODES[e.keyCode];
+			console.log('Consumed ' + e.key, e.keyCode);
+			return;
 		}
-		return arr;
+
+		matrix[index.line][index.column] = e.key;
+		console.log(e.key, e.keyCode);
+		this.setState({ matrix: matrix }, () => {
+			this.setCaretIndex(index.line, index.column + 1);
+		});
+	};
+
+	/**
+	 *
+	 */
+	mouseClick = e => {};
+
+	/**
+	 *
+	 */
+	pushData = async () => {
+		//matrix.toJSON();
 	};
 
 	render() {
-		if (!this._isMounted) return null;
-
-		console.log(this.state.index);
-		console.log(this.state.text);
+		console.log(this.state.matrix);
 
 		return (
 			<div id='display' className='screen'>
 				<Toolbar />
+
 				<main>
-					<div id='lines'>
-						{this.writeLines(this.state.lines).map(p => {
-							return p;
-						})}
-					</div>
+					<div id='lines' ref={this.lineRef}></div>
 
 					<div
 						id='text'
-						onKeyDown={e => {
-							this.keypress(e);
-						}}
-						onClick={() => {
-							this.mouseclick();
-						}}
+						contentEditable
+						onKeyDown={this.keyPress}
+						onClick={this.mouseClick}
+						ref={this.textRef}
 					>
-						{this.state.text.map(word => {
-							return word;
+						{this.state.matrix.map(line => {
+							return (
+								<div className='line'>
+									{line.map(word => {
+										return <Word content={word} />;
+									})}
+								</div>
+							);
 						})}
 					</div>
 				</main>
@@ -106,81 +129,3 @@ class Display extends Component {
 }
 
 export default Display;
-
-/*
-keypress = e => {
-	this.getCaretIndex();
-
-	e.preventDefault();
-	e.stopPropagation();
-
-	let text = this.state.text;
-	let index = this.state.index[1];
-	text = [text.slice(0, index), e.key, text.slice(index)].join('');
-
-	this.setState({ text: text });
-
-	console.log(e.key + ' ' + e.keyCode);
-};
-
-mouseclick = () => {
-	this.getCaretIndex();
-};
-
-getCaretIndex = () => {
-	let selection = document.getSelection();
-	let text = selection.anchorNode.textContent.slice(0, selection.focusOffset);
-
-	let line = text.split('\n').length;
-	let column = text.split('\n').pop().length;
-	this.setState({ index: [line, column] });
-};
-*/
-
-/*
-package = element => {
-	let text = element.innerHTML;
-
-	console.log(text);
-	let words = text.split(/\s+/).filter(el => {
-		return el !== '';
-	});
-	console.log(words);
-	for (let i = 0, n = words.length; i < n; i++) {
-		words[i] = <Word content={words[i]} />;
-	}
-	console.log(words);
-
-	element.childNodes.forEach(child => {
-		if (child.innerHTML !== '<br>') child.className = 'line';
-	});
-	this.setState({ lines: element.childNodes.length });
-
-	this.setState({ text: words });
-};
-*/
-
-/*
-package = element => {
-	console.log(element);
-	let text = element.innerHTML;
-	console.log(text);
-
-	text = text.replace(/<div><br><\/div>/gm, '<br>');
-	text = text.replace(/<p><\/p>/gm, '');
-	text = text.replace(/&nbsp;/gm, ' ');
-	console.log(text);
-
-	let words = text.split(/&nbsp;|<br>|<p>.*<\/p>/).filter(el => {
-		return el !== '';
-	});
-	console.log(element.textContent);
-
-	element.childNodes.forEach(child => {
-		if (child.innerHTML !== '<br>') child.className = 'line';
-	});
-	this.setState({ lines: element.childNodes.length });
-
-	element.innerHTML = text;
-};
-*/
