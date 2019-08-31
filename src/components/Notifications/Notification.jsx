@@ -8,7 +8,7 @@ class Notification extends Component {
 	componentDidMount = () => {};
 
 	render() {
-		return <div />;
+		return <div className='notification' />;
 	}
 }
 

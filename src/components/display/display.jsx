@@ -6,10 +6,25 @@ import Toolbar from './Toolbar';
 import './style/Display.css';
 
 const SPECIAL_KEYCODES = {
+	8: '\b', // Backspace
 	9: '	', // Tab
 	13: '\n', // Enter
 	32: ' ' // Space
 };
+
+const BLACKLIST = [
+	'Shift',
+	'Control',
+	'Meta',
+	'Alt',
+	'Dead',
+	'Escape',
+	'CapsLock',
+	'ArrowUp',
+	'ArrowLeft',
+	'ArrowRight',
+	'ArrowDown'
+];
 
 /**
  *
@@ -23,6 +38,7 @@ class Display extends Component {
 	}
 
 	state = {
+		editMode: false,
 		dirty: false, //
 
 		caretIndex: [0, 0], //
