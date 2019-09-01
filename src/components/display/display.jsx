@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import Word from './Word';
 import Toolbar from './Toolbar';
+import Word from './Word';
 
 import './style/Display.css';
 
@@ -12,43 +12,30 @@ const SPECIAL_KEYCODES = {
 	32: ' ' // Space
 };
 
-const BLACKLIST = [
-	'Shift',
-	'Control',
-	'Meta',
-	'Alt',
-	'Dead',
-	'Escape',
-	'CapsLock',
-	'ArrowUp',
-	'ArrowLeft',
-	'ArrowRight',
-	'ArrowDown',
-	'Escape'
-];
+const BLACKLIST = [];
 
 /**
  *
  */
 class Display extends Component {
-	constructor() {
-		super();
-
-		this.lineRef = React.createRef();
-		this.textRef = React.createRef();
-	}
+	_isMounted = false;
 
 	state = {
-		editMode: false,
 		dirty: false, //
+		dirtyLines: [],
 
-		caretIndex: [0, 0], //
-		matrix: [[], []], //
+		caretIndex: [0, 0],
 
-		lineCount: 1, //
-		wordCount: 0 //
+		matrix: [[]]
 	};
 
+	componentWillMount = async () => {
+		this._isMounted = true;
+	};
+
+	/**
+	 *
+	 */
 	setCaretIndex = (line = 0, column = 0) => {
 		let element = this.textRef.current;
 		let range = document.createRange();
@@ -75,69 +62,48 @@ class Display extends Component {
 	/**
 	 *
 	 */
-	keyPress = e => {
-		/* */
-		e.preventDefault();
-		e.stopPropagation();
-
-		const index = this.getCaretIndex();
-		console.log(index);
-
+	package = element => {
 		let matrix = this.state.matrix;
+		element.childNodes.forEach((line, i) => {
+			let arr = line.textContent.split(/(\S+)(\s+)/).map(el => {
+				return el;
+			});
 
-		/* */
-		if (SPECIAL_KEYCODES[e.keyCode]) {
-			console.log('Consumed: ', e.key, e.keyCode);
-			matrix[index.line][index.column] = SPECIAL_KEYCODES[e.keyCode];
-			return;
-		} else if (
-			BLACKLIST.find(k => {
-				return k === e.key;
-			})
-		) {
-			console.log('Blacklisted: ', e.key, e.keyCode);
-			return;
-		}
-		console.log(e.key, e.keyCode);
-
-		matrix[index.line][index.column] = e.key;
-		this.setState({ matrix: matrix }, () => {
-			this.setCaretIndex(index.line, index.column + 1);
+			matrix[i] = arr;
 		});
+		this.setState({ lines: matrix.length, matrix: matrix });
 	};
 
-	/**
-	 *
-	 */
-	mouseClick = e => {};
-
-	/**
-	 *
-	 */
-	pushData = async () => {};
-
 	render() {
-		console.log(this.state.matrix);
+		if (!this._isMounted) return null;
+
+		let matrix = this.state.matrix;
 
 		return (
 			<div id='display' className='screen'>
 				<Toolbar />
-
 				<main>
-					<div id='lines' ref={this.lineRef}></div>
+					<div id='lines'>
+						{matrix.map((el, i) => {
+							return <p key={i}>{i}</p>;
+						})}
+					</div>
 
 					<div
 						id='text'
 						contentEditable
-						onKeyDown={this.keyPress}
-						onClick={this.mouseClick}
-						ref={this.textRef}
+						onKeyDown={e => {
+							this.package(e.target);
+						}}
 					>
-						{this.state.matrix.map(line => {
+						{matrix.map(line => {
 							return (
 								<div className='line'>
-									{line.map(word => {
-										return <Word content={word} />;
+									{line.map(el => {
+										if (el.match('\\s+')) {
+											return el;
+										}
+										return <Word content={el}></Word>;
 									})}
 								</div>
 							);

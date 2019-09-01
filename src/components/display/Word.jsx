@@ -3,6 +3,16 @@ import React, { Component } from 'react';
 import './style/Word.css';
 
 class Word extends Component {
+	state = {
+		italic: false,
+		bold: false,
+		underlined: false,
+
+		size: null,
+
+		link: null
+	};
+
 	word = string => {
 		let flags = [];
 		let flagString = '';
@@ -19,7 +29,7 @@ class Word extends Component {
 
 	render() {
 		return (
-			<p contentEditable className='word' onClick={() => {}}>
+			<p contentEditable className='word'>
 				{this.props.content}
 			</p>
 		);
