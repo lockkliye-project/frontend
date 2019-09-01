@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Navigator from './Navigator';
-import Display from '../Display/Display';
+import Display from '../Display/Display.jsx';
 
 import test_entries from '../../test_entries.json';
 
@@ -10,8 +10,8 @@ import './style/Application.css';
 class Application extends Component {
 	state = {
 		_promiseResolved: false,
-		data: {},
-		currentCard: null
+
+		data: {}
 	};
 
 	componentDidMount() {

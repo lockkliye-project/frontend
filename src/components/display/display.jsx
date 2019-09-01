@@ -23,7 +23,8 @@ const BLACKLIST = [
 	'ArrowUp',
 	'ArrowLeft',
 	'ArrowRight',
-	'ArrowDown'
+	'ArrowDown',
+	'Escape'
 ];
 
 /**
@@ -52,7 +53,6 @@ class Display extends Component {
 		let element = this.textRef.current;
 		let range = document.createRange();
 		let selection = window.getSelection();
-		console.log(element.childNodes);
 		range.setStart(element.childNodes[line], column);
 		range.collapse(true);
 		selection.removeAllRanges();
@@ -87,13 +87,20 @@ class Display extends Component {
 
 		/* */
 		if (SPECIAL_KEYCODES[e.keyCode]) {
+			console.log('Consumed: ', e.key, e.keyCode);
 			matrix[index.line][index.column] = SPECIAL_KEYCODES[e.keyCode];
-			console.log('Consumed ' + e.key, e.keyCode);
+			return;
+		} else if (
+			BLACKLIST.find(k => {
+				return k === e.key;
+			})
+		) {
+			console.log('Blacklisted: ', e.key, e.keyCode);
 			return;
 		}
+		console.log(e.key, e.keyCode);
 
 		matrix[index.line][index.column] = e.key;
-		console.log(e.key, e.keyCode);
 		this.setState({ matrix: matrix }, () => {
 			this.setCaretIndex(index.line, index.column + 1);
 		});
@@ -107,9 +114,7 @@ class Display extends Component {
 	/**
 	 *
 	 */
-	pushData = async () => {
-		//matrix.toJSON();
-	};
+	pushData = async () => {};
 
 	render() {
 		console.log(this.state.matrix);

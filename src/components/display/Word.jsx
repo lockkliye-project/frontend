@@ -19,13 +19,7 @@ class Word extends Component {
 
 	render() {
 		return (
-			<p
-				contentEditable
-				className='word'
-				onClick={() => {
-					this.popIndex(this.props.index);
-				}}
-			>
+			<p contentEditable className='word' onClick={() => {}}>
 				{this.props.content}
 			</p>
 		);
