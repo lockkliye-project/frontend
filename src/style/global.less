@@ -1,11 +1,38 @@
-/* Colors */
-@anthrazit: #353535;
-@brick: #ff8800;
-@darkAnthrazit: #222;
+/* Globa Variables */
 
-/* Z-Index positioning */
-@zLowest: -2;
+/* Responsive media query, optimized for Smartphone+ Size */
+@mobile: 500;
+@query: ~'only screen and (max-height: @{mobile}px), only screen and (max-width: @{mobile}px)';
+/* Responsive media query for portrait mode */
+@query_P: ~'only screen and (max-width: @{mobile}px)';
+/* Responsive media query for landscape mode */
+@query_L: ~'only screen and (max-height: @{mobile}px)';
+
+/* Color-codes */
+@anthrazit: #333;
+@anthrazit_L: #444;
+@anthrazit_D: #222;
+@brick: #ff8800;
+
+/* Box-Shadow */
+/* offset-x | offset-y | blur-radius | spread-radius | color */
+@shade: 0px 2px 2px 0px #bbb;
+
+/* Transition-data */
+@trans_50: 50ms all;
+@trans_100: 100ms all;
+@trans_250: 250ms all;
+@trans_500: 500ms all;
+@trans_750: 750ms all;
+@trans_1000: 1s all;
+
+/* Z-layer positioning */
+@zHell: -10;
+@zLowest: -3;
+@zLower: -2;
 @zLow: -1;
 @zNeutral: 0;
 @zHigh: 1;
-@zHighest: 2;
+@zHigher: 2;
+@zHighest: 3;
+@zSuper: 10;

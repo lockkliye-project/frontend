@@ -5,6 +5,7 @@ import Word from './Word';
 
 import './style/Display.css';
 
+/* */
 const SPECIAL_KEYCODES = {
 	8: '\b', // Backspace
 	9: '	', // Tab
@@ -12,7 +13,23 @@ const SPECIAL_KEYCODES = {
 	32: ' ' // Space
 };
 
-const BLACKLIST = [];
+/* */
+const NAVIGATION = {
+	LEFT: 37, //
+	UP: 38, //
+	RIGHT: 39, //
+	DOWN: 40 //
+};
+
+/* */
+const WHITELIST = [
+	'1234567890', //
+	'abcdefghijklmnopqrstuvwxyz', //
+	'äöü' //
+];
+
+/* */
+const SHORTCUTS = {};
 
 /**
  *
@@ -22,12 +39,21 @@ class Display extends Component {
 
 	state = {
 		dirty: false, //
-		dirtyLines: [],
 
-		caretIndex: [0, 0],
+		caretIndex: {
+			line: 0,
+			column: 0
+		}, //
 
-		matrix: [[]]
+		attributes: [[]], //
+		text: [[]] //
 	};
+
+	constructor() {
+		super();
+
+		this.ref = React.createRef();
+	}
 
 	componentWillMount = async () => {
 		this._isMounted = true;
@@ -37,7 +63,7 @@ class Display extends Component {
 	 *
 	 */
 	setCaretIndex = (line = 0, column = 0) => {
-		let element = this.textRef.current;
+		let element = this.ref.current;
 		let range = document.createRange();
 		let selection = window.getSelection();
 		range.setStart(element.childNodes[line], column);
@@ -52,7 +78,10 @@ class Display extends Component {
 	 */
 	getCaretIndex = () => {
 		let selection = document.getSelection();
-		let text = selection.anchorNode.textContent.slice(0, selection.focusOffset);
+		let text = selection.anchorNode.textContent.slice(
+			0,
+			selection.focusOffset
+		);
 
 		let line = text.split('\n').length;
 		let column = text.split('\n').pop().length;
@@ -62,48 +91,89 @@ class Display extends Component {
 	/**
 	 *
 	 */
-	package = element => {
-		let matrix = this.state.matrix;
+	package = event => {
+		/* */
+		event.preventDefault();
+
+		/* */
+		const key = event.key;
+		const keycode = event.keyCode;
+
+		const whitelisted = (() => {
+			let bool = false;
+			for (const string of WHITELIST) {
+				if (string.includes(key.toLowerCase())) {
+					bool = true;
+					break;
+				}
+			}
+			return bool;
+		})();
+
+		if (!whitelisted) return;
+
+		/* */
+		const { line, column } = this.getCaretIndex();
+
+		let text = this.state.text;
+		text[0][column] = key;
+
+		this.setState({ text: text }, () => {
+			this.setCaretIndex(0, column + 1);
+		});
+
+		/*
+		let element = event.target;
+		let lines = this.state.lines;
 		element.childNodes.forEach((line, i) => {
 			let arr = line.textContent.split(/(\S+)(\s+)/).map(el => {
 				return el;
 			});
-
-			matrix[i] = arr;
+			lines[i] = arr;
 		});
-		this.setState({ lines: matrix.length, matrix: matrix });
+		this.setState({ lines: lines }, () => {
+			this.setCaretIndex(0);
+		});
+		*/
 	};
 
 	render() {
 		if (!this._isMounted) return null;
 
-		let matrix = this.state.matrix;
+		let { attributes, text } = this.state;
 
 		return (
 			<div id='display' className='screen'>
 				<Toolbar />
 				<main>
 					<div id='lines'>
-						{matrix.map((el, i) => {
+						{text.map((line, i) => {
 							return <p key={i}>{i}</p>;
 						})}
 					</div>
 
 					<div
 						id='text'
+						ref={this.ref}
 						contentEditable
 						onKeyDown={e => {
-							this.package(e.target);
+							this.package(e);
 						}}
 					>
-						{matrix.map(line => {
+						{text.map((line, i) => {
 							return (
-								<div className='line'>
-									{line.map(el => {
-										if (el.match('\\s+')) {
-											return el;
+								<div key={i} className='line'>
+									{line.map((content, i) => {
+										if (content.match('\\s+')) {
+											return content;
 										}
-										return <Word content={el}></Word>;
+										return (
+											<Word
+												key={i}
+												content={content}
+												attributes={attributes}
+											></Word>
+										);
 									})}
 								</div>
 							);

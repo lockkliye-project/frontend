@@ -6,7 +6,17 @@
 	src: url(../res/fonts/century_gothic.ttf);
 }
 
-* {
+@font-face {
+	font-family: SegoeUI;
+	src: url(../res/fonts/segoe_ui.ttf);
+}
+
+/* Global reset */
+*,
+p,
+a,
+input,
+button {
 	margin: 0;
 	padding: 0;
 
@@ -15,14 +25,11 @@
 	outline: none;
 	border: none;
 
-	font-family: Gothic;
+	font-family: SegoeUI;
 	font-size: 14px;
-
+	text-decoration: none;
+	word-wrap: break-word;
 	color: #fff;
-}
-
-*:hover {
-	cursor: default;
 }
 
 .hidden {
@@ -34,4 +41,50 @@
 
 	height: 100vh;
 	width: 100vw;
+}
+
+@import './global.less';
+
+/* Custom Fraunhofer-themes scrollbar */
+::-webkit-scrollbar {
+	width: 1rem;
+}
+
+::-webkit-scrollbar-track {
+	background-color: #ddd;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #ddd;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: #ddd;
+}
+
+body {
+	overflow: hidden;
+
+	height: 100vh;
+	width: 100vw;
+
+	//background: url('');
+	//background-size: 25%;
+
+	#root {
+		overflow: hidden;
+
+		height: 100%;
+		width: 100%;
+	}
+}
+
+@media @query {
+	body {
+		position: fixed;
+
+		padding: 0;
+		height: -webkit-fill-available !important;
+		width: -webkit-fill-available !important;
+	}
 }

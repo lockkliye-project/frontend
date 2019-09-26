@@ -10,7 +10,7 @@ import { DEBUG } from './config.js';
 
 import './style/index.css';
 
-if (!DEBUG) {
+if (DEBUG) {
 	console.warn = () => {};
 	console.error = () => {};
 }
