@@ -8,11 +8,21 @@ class Word extends Component {
 		bold: false,
 		underlined: false,
 
+		color: '#FFF',
+		background: 'none',
+
 		size: null,
 
 		link: null
 	};
 
+	componentDidMount = () => {
+		let attributes = this.props.attributes;
+	};
+
+	/**
+	 *
+	 */
 	word = string => {
 		let flags = [];
 		let flagString = '';
@@ -27,12 +37,13 @@ class Word extends Component {
 		return p;
 	};
 
+	/**
+	 *
+	 */
+	pop = () => {};
+
 	render() {
-		return (
-			<p contentEditable className='word'>
-				{this.props.content}
-			</p>
-		);
+		return <p className='word'>{this.props.content}</p>;
 	}
 }
 

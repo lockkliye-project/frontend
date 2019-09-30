@@ -40,13 +40,8 @@ class Display extends Component {
 	state = {
 		dirty: false, //
 
-		caretIndex: {
-			line: 0,
-			column: 0
-		}, //
-
 		attributes: [[]], //
-		text: [[]] //
+		text: [['']] //
 	};
 
 	constructor() {
@@ -67,6 +62,7 @@ class Display extends Component {
 		let range = document.createRange();
 		let selection = window.getSelection();
 		range.setStart(element.childNodes[line], column);
+		range.setEnd(element.childNodes[line], column);
 		range.collapse(true);
 		selection.removeAllRanges();
 		selection.addRange(range);
@@ -77,70 +73,40 @@ class Display extends Component {
 	 *
 	 */
 	getCaretIndex = () => {
-		let selection = document.getSelection();
-		let text = selection.anchorNode.textContent.slice(
-			0,
-			selection.focusOffset
-		);
+		try {
+			let selection = document.getSelection();
+			let text = selection.anchorNode.textContent.slice(
+				0,
+				selection.focusOffset
+			);
 
-		let line = text.split('\n').length;
-		let column = text.split('\n').pop().length;
-		return { line: line, column: column };
+			let line = text.split('\n').length;
+			let column = text.split('\n').pop().length;
+			return [line, column];
+		} catch (e) {
+			return [0, 0];
+		}
 	};
 
 	/**
 	 *
 	 */
 	package = event => {
-		/* */
-		event.preventDefault();
-
-		/* */
-		const key = event.key;
-		const keycode = event.keyCode;
-
-		const whitelisted = (() => {
-			let bool = false;
-			for (const string of WHITELIST) {
-				if (string.includes(key.toLowerCase())) {
-					bool = true;
-					break;
-				}
-			}
-			return bool;
-		})();
-
-		if (!whitelisted) return;
-
-		/* */
-		const { line, column } = this.getCaretIndex();
-
-		let text = this.state.text;
-		text[0][column] = key;
-
-		this.setState({ text: text }, () => {
-			this.setCaretIndex(0, column + 1);
-		});
-
-		/*
 		let element = event.target;
-		let lines = this.state.lines;
+		let text = this.state.text;
 		element.childNodes.forEach((line, i) => {
 			let arr = line.textContent.split(/(\S+)(\s+)/).map(el => {
 				return el;
 			});
-			lines[i] = arr;
+			text[i] = arr;
 		});
-		this.setState({ lines: lines }, () => {
-			this.setCaretIndex(0);
-		});
-		*/
+		this.setState({ text: text });
 	};
 
 	render() {
 		if (!this._isMounted) return null;
 
-		let { attributes, text } = this.state;
+		const { attributes, text } = this.state;
 
 		return (
 			<div id='display' className='screen'>
@@ -152,32 +118,42 @@ class Display extends Component {
 						})}
 					</div>
 
-					<div
-						id='text'
-						ref={this.ref}
-						contentEditable
-						onKeyDown={e => {
-							this.package(e);
-						}}
-					>
-						{text.map((line, i) => {
-							return (
-								<div key={i} className='line'>
-									{line.map((content, i) => {
-										if (content.match('\\s+')) {
-											return content;
-										}
-										return (
-											<Word
-												key={i}
-												content={content}
-												attributes={attributes}
-											></Word>
-										);
-									})}
-								</div>
-							);
-						})}
+					<div id='text'>
+						<div
+							id='textDisplay'
+							className='textContainer'
+							ref={this.displayRef}
+						>
+							{text.map((line, i) => {
+								return (
+									<div key={i} className='line'>
+										{line.map((word, i) => {
+											if (word.match('\\s+')) {
+												return word;
+											}
+											return (
+												<Word
+													key={i}
+													index={i}
+													content={word}
+													attributes={attributes}
+												></Word>
+											);
+										})}
+									</div>
+								);
+							})}
+						</div>
+
+						<div
+							id='textEdit'
+							className='textContainer'
+							ref={this.editRef}
+							contentEditable
+							onKeyDown={e => {
+								this.package(e);
+							}}
+						></div>
 					</div>
 				</main>
 			</div>
@@ -186,3 +162,44 @@ class Display extends Component {
 }
 
 export default Display;
+
+/*
+event.preventDefault();
+
+const key = event.key;
+const keycode = event.keyCode;
+
+const navigation = false;
+if (navigation) {
+	return;
+}
+
+const whitelisted = (() => {
+	let bool = false;
+	for (const string of WHITELIST) {
+		if (string.includes(key.toLowerCase())) {
+			bool = true;
+			break;
+		}
+	}
+	return bool;
+})();
+if (!whitelisted) return;
+
+let pointer = this.state.pointer;
+
+let text = this.state.text;
+
+let word = text[0][0];
+word =
+	word.substring(0, pointer.index) +
+	key +
+	word.substring(pointer.index, word.length);
+text[0][0] = word;
+
+this.setState({ text: text }, () => {
+	pointer.index++;
+	this.setCaretIndex(0, pointer.index);
+	this.setState({ pointer: pointer });
+});
+*/

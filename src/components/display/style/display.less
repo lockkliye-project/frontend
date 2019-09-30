@@ -26,8 +26,9 @@
 
 		#lines,
 		#text {
-			padding: 25px;
-			height: 100%;
+			position: relative;
+
+			padding: 1.5rem;
 		}
 
 		#lines {
@@ -43,17 +44,40 @@
 		#text {
 			width: 100%;
 
-			white-space: pre;
+			z-index: inherit;
 
-			.line:hover {
-				cursor: text;
+			.textContainer {
+				overflow-x: hidden;
+				overflow-y: auto;
 
-				background-color: #353535;
+				position: absolute;
+				top: 0;
+				left: 0;
+
+				padding: inherit;
+				height: 100%;
+				width: 100%;
+
+				.line:hover {
+					cursor: text;
+
+					background-color: #272727;
+				}
 			}
-		}
 
-		#text:hover {
-			cursor: text;
+			.textContainer:hover {
+				cursor: text;
+			}
+
+			#textDisplay {
+				pointer-events: none;
+
+				z-index: @zHigh;
+			}
+
+			#textEdit {
+				z-index: inherit;
+			}
 		}
 	}
 }
