@@ -1,0 +1,1 @@
+.context{overflow:hidden;position:relative;display:block;padding:1%;color:#353535;background-color:#eee;animation-name:expand;animation-duration:250ms;animation-fill-mode:forwards;animation-timing-function:cubic-bezier()}.context:hover{cursor:pointer;background-color:#fff}@keyframes expand{from{height:0;width:0;opacity:0}to{height:2rem;width:15rem;opacity:1}}

@@ -44,10 +44,10 @@ class Display extends Component {
 		text: [['']] //
 	};
 
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
-		this.ref = React.createRef();
+		this.textRef = React.createRef();
 	}
 
 	componentWillMount = async () => {
@@ -122,7 +122,11 @@ class Display extends Component {
 						<div
 							id='textDisplay'
 							className='textContainer'
-							ref={this.displayRef}
+							ref={this.textRef}
+							contentEditable
+							onKeyDown={e => {
+								this.package(e);
+							}}
 						>
 							{text.map((line, i) => {
 								return (
@@ -144,16 +148,6 @@ class Display extends Component {
 								);
 							})}
 						</div>
-
-						<div
-							id='textEdit'
-							className='textContainer'
-							ref={this.editRef}
-							contentEditable
-							onKeyDown={e => {
-								this.package(e);
-							}}
-						></div>
 					</div>
 				</main>
 			</div>

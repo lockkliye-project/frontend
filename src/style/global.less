@@ -1,30 +1,43 @@
-/* Globa Variables */
+/* Global .less-Variables */
 
 /* Responsive media query, optimized for Smartphone+ Size */
 @mobile: 500;
 @query: ~'only screen and (max-height: @{mobile}px), only screen and (max-width: @{mobile}px)';
 /* Responsive media query for portrait mode */
-@query_P: ~'only screen and (max-width: @{mobile}px)';
+@queryPortrait: ~'only screen and (max-width: @{mobile}px)';
 /* Responsive media query for landscape mode */
-@query_L: ~'only screen and (max-height: @{mobile}px)';
+@queryLandscape: ~'only screen and (max-height: @{mobile}px)';
+
+/* Responsive media query, optimized for tablet Size */
+@tablet: 750;
+/* Responsive media query, optimized for Smartphone+ Size */
+@queryTablet: ~'only screen and (max-height: @{tablet}px), only screen and (max-width: @{tablet}px)';
+/* Responsive media query for portrait mode */
+@queryTabletPortrait: ~'only screen and (max-width: @{tablet}px)';
+/* Responsive media query for landscape mode */
+@queryTabletLandscape: ~'only screen and (max-height: @{tablet}px)';
 
 /* Color-codes */
-@anthrazit: #333;
-@anthrazit_L: #444;
-@anthrazit_D: #222;
+@anthrazit: #353535;
+@darkAnthrazit: #222;
+@veryDarkAnthrazit: #111;
+
 @brick: #ff8800;
+
+@fhAccent: #009474;
+@fhVeryLightAccent: #66bfac;
+@fhLightAccent: #66bfac;
+@fhDarkAccent: #008363;
+@fhVeryDarkAccent: #007252;
 
 /* Box-Shadow */
 /* offset-x | offset-y | blur-radius | spread-radius | color */
-@shade: 0px 2px 2px 0px #bbb;
+@outboundShadow: 0px 2px 2px 0px #bbb;
 
 /* Transition-data */
-@trans_50: 50ms all;
-@trans_100: 100ms all;
-@trans_250: 250ms all;
-@trans_500: 500ms all;
-@trans_750: 750ms all;
-@trans_1000: 1s all;
+@trans250: 250ms all;
+@trans500: 500ms all;
+@trans1000: 1s all;
 
 /* Z-layer positioning */
 @zHell: -10;
@@ -36,3 +49,24 @@
 @zHigher: 2;
 @zHighest: 3;
 @zSuper: 10;
+@zUltra: 100;
+
+/* Font-sizes */
+@viewportMin: 300;
+@viewportMax: 1920;
+
+@fontSmallMin: 8;
+@fontSmallMax: 14;
+@fontSmall: ~'calc(@{fontSmallMin}px + (@{fontSmallMax} - @{fontSmallMin}) * ((100vw - @{viewportMin}px) / (@{viewportMax} - @{viewportMin})))';
+
+@fontBaseMin: 14;
+@fontBaseMax: 20;
+@fontBase: ~'calc(@{fontBaseMin}px + (@{fontBaseMax} - @{fontBaseMin}) * ((100vw - @{viewportMin}px) / (@{viewportMax} - @{viewportMin})))';
+
+@fontBigMin: 20;
+@fontBigMax: 26;
+@fontBig: ~'calc(@{fontBigMin}px + (@{fontBigMax} - @{fontBigMin}) * ((100vw - @{viewportMin}px) / (@{viewportMax} - @{viewportMin})))';
+
+@fontHugeMin: 26;
+@fontHugeMax: 32;
+@fontHuge: ~'calc(@{fontHugeMin}px + (@{fontHugeMax} - @{fontHugeMin}) * ((100vw - @{viewportMin}px) / (@{viewportMax} - @{viewportMin})))';

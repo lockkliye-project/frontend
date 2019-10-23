@@ -32,19 +32,6 @@ button {
 	color: #fff;
 }
 
-.hidden {
-	display: none;
-}
-
-#root {
-	overflow: hidden;
-
-	height: 100vh;
-	width: 100vw;
-}
-
-@import './global.less';
-
 /* Custom Fraunhofer-themes scrollbar */
 ::-webkit-scrollbar {
 	width: 1rem;
@@ -60,6 +47,42 @@ button {
 
 ::-webkit-scrollbar-thumb:hover {
 	background-color: #ddd;
+}
+
+.hidden {
+	display: none;
+}
+
+.container {
+	border-radius: 0.25em;
+	box-shadow: @outboundShadow;
+}
+
+/* CSS-icons */
+.triangle {
+	width: 0;
+	height: 0;
+
+	border-left: 1em solid transparent;
+	border-right: 1em solid transparent;
+	border-bottom: 2em solid #000;
+}
+
+/* Custom Fraunhofer-themes scrollbar */
+::-webkit-scrollbar {
+	width: 0.8em;
+}
+
+::-webkit-scrollbar-track {
+	background: #ddd;
+}
+
+::-webkit-scrollbar-thumb {
+	background: @fhAccent;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: @fhLightAccent;
 }
 
 body {
