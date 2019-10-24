@@ -34,7 +34,7 @@ function logging(msg, color) {
  * @param {*} msg
  */
 export function log(msg) {
-	logging(msg, '#353535');
+	logging(msg, '#AAAAAA');
 }
 
 /**
