@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import Toolbar from './Toolbar';
 import Word from './Word';
 
+import { error, success } from 'util/logging.js';
+
 import './style/Display.css';
 
 /* */
@@ -10,7 +12,13 @@ const SPECIAL_KEYCODES = {
 	8: '\b', // Backspace
 	9: '	', // Tab
 	13: '\n', // Enter
-	32: ' ' // Space
+	16: '', // Shift
+	17: '', // Control
+	18: '', // Alt, Alt-Graph
+	20: '', // CapsLock
+	32: ' ', // Space
+	91: '', // Meta, Windows-Key
+	255: '' // Unidentified, fn
 };
 
 /* */
@@ -23,9 +31,16 @@ const NAVIGATION = {
 
 /* */
 const WHITELIST = [
-	'1234567890', //
-	'abcdefghijklmnopqrstuvwxyz', //
-	'äöü' //
+	'1234567890', // Numbers
+	'abcdefghijklmnopqrstuvwxyz', // QWERTZ
+	'äöü', // Umlauts
+	'^<,.-#+', // QWERTZ special-symbols
+
+	'!"§$%&/()=?`', // Shift-Numbers special-symbols
+	"°>;:_*'", // Shift-Letters special-symbols
+
+	'{[]}\\`', // ALT-Numbers special-symbols
+	'@|~' // ALT-QWERTZ special-symbols
 ];
 
 /* */
@@ -35,23 +50,52 @@ const SHORTCUTS = {};
  *
  */
 class Display extends Component {
-	_isMounted = false;
-
 	state = {
 		dirty: false, //
 
-		attributes: [[]], //
-		text: [['']] //
+		attributes: [['']], //
+		text: [['']], //
+
+		pointer: {
+			line: 0,
+			column: 0
+		}
 	};
 
 	constructor(props) {
 		super(props);
 
-		this.textRef = React.createRef();
+		this.ref = React.createRef();
 	}
 
-	componentWillMount = async () => {
-		this._isMounted = true;
+	/**
+	 *
+	 */
+	copy = object => {
+		let output, v, key;
+		output = Array.isArray(object) ? [] : {};
+		for (key in object) {
+			v = object[key];
+			output[key] = typeof v === 'object' ? this.copy(v) : v;
+		}
+		return output;
+	};
+
+	/**
+	 *
+	 */
+	package = event => {
+		let element = event.target;
+		let text = this.state.text;
+		element.childNodes.forEach((line, i) => {
+			let arr = line.textContent.split(/(\S+)(\s+)/).map(el => {
+				return el;
+			});
+			text[i] = arr;
+		});
+		this.setState({ text: text }, () => {
+			event.target.textContent = '';
+		});
 	};
 
 	/**
@@ -91,26 +135,60 @@ class Display extends Component {
 	/**
 	 *
 	 */
-	package = event => {
-		let element = event.target;
+	keypress = event => {
+		event.preventDefault();
+
+		const key = event.key;
+		const keycode = event.keyCode;
+
+		const navigation = false;
+		if (navigation) return;
+
+		const whitelisted = (() => {
+			let bool = false;
+			for (const string of WHITELIST) {
+				if (string.includes(key.toLowerCase())) {
+					bool = true;
+					break;
+				}
+			}
+			return bool;
+		})();
+		if (!whitelisted) {
+			error(key + ': ' + keycode);
+			return;
+		}
+		success(key + ': ' + keycode);
+
+		let pointer = this.state.pointer;
+
 		let text = this.state.text;
-		element.childNodes.forEach((line, i) => {
-			let arr = line.textContent.split(/(\S+)(\s+)/).map(el => {
-				return el;
-			});
-			text[i] = arr;
+
+		/*
+		let pointer = this.state.pointer;
+		let text = this.state.text;
+		let word = text[0][0];
+		word =
+			word.substring(0, pointer.index) +
+			key +
+			word.substring(pointer.index, word.length);
+		text[0][0] = word;
+
+		this.setState({ text: text }, () => {
+			pointer.index++;
+			this.setCaretIndex(0, pointer.index);
+			this.setState({ pointer: pointer });
 		});
-		this.setState({ text: text });
+		*/
 	};
 
 	render() {
-		if (!this._isMounted) return null;
-
 		const { attributes, text } = this.state;
 
 		return (
 			<div id='display' className='screen'>
 				<Toolbar />
+
 				<main>
 					<div id='lines'>
 						{text.map((line, i) => {
@@ -118,36 +196,16 @@ class Display extends Component {
 						})}
 					</div>
 
-					<div id='text'>
-						<div
-							id='textDisplay'
-							className='textContainer'
-							ref={this.textRef}
-							contentEditable
-							onKeyDown={e => {
-								this.package(e);
-							}}
-						>
-							{text.map((line, i) => {
-								return (
-									<div key={i} className='line'>
-										{line.map((word, i) => {
-											if (word.match('\\s+')) {
-												return word;
-											}
-											return (
-												<Word
-													key={i}
-													index={i}
-													content={word}
-													attributes={attributes}
-												></Word>
-											);
-										})}
-									</div>
-								);
-							})}
-						</div>
+					<div
+						id='text'
+						className=''
+						ref={this.ref}
+						contentEditable
+						onKeyDown={e => {
+							this.keypress(e);
+						}}
+					>
+						{}
 					</div>
 				</main>
 			</div>
@@ -158,42 +216,29 @@ class Display extends Component {
 export default Display;
 
 /*
-event.preventDefault();
+onBlur={e => {
+	this.package(e);
+}}
+*/
 
-const key = event.key;
-const keycode = event.keyCode;
-
-const navigation = false;
-if (navigation) {
-	return;
-}
-
-const whitelisted = (() => {
-	let bool = false;
-	for (const string of WHITELIST) {
-		if (string.includes(key.toLowerCase())) {
-			bool = true;
-			break;
-		}
-	}
-	return bool;
-})();
-if (!whitelisted) return;
-
-let pointer = this.state.pointer;
-
-let text = this.state.text;
-
-let word = text[0][0];
-word =
-	word.substring(0, pointer.index) +
-	key +
-	word.substring(pointer.index, word.length);
-text[0][0] = word;
-
-this.setState({ text: text }, () => {
-	pointer.index++;
-	this.setCaretIndex(0, pointer.index);
-	this.setState({ pointer: pointer });
-});
+/*
+text.map((line, i) => {
+	return (
+		<div key={i} className='line'>
+			{line.map((word, i) => {
+				if (word.match('\\s+')) {
+					return word;
+				}
+				return (
+					<Word
+						key={i}
+						index={i}
+						content={word}
+						attributes={attributes}
+					></Word>
+				);
+			})}
+		</div>
+	);
+})
 */

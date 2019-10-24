@@ -1,3 +1,7 @@
+/**
+ * (C)reated by Burak Günaydin (2019)
+ */
+
 const array = {
 	/**
 	 * Converts the elements of an array to a consecutive concatenated string.

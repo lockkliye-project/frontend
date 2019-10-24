@@ -42,42 +42,23 @@
 		}
 
 		#text {
+			overflow-x: hidden;
+			overflow-y: auto;
+
+			height: 100%;
 			width: 100%;
 
 			z-index: inherit;
 
-			.textContainer {
-				overflow-x: hidden;
-				overflow-y: auto;
-
-				position: absolute;
-				top: 0;
-				left: 0;
-
-				padding: inherit;
-				height: 100%;
-				width: 100%;
-
-				.line:hover {
-					cursor: text;
-
-					background-color: #272727;
-				}
-			}
-
-			.textContainer:hover {
+			.line:hover {
 				cursor: text;
-			}
 
-			#textDisplay {
-				pointer-events: none;
-
-				z-index: @zHigh;
+				background-color: #272727;
 			}
+		}
 
-			#textEdit {
-				z-index: inherit;
-			}
+		#text:hover {
+			cursor: text;
 		}
 	}
 }

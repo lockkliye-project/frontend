@@ -1,3 +1,7 @@
+/**
+ * (C)reated by Burak Günaydin (2019)
+ */
+
 const RGB_MIN = 0; // Minimum value for single 8-bit RGB colors
 const RGB_MAX = 255; // Maximum value for single 8-bit RGB colors
 

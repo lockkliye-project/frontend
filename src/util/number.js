@@ -1,3 +1,7 @@
+/**
+ * (C)reated by Burak Günaydin (2019)
+ */
+
 const number = {
 	random: (min, max, float = false) => {
 		let r = min + (max - min) * Math.random();

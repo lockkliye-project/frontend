@@ -21,7 +21,6 @@ class ContextMenu extends Component {
 		return (
 			<div
 				id='contextMenu'
-				className='container'
 				tabIndex={0}
 				ref={this.ref}
 				style={{
@@ -35,6 +34,10 @@ class ContextMenu extends Component {
 				<Context option='Placeholder3'></Context>
 				<Context option='Placeholder4'></Context>
 				<Context option='Placeholder5'></Context>
+				<Context option='Placeholder6'></Context>
+				<Context option='Placeholder7'></Context>
+				<Context option='Placeholder8'></Context>
+				<Context option='Placeholder9'></Context>
 			</div>
 		);
 	}

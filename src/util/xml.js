@@ -1,3 +1,7 @@
+/**
+ * (C)reated by Burak Günaydin (2019)
+ */
+
 const xml = {
 	/**
 	 * A recursive algorithm to convert a XML-file to JSON.
