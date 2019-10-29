@@ -43,7 +43,16 @@ class Word extends Component {
 	pop = () => {};
 
 	render() {
-		return <p className='word'>{this.props.content}</p>;
+		return (
+			<p
+				className='word'
+				onClick={() => {
+					this.props.popIndex(this.props.index);
+				}}
+			>
+				{this.props.content}
+			</p>
+		);
 	}
 }
 

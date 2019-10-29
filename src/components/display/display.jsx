@@ -1,55 +1,123 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Toolbar from './Toolbar';
 import Word from './Word';
+
+import Element from 'components/_common/Element';
 
 import { error, log, success } from 'util/logging.js';
 
 import './style/Display.css';
 
-/* */
-const SPECIAL_KEYCODES = {
-	8: '\b', // Backspace
-	9: '	', // Tab
-	13: '\n', // Enter
-	16: '', // Shift
-	17: '', // Control
-	18: '', // Alt, Alt-Graph
-	20: '', // CapsLock
-	32: ' ', // Space
-	91: '', // Meta, Windows-Key
-	255: '' // Unidentified, fn
-};
-
-/* */
-const NAVIGATION = {
-	LEFT: 37, //
-	UP: 38, //
-	RIGHT: 39, //
-	DOWN: 40 //
-};
-
-/* */
-const WHITELIST = [
-	'1234567890', // Numbers
-	'abcdefghijklmnopqrstuvwxyz', // QWERTZ
-	'äöü', // Umlauts
-	'^<,.-#+', // QWERTZ special-symbols
-
-	'!"§$%&/()=?`', // Shift-Numbers special-symbols
-	"°>;:_*'", // Shift-Letters special-symbols
-
-	'{[]}\\`', // ALT-Numbers special-symbols
-	'@|~' // ALT-QWERTZ special-symbols
-];
-
-/* */
-const SHORTCUTS = {};
+/**
+ *
+ */
+class Key {
+	/**
+	 *
+	 *
+	 * @param {String} symbol
+	 */
+	constructor(identifier, code, symbol) {
+		this.identifier = identifier;
+		this.code = code;
+		this.symbol = symbol;
+	}
+}
 
 /**
  *
  */
-class Display extends Component {
+class Keys {
+	/**
+	 *
+	 *
+	 * @param {Array} keys
+	 */
+	constructor(...keys) {
+		this.keys = keys.map(key => {
+			return key;
+		});
+	}
+
+	/**
+	 *
+	 * @param {*} index,
+	 */
+	getKey = index => {
+		if (Number.isInteger(index)) {
+			return this.keys.find(key => {
+				return key.code === index;
+			});
+		}
+		return this.keys.find(key => {
+			return key.identifier === index;
+		});
+	};
+}
+
+/**
+ *
+ */
+const KEYS = {
+	/* */
+	WHITELIST: [
+		new Key('Numbers', NaN, '1234567890'),
+		new Key('QWERTZ', NaN, 'abcdefghijklmnopqrstuvwxyz'),
+		new Key('Umlauts', NaN, 'äöü'),
+		new Key(
+			'Special-Symbols',
+			NaN,
+			'ß´' +
+			'^<,.-#+' + // QWERTZ
+			'!"§$%&/()=?`' + // Shift-Numbers
+			"°>;:_*'" + // Shift-Letters
+			'{[]}\\`' + // ALT-Numbers
+				'@|~€' // ALT-QWERTZ
+		)
+	],
+
+	/* */
+	SPECIAL: new Keys(
+		new Key('Backspace', 8, '\b'),
+		new Key('Tab', 9, '    '),
+		new Key('Enter', 13, '\n'),
+		new Key('Shift', 16, ''),
+		new Key('Control', 17, ''),
+		new Key('Alt', 18, ''),
+		new Key('Capslock', 20, ''),
+		new Key('Space', 32, ' '),
+		new Key('Meta', 91, ''),
+		new Key('fn', 255, '')
+	),
+
+	/* */
+	NAVIGATION: new Keys(
+		new Key('Left', 37, ''),
+		new Key('Up', 38, ''),
+		new Key('Right', 39, ''),
+		new Key('Down', 40, '')
+	),
+
+	/* */
+	SHORTCUT: new Keys(
+		new Key('F1', 112, ''),
+		new Key('F2', 113, ''),
+		new Key('F3', 114, ''),
+		new Key('F4', 115, ''),
+		new Key('F5', 116, ''),
+		new Key('F6', 117, ''),
+		new Key('F7', 118, ''),
+		new Key('F8', 119, ''),
+		new Key('F9', 120, ''),
+		new Key('F10', 121, '')
+	)
+};
+
+/**
+ *
+ */
+class Display extends Element {
 	state = {
 		dirty: false, //
 
@@ -58,7 +126,8 @@ class Display extends Component {
 
 		pointer: {
 			line: 0,
-			column: 0
+			word: 0,
+			letter: 0
 		}
 	};
 
@@ -101,16 +170,23 @@ class Display extends Component {
 	/**
 	 *
 	 */
-	setCaretIndex = (line = 0, column = 0) => {
-		let element = this.ref.current.childNodes[0].childNodes[0];
-		let range = document.createRange();
-		let selection = window.getSelection();
-		range.setStart(element.childNodes[line], column);
-		range.setEnd(element.childNodes[line], column);
-		range.collapse(true);
-		selection.removeAllRanges();
-		selection.addRange(range);
-		element.focus();
+	setCaretIndex = (line, word, letter) => {
+		try {
+			let element = this.ref.current.childNodes[line].childNodes[word];
+			let range = document.createRange();
+			let selection = window.getSelection();
+			range.setStart(element.childNodes[line], letter);
+			range.setEnd(element.childNodes[line], letter);
+			range.collapse(true);
+			selection.removeAllRanges();
+			selection.addRange(range);
+			element.focus();
+			this.setState({
+				pointer: { line: line, word: word, letter: letter }
+			});
+		} catch (e) {
+			return e;
+		}
 	};
 
 	/**
@@ -124,10 +200,70 @@ class Display extends Component {
 				selection.focusOffset
 			);
 			let line = text.split('\n').length;
-			let column = text.split('\n').pop().length;
-			return [line, column];
+			let letter = text.split('\n').pop().length;
+			return [line, letter];
 		} catch (e) {
 			return [0, 0];
+		}
+	};
+
+	/**
+	 *
+	 */
+	specialKeypress = index => {
+		let pointer = this.state.pointer;
+
+		switch (index) {
+			/* */
+			case KEYS.SPECIAL.getKey('Space').code:
+				this.setCaretIndex(
+					pointer.line,
+					pointer.word + 1,
+					pointer.letter + 1
+				);
+				let text = this.state.text;
+				text[pointer.line].push('Test');
+				this.setState({ text: text });
+				break;
+
+			case KEYS.SPECIAL.getKey('Enter').code:
+				this.setCaretIndex(
+					pointer.line + 1,
+					pointer.word,
+					pointer.letter
+				);
+				break;
+
+			/* */
+			case KEYS.NAVIGATION.getKey('Up').code:
+				break;
+
+			case KEYS.NAVIGATION.getKey('Right').code:
+				try {
+					this.setCaretIndex(pointer.line, 0, pointer.letter + 1);
+				} catch (e) {
+					this.setCaretIndex(pointer.line, 0, pointer.letter - 1);
+				}
+				break;
+
+			case KEYS.NAVIGATION.getKey('Down').code:
+				break;
+
+			case KEYS.NAVIGATION.getKey('Left').code:
+				try {
+					this.setCaretIndex(pointer.line, 0, pointer.letter - 1);
+				} catch (e) {
+					this.setCaretIndex(pointer.line, 0, pointer.letter + 1);
+				}
+				break;
+
+			/* */
+			case KEYS.SHORTCUT.getKey('F5').code:
+				window.location.reload();
+				break;
+
+			default:
+				break;
 		}
 	};
 
@@ -140,80 +276,38 @@ class Display extends Component {
 		const key = event.key;
 		const keycode = event.keyCode;
 
+		/* */
+		if (
+			!(() => {
+				let bool = false;
+				KEYS.WHITELIST.forEach(whitelistedKey => {
+					if (whitelistedKey.symbol.includes(key.toLowerCase())) {
+						bool = true;
+					}
+				});
+				return bool;
+			})()
+		) {
+			this.specialKeypress(keycode);
+			return;
+		}
+
 		let pointer = this.state.pointer;
-
-		// TODO: Temporary
-		if (keycode === NAVIGATION.RIGHT) {
-			pointer.column++;
-			try {
-				this.setCaretIndex(0, pointer.column);
-			} catch (e) {
-				pointer.column--;
-			}
-			this.setState({ pointer: pointer });
-			return;
-		} else if (keycode === NAVIGATION.LEFT) {
-			pointer.column--;
-			try {
-				this.setCaretIndex(0, pointer.column);
-			} catch (e) {
-				pointer.column++;
-			}
-			this.setState({ pointer: pointer });
-			return;
-		}
-
-		// TODO: Temporary
-		if (keycode === 32) {
-			let text = this.state.text;
-			let word = text[0][0];
-			word =
-				word.substring(0, pointer.column) +
-				' ' +
-				word.substring(pointer.column, word.length);
-			text[0][0] = word;
-
-			this.setState({ text: text }, () => {
-				pointer.column++;
-				this.setCaretIndex(0, pointer.column);
-				this.setState({ pointer: pointer });
-			});
-			return;
-		}
-
-		const whitelisted = (() => {
-			let bool = false;
-			for (const string of WHITELIST) {
-				if (string.includes(key.toLowerCase())) {
-					bool = true;
-					break;
-				}
-			}
-			return bool;
-		})();
-		if (!whitelisted) {
-			error(key + ': ' + keycode);
-			return;
-		}
-		success(key + ': ' + keycode);
-
 		let text = this.state.text;
-		let word = text[0][0];
+		let word = text[pointer.line][pointer.word];
 		word =
-			word.substring(0, pointer.column) +
+			word.substring(0, pointer.letter) +
 			key +
-			word.substring(pointer.column, word.length);
-		text[0][0] = word;
+			word.substring(pointer.letter, word.length);
+		text[pointer.line][pointer.word] = word;
 
 		this.setState({ text: text }, () => {
-			pointer.column++;
-			this.setCaretIndex(0, pointer.column);
-			this.setState({ pointer: pointer });
+			this.setCaretIndex(pointer.line, pointer.word, pointer.letter + 1);
 		});
 	};
 
 	render() {
-		const { attributes, text } = this.state;
+		const { attributes, pointer, text } = this.state;
 
 		return (
 			<div id='display' className='screen'>
@@ -231,10 +325,13 @@ class Display extends Component {
 						className=''
 						ref={this.ref}
 						contentEditable
-						onClick={e => {
-							let pointer = this.state.pointer;
-							pointer.column = this.getCaretIndex()[1];
-							this.setState({ pointer: pointer });
+						onClick={() => {
+							this.setCaretIndex(
+								this.getCaretIndex()[0],
+								pointer.word,
+								this.getCaretIndex()[1]
+							);
+							console.log(pointer);
 						}}
 						onKeyDown={e => {
 							this.keypress(e);
@@ -253,6 +350,12 @@ class Display extends Component {
 												index={i}
 												content={word}
 												attributes={attributes}
+												popIndex={index => {
+													pointer.word = index;
+													this.setState({
+														pointer: pointer
+													});
+												}}
 											></Word>
 										);
 									})}
