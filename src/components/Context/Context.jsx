@@ -6,11 +6,11 @@ class Context extends Component {
 	render() {
 		return (
 			<div
-				className='context'
+				className={`context ${this.props.type}`}
 				onClick={() => {
 					this.props.popModifier({
 						index: this.props.index,
-						modifier: this.props.option
+						option: this.props.option
 					});
 				}}
 			>

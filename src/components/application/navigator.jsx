@@ -46,7 +46,14 @@ class Navigator extends Component {
 				className='screen'
 				content={
 					<React.Fragment>
-						<ContextWrapper></ContextWrapper>
+						<ContextWrapper
+							config={[
+								{ option: 'Settings', type: 'label' },
+								{ option: 'Color', type: 'select' },
+								{ option: 'Size', type: 'select' },
+								{ option: 'Lock', type: 'select' }
+							]}
+						/>
 
 						{this.state.lists.map(list => {
 							return list;

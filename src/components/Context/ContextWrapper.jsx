@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import ContextMenu from './ContextMenu';
 
-import './style/ContextWrapper.css';
-
 class ContextWrapper extends Component {
 	state = {
 		context: {
@@ -14,27 +12,46 @@ class ContextWrapper extends Component {
 			},
 			modifier: {
 				index: null,
-				modifier: null
+				option: null
 			},
 			config: {}
 		}
 	};
 
+	constructor(props) {
+		super(props);
+
+		this.ref = React.createRef();
+	}
+
+	componentDidMount = () => {
+		this.ref.current.parentNode.addEventListener('contextmenu', event => {
+			let context = this.state.context;
+			context.pos = { x: event.pageX, y: event.pageY };
+			context.active = true;
+			this.setState({ context: context });
+		});
+	};
+
+	/**
+	 *
+	 */
+	popModifier = modifier => {
+		this.setState({ modifier: modifier });
+	};
+
 	render() {
 		return (
-			<div
-				className='contextWrapper'
-				onContextMenu={event => {
-					let context = this.state.context;
-					context.pos = { x: event.pageX, y: event.pageY };
-					context.active = true;
-					this.setState({ context: context });
-				}}
-			>
+			<div id='contextWrapper' ref={this.ref}>
 				{this.state.context.active ? (
 					<ContextMenu
 						context={this.state.context}
-						collapse={this.collapse}
+						collapse={() => {
+							let context = this.state.context;
+							context.active = false;
+							this.setState({ context: context });
+						}}
+						config={this.props.config}
 						popModifier={this.popModifier}
 					></ContextMenu>
 				) : (

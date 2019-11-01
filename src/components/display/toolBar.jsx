@@ -12,7 +12,13 @@ class Toolbar extends Component {
 	render() {
 		return (
 			<div id='toolbar'>
-				<ContextWrapper></ContextWrapper>
+				<ContextWrapper
+					config={[
+						{ option: 'Settings', type: 'label' },
+						{ option: 'Color', type: 'select' },
+						{ option: 'Size', type: 'select' }
+					]}
+				/>
 
 				<div id='modes'>
 					<div id='create' className='mode'>

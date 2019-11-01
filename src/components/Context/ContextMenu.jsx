@@ -5,6 +5,12 @@ import Context from './Context';
 import './style/ContextMenu.css';
 
 class ContextMenu extends Component {
+	constructor(props) {
+		super(props);
+
+		this.ref = React.createRef();
+	}
+
 	componentDidMount = () => {
 		this.ref.current.focus();
 	};
@@ -21,16 +27,17 @@ class ContextMenu extends Component {
 			<div
 				id='contextMenu'
 				tabIndex={0}
+				ref={this.ref}
 				style={{
 					top: this.props.context.pos.y,
 					left: this.props.context.pos.x
 				}}
 				onBlur={this.props.collapse}
 			>
-				{this.props.contextList.map(context => {
+				{this.props.config.map(context => {
 					return (
 						<Context
-							isLabel={context.isLabel}
+							type={context.type}
 							option={context.option}
 							onClick={this.popModifier}
 						></Context>

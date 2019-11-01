@@ -6,6 +6,7 @@ import Display from 'components/Display/Display.jsx';
 import test_entries from 'test_entries.json';
 
 import './style/Application.css';
+import ContextWrapper from '../Context/ContextWrapper';
 
 class Application extends Component {
 	_isMounted = false;
@@ -49,6 +50,8 @@ class Application extends Component {
 
 		return (
 			<div id='app'>
+				{/* <Notifications/> */}
+
 				{/* */}
 				<Navigator data={this.state.data} />
 

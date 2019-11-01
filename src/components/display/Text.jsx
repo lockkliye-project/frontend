@@ -272,7 +272,20 @@ class Text extends Element {
 
 		return (
 			<div id='textContainer' className='screen'>
-				<ContextWrapper></ContextWrapper>
+				<ContextWrapper
+					config={[
+						{ option: 'Font-Styles', type: 'label' },
+						{ option: 'Bold', type: 'select' },
+						{ option: 'Italic', type: 'select' },
+						{ option: 'Underline', type: 'select' },
+						{ option: 'Font-Sizes', type: 'label' },
+						{ option: 'Preset: Tiny', type: 'select' },
+						{ option: 'Preset: Small', type: 'select' },
+						{ option: 'Preset: Neutral', type: 'select' },
+						{ option: 'Preset: Big', type: 'select' },
+						{ option: 'Preset: Huge', type: 'select' }
+					]}
+				/>
 
 				<div id='lines'>
 					{text.map((line, i) => {
@@ -282,7 +295,6 @@ class Text extends Element {
 
 				<div
 					id='text'
-					className=''
 					ref={this.ref}
 					contentEditable
 					onClick={() => {

@@ -8,13 +8,23 @@
 	display: block;
 	padding: 2%;
 
-	color: #353535;
-	background-color: #eee;
+	transition: @trans250;
 
 	animation-name: expand;
 	animation-duration: 250ms;
 	animation-fill-mode: forwards;
 	animation-timing-function: cubic-bezier();
+}
+
+.context.label {
+	font-weight: bold;
+	color: #eee;
+	background-color: #353535;
+}
+
+.context.select {
+	color: #353535;
+	background-color: #eee;
 }
 
 .context:first-child {
@@ -27,8 +37,14 @@
 	border-bottom-right-radius: 0.25em;
 }
 
-.context:hover {
+.context.label {
+	cursor: default;
+}
+
+.context.select:hover {
 	cursor: pointer;
+
+	padding-left: 5%;
 
 	background-color: #fff;
 }
