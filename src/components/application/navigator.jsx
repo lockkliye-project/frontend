@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 import List from './List';
-import Resizable from '../_common/Resizable';
+import Resizable from 'components/_common/Resizable';
+import ContextWrapper from 'components/Context/ContextWrapper';
 
 import './style/Navigator.css';
 
@@ -20,6 +21,9 @@ class Navigator extends Component {
 		});
 	};
 
+	/**
+	 *
+	 */
 	createSubList = data => {
 		let lists = this.state.lists;
 		lists.push(
@@ -42,6 +46,8 @@ class Navigator extends Component {
 				className='screen'
 				content={
 					<React.Fragment>
+						<ContextWrapper></ContextWrapper>
+
 						{this.state.lists.map(list => {
 							return list;
 						})}

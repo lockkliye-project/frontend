@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Toolbar from './Toolbar';
 import Word from './Word';
 import Element from 'components/_common/Element';
+import ContextWrapper from 'components/Context/ContextWrapper';
 
 import { KEYS } from 'util/keys.js';
 
@@ -272,6 +272,8 @@ class Text extends Element {
 
 		return (
 			<div id='textContainer' className='screen'>
+				<ContextWrapper></ContextWrapper>
+
 				<div id='lines'>
 					{text.map((line, i) => {
 						return <p key={i}>{i}</p>;

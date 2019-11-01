@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import ContextWrapper from 'components/Context/ContextWrapper';
+
 import './style/Toolbar.css';
 
 class Toolbar extends Component {
@@ -10,6 +12,8 @@ class Toolbar extends Component {
 	render() {
 		return (
 			<div id='toolbar'>
+				<ContextWrapper></ContextWrapper>
+
 				<div id='modes'>
 					<div id='create' className='mode'>
 						Create

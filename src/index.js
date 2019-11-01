@@ -15,6 +15,10 @@ if (DEBUG) {
 	console.error = () => {};
 }
 
+document.addEventListener('contextmenu', event => {
+	event.preventDefault();
+});
+
 ReactDOM.render(
 	<React.Fragment>
 		<Notifications />
