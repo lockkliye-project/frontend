@@ -1,0 +1,50 @@
+#textContainer {
+	overflow-y: auto;
+
+	position: absolute;
+
+	display: flex;
+	flex-direction: row;
+	padding-right: 2%;
+	height: 100%;
+	width: 100%;
+
+	#lines,
+	#text {
+		position: relative;
+
+		padding: 1.5rem;
+	}
+
+	#lines {
+		width: fit-content;
+
+		border-right: 0.1rem solid #111;
+
+		p {
+			color: #555;
+		}
+	}
+
+	#text {
+		overflow-x: hidden;
+		overflow-y: auto;
+
+		height: 100%;
+		width: 100%;
+
+		border-right: 0.05rem solid #333;
+		white-space: pre-wrap;
+		word-wrap: break-word;
+
+		.line:hover {
+			cursor: text;
+
+			background-color: #272727;
+		}
+	}
+
+	#text:hover {
+		cursor: text;
+	}
+}

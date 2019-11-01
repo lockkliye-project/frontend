@@ -1,0 +1,20 @@
+version: '3.5'
+
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/app'
+    ports:
+      - 443:443
+    networks:
+      - scrumbag
+
+networks:
+  scrumbag:
+    name: scrumbag
+    driver: bridge
+    external: true

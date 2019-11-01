@@ -1,0 +1,35 @@
+.word {
+	pointer-events: all;
+
+	display: inline-block;
+
+	padding: 0;
+	margin: 0;
+	width: fit-content;
+}
+
+.word.bold {
+	font-weight: bold;
+}
+
+.word.italic {
+	font-style: italic;
+}
+
+.word.underline {
+	text-decoration: underline;
+}
+
+.word:hover {
+	cursor: pointer;
+
+	color: #ff8800;
+	background-color: #555;
+}
+
+.word.whitespace:hover {
+	cursor: text;
+
+	color: #fff;
+	background-color: transparent;
+}
