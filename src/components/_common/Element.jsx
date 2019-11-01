@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-import { error, log, success } from 'util/logging.js';
+import { error, info, log, success } from 'util/logging.js';
 
 /**
  *

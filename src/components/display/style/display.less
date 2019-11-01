@@ -3,64 +3,13 @@
 #display {
 	overflow-y: hidden;
 
+	display: flex;
+	flex-direction: column;
 	height: 100%;
-	width: 100% !important;
+	width: 100%;
 
 	background: url('../../../res/img/pattern_b3.png');
-	background-size: 5%;
+	background-size: 3rem !important;
 
 	z-index: @zNeutral;
-
-	main {
-		overflow-y: auto;
-
-		position: absolute;
-
-		display: flex;
-		flex-direction: row;
-		padding-top: 50px;
-		height: 100%;
-		width: 100%;
-
-		z-index: inherit;
-
-		#lines,
-		#text {
-			position: relative;
-
-			padding: 1.5rem;
-		}
-
-		#lines {
-			width: fit-content;
-
-			border-right: 0.1rem solid #111;
-
-			p {
-				color: #555;
-			}
-		}
-
-		#text {
-			overflow-x: hidden;
-			overflow-y: auto;
-
-			height: 100%;
-			width: 100%;
-
-			word-wrap: break-word;
-
-			z-index: inherit;
-
-			.line:hover {
-				cursor: text;
-
-				background-color: #272727;
-			}
-		}
-
-		#text:hover {
-			cursor: text;
-		}
-	}
 }

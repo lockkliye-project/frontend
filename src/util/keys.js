@@ -1,4 +1,8 @@
 /**
+ * (C)reated by Burak Günaydin (2019)
+ */
+
+/**
  *
  */
 class Key {
@@ -48,7 +52,7 @@ class Keys {
 /**
  *
  */
-const KEYS = {
+export const KEYS = {
 	/* */
 	WHITELIST: [
 		new Key('Numbers', NaN, '1234567890'),
@@ -69,7 +73,7 @@ const KEYS = {
 	/* */
 	SPECIAL: new Keys(
 		new Key('Backspace', 8, '\b'),
-		new Key('Tab', 9, '    '),
+		new Key('Tab', 9, '	'),
 		new Key('Enter', 13, '\n'),
 		new Key('Shift', 16, ''),
 		new Key('Control', 17, ''),

@@ -24,7 +24,20 @@ export const object = {
 	/**
 	 *
 	 */
-	fromXML: file => {}
+	fromXML: file => {},
+
+	/**
+	 *
+	 */
+	copy: object => {
+		let output, v, key;
+		output = Array.isArray(object) ? [] : {};
+		for (key in object) {
+			v = object[key];
+			output[key] = typeof v === 'object' ? this.copy(v) : v;
+		}
+		return output;
+	}
 };
 
 /**

@@ -15,8 +15,6 @@ if (DEBUG) {
 	console.error = () => {};
 }
 
-// document.addEventListener('keypress', event => {});
-
 ReactDOM.render(
 	<React.Fragment>
 		<Notifications />

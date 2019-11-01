@@ -45,9 +45,12 @@ class Word extends Component {
 	render() {
 		return (
 			<p
-				className='word'
+				className={`word ${this.props.whitespace ? 'whitespace' : ''}`}
 				onClick={() => {
 					this.props.popIndex(this.props.index);
+				}}
+				onContextMenu={() => {
+					this.props.popContextIndex(this.props.index);
 				}}
 			>
 				{this.props.content}
