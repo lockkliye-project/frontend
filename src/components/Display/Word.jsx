@@ -16,9 +16,7 @@ class Word extends Component {
 		link: null
 	};
 
-	componentDidMount = () => {
-		let attributes = this.props.attributes;
-	};
+	componentDidMount = () => {};
 
 	/**
 	 *
@@ -40,14 +38,21 @@ class Word extends Component {
 	/**
 	 *
 	 */
-	popIndex = index => {
-		this.props.popIndex(index);
+	popIndex = () => {
+		this.props.popIndex(this.props.index);
 	};
 
 	render() {
+		let flag = '';
+		this.props.flag.split('_').forEach(string => {
+			flag += `flag_${string} `;
+		});
+		console.log(flag);
 		return (
 			<p
-				className={`word ${this.props.whitespace ? 'whitespace' : ''}`}
+				className={`word ${flag} ${
+					this.props.whitespace ? 'whitespace' : ''
+				}`}
 				onClick={this.popIndex}
 				onContextMenu={this.popIndex}
 			>

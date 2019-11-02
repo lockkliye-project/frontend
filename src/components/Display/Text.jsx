@@ -246,7 +246,18 @@ class Text extends Element {
 	 *
 	 */
 	popModifier = modifier => {
-		console.log(modifier);
+		const flag = `${modifier.flag}_`;
+		const pointer = this.state.pointer;
+
+		let attributes = this.state.attributes;
+		let attribute = attributes[pointer.line][pointer.word];
+		if (attribute.includes(flag)) {
+			attribute = attribute.replace(flag, '');
+		} else {
+			attribute += flag;
+		}
+		attributes[pointer.line][pointer.word] = attribute;
+		this.setState({ attributes: attributes });
 	};
 
 	render() {
@@ -264,17 +275,17 @@ class Text extends Element {
 				<ContextWrapper
 					config={[
 						ContextList('Font-Styles', [
-							Context('button', 'Bold', 'b'),
-							Context('button', 'Italic', 'i'),
-							Context('button', 'Underline', 'u')
+							Context('button', 'Bold', 'bold'),
+							Context('button', 'Italic', 'italic'),
+							Context('button', 'Underline', 'underline')
 						]),
 
 						ContextList('Font-Sizes', [
-							Context('button', 'Preset: Tiny', 'sTiny'),
-							Context('button', 'Preset: Small', 'sSmall'),
-							Context('button', 'Preset: Neutral', 'sNeutral'),
-							Context('button', 'Preset: Big', 'sBig'),
-							Context('button', 'Preset: Huge', 'sHuge')
+							Context('button', 'Preset: Tiny', 'tiny'),
+							Context('button', 'Preset: Small', 'small'),
+							Context('button', 'Preset: Neutral', 'neutral'),
+							Context('button', 'Preset: Big', 'big'),
+							Context('button', 'Preset: Huge', 'huge')
 						])
 					]}
 					popModifier={this.popModifier}
@@ -282,7 +293,7 @@ class Text extends Element {
 
 				<div id='lines'>
 					{text.map((line, i) => {
-						return <p key={i}>{i}</p>;
+						return <p key={i}>{i + 1}</p>;
 					})}
 				</div>
 
@@ -302,19 +313,20 @@ class Text extends Element {
 						this.keypress(e);
 					}}
 				>
-					{this.state.text.map((line, i) => {
+					{this.state.text.map((line, lineIndex) => {
 						return (
-							<div key={i} className='line'>
-								{line.map((word, i) => {
+							<div key={lineIndex} className='line'>
+								{line.map((word, index) => {
 									return (
 										<Word
-											key={i}
-											index={i}
+											key={lineIndex * index}
+											lineIndex={lineIndex}
+											index={index}
 											whitespace={whitespaces.includes(
 												word
 											)}
 											content={word}
-											attributes={attributes}
+											flag={attributes[lineIndex][index]}
 											popIndex={index => {
 												let pointer = this.state
 													.pointer;
