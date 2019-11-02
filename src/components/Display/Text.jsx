@@ -34,22 +34,6 @@ class Text extends Element {
 	/**
 	 *
 	 */
-	popIndex = index => {
-		let pointer = this.state.pointer;
-		pointer.word = index;
-		this.setState({ pointer: pointer });
-	};
-
-	/**
-	 *
-	 */
-	popContextIndex = index => {
-		this.props.popContextIndex(index);
-	};
-
-	/**
-	 *
-	 */
 	setCaretIndex = (line, word, letter) => {
 		try {
 			let element = this.ref.current.childNodes[line].childNodes[word];
@@ -258,6 +242,13 @@ class Text extends Element {
 		});
 	};
 
+	/**
+	 *
+	 */
+	popModifier = modifier => {
+		console.log(modifier);
+	};
+
 	render() {
 		const { attributes, pointer, text } = this.state;
 		const whitespaces = [
@@ -265,26 +256,28 @@ class Text extends Element {
 			KEYS.SPECIAL.getKey('Tab').symbol
 		];
 
-		console.log(attributes);
-		console.log(pointer);
-		console.log(text);
-		console.log(this.ref.current);
+		const ContextList = ContextWrapper.ContextList;
+		const Context = ContextWrapper.Context;
 
 		return (
 			<div id='textContainer' className='screen'>
 				<ContextWrapper
 					config={[
-						{ option: 'Font-Styles', type: 'label' },
-						{ option: 'Bold', type: 'select' },
-						{ option: 'Italic', type: 'select' },
-						{ option: 'Underline', type: 'select' },
-						{ option: 'Font-Sizes', type: 'label' },
-						{ option: 'Preset: Tiny', type: 'select' },
-						{ option: 'Preset: Small', type: 'select' },
-						{ option: 'Preset: Neutral', type: 'select' },
-						{ option: 'Preset: Big', type: 'select' },
-						{ option: 'Preset: Huge', type: 'select' }
+						ContextList('Font-Styles', [
+							Context('button', 'Bold', 'b'),
+							Context('button', 'Italic', 'i'),
+							Context('button', 'Underline', 'u')
+						]),
+
+						ContextList('Font-Sizes', [
+							Context('button', 'Preset: Tiny', 'sTiny'),
+							Context('button', 'Preset: Small', 'sSmall'),
+							Context('button', 'Preset: Neutral', 'sNeutral'),
+							Context('button', 'Preset: Big', 'sBig'),
+							Context('button', 'Preset: Huge', 'sHuge')
+						])
 					]}
+					popModifier={this.popModifier}
 				/>
 
 				<div id='lines'>
@@ -322,10 +315,14 @@ class Text extends Element {
 											)}
 											content={word}
 											attributes={attributes}
-											popIndex={this.popIndex}
-											popContextIndex={
-												this.popContextIndex
-											}
+											popIndex={index => {
+												let pointer = this.state
+													.pointer;
+												pointer.word = index;
+												this.setState({
+													pointer: pointer
+												});
+											}}
 										></Word>
 									);
 								})}

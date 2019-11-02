@@ -15,13 +15,6 @@ class ContextMenu extends Component {
 		this.ref.current.focus();
 	};
 
-	/**
-	 *
-	 */
-	popModifier = modifier => {
-		this.props.popModifier(modifier);
-	};
-
 	render() {
 		return (
 			<div
@@ -34,14 +27,19 @@ class ContextMenu extends Component {
 				}}
 				onBlur={this.props.collapse}
 			>
-				{this.props.config.map(context => {
-					return (
-						<Context
-							type={context.type}
-							option={context.option}
-							onClick={this.popModifier}
-						></Context>
-					);
+				{this.props.config.map((contextList, listIndex) => {
+					return contextList.map((context, index) => {
+						return (
+							<Context
+								listIndex={listIndex}
+								index={index}
+								type={context.type}
+								option={context.option}
+								flag={context.flag}
+								popModifier={this.props.popModifier}
+							></Context>
+						);
+					});
 				})}
 			</div>
 		);

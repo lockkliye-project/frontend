@@ -40,18 +40,16 @@ class Word extends Component {
 	/**
 	 *
 	 */
-	pop = () => {};
+	popIndex = index => {
+		this.props.popIndex(index);
+	};
 
 	render() {
 		return (
 			<p
 				className={`word ${this.props.whitespace ? 'whitespace' : ''}`}
-				onClick={() => {
-					this.props.popIndex(this.props.index);
-				}}
-				onContextMenu={() => {
-					this.props.popContextIndex(this.props.index);
-				}}
+				onClick={this.popIndex}
+				onContextMenu={this.popIndex}
 			>
 				{this.props.content}
 			</p>

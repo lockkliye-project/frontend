@@ -36,8 +36,20 @@ class ContextWrapper extends Component {
 	/**
 	 *
 	 */
-	popModifier = modifier => {
-		this.setState({ modifier: modifier });
+	static Context = (type, option, flag = '') => {
+		return {
+			type: type,
+			option: option,
+			flag: flag
+		};
+	};
+
+	/**
+	 *
+	 */
+	static ContextList = (label, list) => {
+		list.unshift(this.Context('label', label));
+		return list;
 	};
 
 	render() {
@@ -52,7 +64,7 @@ class ContextWrapper extends Component {
 							this.setState({ context: context });
 						}}
 						config={this.props.config}
-						popModifier={this.popModifier}
+						popModifier={this.props.popModifier}
 					></ContextMenu>
 				) : (
 					''

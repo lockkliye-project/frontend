@@ -50,6 +50,8 @@ class Application extends Component {
 
 		return (
 			<div id='app'>
+				<div id='lockScreen'></div>
+
 				{/* <Notifications/> */}
 
 				{/* */}
