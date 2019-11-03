@@ -43,16 +43,17 @@ class Word extends Component {
 	};
 
 	render() {
+		const whitespace = this.props.whitespace;
+
 		let flag = '';
-		this.props.flag.split('_').forEach(string => {
-			flag += `flag_${string} `;
-		});
-		console.log(flag);
+		if (!whitespace) {
+			this.props.flag.split('_').forEach(string => {
+				flag += `flag_${string} `;
+			});
+		}
 		return (
 			<p
-				className={`word ${flag} ${
-					this.props.whitespace ? 'whitespace' : ''
-				}`}
+				className={`word ${flag} ${whitespace ? 'whitespace' : ''}`}
 				onClick={this.popIndex}
 				onContextMenu={this.popIndex}
 			>

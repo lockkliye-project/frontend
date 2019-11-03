@@ -37,8 +37,16 @@ class Navigator extends Component {
 		this.setState({ lists: lists });
 	};
 
+	/**
+	 *
+	 */
+	popModifier = modifier => {};
+
 	render() {
 		if (!this.state._promiseResolved) return null;
+
+		const ContextList = ContextWrapper.ContextList;
+		const Context = ContextWrapper.Context;
 
 		return (
 			<Resizable
@@ -47,12 +55,12 @@ class Navigator extends Component {
 				content={
 					<React.Fragment>
 						<ContextWrapper
-							config={[
-								{ option: 'Settings', type: 'label' },
-								{ option: 'Color', type: 'select' },
-								{ option: 'Size', type: 'select' },
-								{ option: 'Lock', type: 'select' }
-							]}
+							config={ContextList('Settings', [
+								Context('button', 'Color', 'color'),
+								Context('button', 'Size', 'size'),
+								Context('button', 'Lock', 'lock')
+							])}
+							popModifier={this.popModifier}
 						/>
 
 						{this.state.lists.map(list => {

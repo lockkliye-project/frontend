@@ -9,15 +9,25 @@ class Toolbar extends Component {
 		mode: 0
 	};
 
+	/**
+	 *
+	 */
+	popModifier = modifier => {};
+
 	render() {
+		const ContextList = ContextWrapper.ContextList;
+		const Context = ContextWrapper.Context;
+
 		return (
 			<div id='toolbar'>
 				<ContextWrapper
 					config={[
-						{ option: 'Settings', type: 'label' },
-						{ option: 'Color', type: 'select' },
-						{ option: 'Size', type: 'select' }
+						ContextList('Settings', [
+							Context('button', 'Color', 'color'),
+							Context('button', 'Size', 'size')
+						])
 					]}
+					popModifier={this.popModifier}
 				/>
 
 				<div id='modes'>

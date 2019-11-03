@@ -1,4 +1,6 @@
 /**
+ * (C)reated by Burak Günaydin @ Fraunhofer IPK (2019)
+ *
  * SVG-component from 'react-inlinesvg' created by @matthewwithanm at https://github.com/matthewwithanm
  * transfered to and maintained by @gilbarbara at https://github.com/gilbarbara
  */
@@ -8,13 +10,15 @@ import SVG from 'react-inlinesvg';
 import './style/SVGWrapper.css';
 
 function SVGWrapper(props) {
+	const src = props.src;
+
 	return (
 		<picture
 			id={props.id}
 			className={`icon ${props.className}`}
 			onClick={props.onClick}
 		>
-			<SVG src={`${props.src}/${props.icon}.svg`} onLoad={props.onload} />
+			<SVG src={`${src}/${props.icon}.svg`} onLoad={props.onload} />
 		</picture>
 	);
 }

@@ -35,6 +35,9 @@ class Text extends Element {
 	 *
 	 */
 	setCaretIndex = (line, word, letter) => {
+		if (word < 0) {
+			word = 0;
+		}
 		try {
 			let element = this.ref.current.childNodes[line].childNodes[word];
 			let range = document.createRange();
@@ -45,10 +48,32 @@ class Text extends Element {
 			selection.removeAllRanges();
 			selection.addRange(range);
 			element.focus();
+
 			this.setState({
 				pointer: { line: line, word: word, letter: letter }
 			});
 		} catch (e) {
+			const selection =
+				window.getSelection() !== undefined
+					? window.getSelection()
+					: null;
+			if (selection !== null) {
+				const data =
+					selection.focusNode.data !== undefined
+						? selection.focusNode.data
+						: null;
+				if (data !== null) {
+					if (letter > data.length) {
+						this.setState({
+							pointer: { line: line, word: word + 1, letter: 0 }
+						});
+					} else if (letter < 0) {
+						this.setState({
+							pointer: { line: line, word: word - 1, letter: 0 }
+						});
+					}
+				}
+			}
 			return e;
 		}
 	};
@@ -91,23 +116,7 @@ class Text extends Element {
 				);
 				text[pointer.line].push(KEYS.SPECIAL.getKey('Space').symbol);
 				this.setState({ text: text });
-
-				/*
-				let word = text[pointer.line][pointer.word];
-				word =
-					word.substring(0, pointer.letter) +
-					' ' +
-					word.substring(pointer.letter, word.length);
-				text[pointer.line][pointer.word] = word;
-
-				this.setState({ text: text }, () => {
-					this.setCaretIndex(
-						pointer.line,
-						pointer.word,
-						pointer.letter + 1
-					);
-				});
-				*/
+				this.setCaretIndex(pointer.line, pointer.word + 1, 0);
 				break;
 
 			case KEYS.SPECIAL.getKey('Tab').code:
@@ -129,68 +138,20 @@ class Text extends Element {
 				break;
 
 			/* */
-			case KEYS.NAVIGATION.getKey('Up').code:
-				try {
-					this.setCaretIndex(
-						pointer.line - 1,
-						pointer.word,
-						pointer.letter
-					);
-				} catch (e) {
-					this.setCaretIndex(
-						pointer.line + 1,
-						pointer.word,
-						pointer.letter
-					);
-				}
-				break;
-
 			case KEYS.NAVIGATION.getKey('Right').code:
-				try {
-					this.setCaretIndex(
-						pointer.line,
-						pointer.word,
-						pointer.letter + 1
-					);
-				} catch (e) {
-					this.setCaretIndex(
-						pointer.line,
-						pointer.word,
-						pointer.letter - 1
-					);
-				}
-				break;
-
-			case KEYS.NAVIGATION.getKey('Down').code:
-				try {
-					this.setCaretIndex(
-						pointer.line + 1,
-						pointer.word,
-						pointer.letter
-					);
-				} catch (e) {
-					this.setCaretIndex(
-						pointer.line - 1,
-						pointer.word,
-						pointer.letter
-					);
-				}
+				this.setCaretIndex(
+					pointer.line,
+					pointer.word,
+					pointer.letter + 1
+				);
 				break;
 
 			case KEYS.NAVIGATION.getKey('Left').code:
-				try {
-					this.setCaretIndex(
-						pointer.line,
-						pointer.word,
-						pointer.letter - 1
-					);
-				} catch (e) {
-					this.setCaretIndex(
-						pointer.line,
-						pointer.word,
-						pointer.letter + 1
-					);
-				}
+				this.setCaretIndex(
+					pointer.line,
+					pointer.word,
+					pointer.letter - 1
+				);
 				break;
 
 			/* */
@@ -267,6 +228,11 @@ class Text extends Element {
 			KEYS.SPECIAL.getKey('Tab').symbol
 		];
 
+		console.log(attributes);
+		console.log(pointer);
+		console.log(text);
+		console.log(this.ref.current);
+
 		const ContextList = ContextWrapper.ContextList;
 		const Context = ContextWrapper.Context;
 
@@ -276,7 +242,7 @@ class Text extends Element {
 					config={[
 						ContextList('Font-Styles', [
 							Context('button', 'Bold', 'bold'),
-							Context('button', 'Italic', 'italic'),
+							Context('button', 'Italic', 'itali c'),
 							Context('button', 'Underline', 'underline')
 						]),
 
