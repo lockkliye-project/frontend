@@ -1,10 +1,17 @@
 /**
- * (C)reated by Burak Günaydin (2019)
+ * (C)reated by Burak Günaydin @ Fraunhofer IPK (2019)
+ *
+ * Helper functions written as class methods for easy, global access.
+ * Can be used for various color-coding-operations.
  */
 
 const RGB_MIN = 0; // Minimum value for single 8-bit RGB colors
 const RGB_MAX = 255; // Maximum value for single 8-bit RGB colors
 
+/**
+ * Color-coding operations for RGB-colors.
+ * The RGB-colors are passed as an [R, G, B]-array.
+ */
 export const rgb = {
 	/**
 	 * Converts RGB [0-255] to HEX [00-FF].
@@ -47,6 +54,11 @@ export const rgb = {
 	}
 };
 
+/**
+ * Color-coding operations for HEX-colors.
+ * Right now, only double digit HEX-numbers are supported and they are passed as a string,
+ * without a '#'.
+ */
 export const hex = {
 	/**
 	 * @param {*} color

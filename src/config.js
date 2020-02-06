@@ -1,48 +1,62 @@
-/* Relative public ressource-paths. */
-const src = {
+/**
+ * (C)reated by Burak Günaydin @ Fraunhofer IPK (2019)
+ *
+ * Main custom configuration file, easier to maintain and understand than plain .json files.
+ */
+
+/* */
+const environment = process.env.NODE_ENV;
+
+/* Relative src-paths. */
+const SRC = {
 	img: '/img',
 	icon: '/icon',
-	nav: '/icon/nav'
+	nav: '/icon/nav',
+	sidebar: '/icon/sidebar',
+	modules: '/icon/modules'
 };
 
 /* */
-const breakpoints = {
+const BREAKPOINTS = {
 	mobile: 500,
 	tablet: 750
 };
 
 /* Debug flag, enables certain features for development
+ *
+ * !!! DON'T USE IN PRODUCTION !!!
  */
-export const DEBUG = true;
+export const DEBUG = environment === 'development';
 
-/* The barebone navigation of the web-application. */
-export const nav = [];
-
-/* */
-export const color_codes = {};
-
-/* The API-Url object, determing which ressources to make requests to */
-export const api = {
-	sub: '', // Subdomain'
+/*
+ *
+ */
+export const API = {
+	sub: '', // Subdomain, like 'api.', 'services.'
 	protocol: DEBUG ? 'http://' : window.location.protocol + '//',
 	url: DEBUG ? 'localhost' : window.location.host,
-	tld: '', // Top-level-domain
-	port: DEBUG ? '1000' : '443',
-	root: '',
+	tld: '', // Top-level-domain, e.g. '.de', '.com', '.org', '.net'
+	port: DEBUG ? 8080 : 443,
+	root: 'api',
 
-	uri: {
-		login: 'login',
-		signup: 'signup'
-	}
+	uri: ['register', 'login', 'workspace', 'settings']
 };
+
+/* The barebone navigation of the web-application.
+ * Additional navigation-stubs may be served by the server.
+ */
+export const NAVIGATION = {};
+
+/* */
+export const COLOR_CODES = {};
 
 /**
  *
  *
  * @param {String} key
  */
-export function getPath(key) {
-	return src[key];
+export function path(key) {
+	return SRC[key];
 }
 
 /**
@@ -50,9 +64,9 @@ export function getPath(key) {
  *
  * @param {String} breakpoint
  */
-export function breakpointHit(breakpoint) {
+export function hitBreakpoint(breakpoint) {
 	return (
-		window.innerWidth <= breakpoints[breakpoint] ||
-		window.innerHeight <= breakpoints[breakpoint]
+		window.innerWidth <= BREAKPOINTS[breakpoint] ||
+		window.innerHeight <= BREAKPOINTS[breakpoint]
 	);
 }

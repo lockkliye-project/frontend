@@ -1,8 +1,20 @@
 /**
- * (C)reated by Burak Günaydin (2019)
+ * (C)reated by Burak Günaydin @ Fraunhofer IPK (2019)
+ *
+ * Helper functions written as class methods for easy, global access.
+ * Can be used for various array-specific-operations.
  */
+const Array = {
+	/**
+	 *
+	 *
+	 * @param {Array} array
+	 * @param {Boolean} comparator
+	 */
+	sort: (array, comparator) => {
+		Array.sort(array, comparator);
+	},
 
-const array = {
 	/**
 	 * Converts the elements of an array to a consecutive concatenated string.
 	 *
@@ -11,10 +23,18 @@ const array = {
 	 * @param {Number} from, The index where to begin with the stringification.
 	 * @param {Number} to, The index where to end with the stringification.
 	 * @param {Boolean} first, Apply the seperator at the beginning of the strings.
+	 * @param {Boolean} false, Apply the seperator at the end of the string.
 	 *
-	 * @return {String} - The concatenated string consisting of all array-elements.
+	 * @return {String} The concatenated string consisting of all array-elements.
 	 */
-	toString: (array, seperator = '', from = 0, to = null, first = false) => {
+	toString: (
+		array,
+		seperator = '',
+		from = 0,
+		to = null,
+		first = false,
+		last = false
+	) => {
 		const end = to === null ? array.length : to;
 		let string = first ? seperator : ''; // Prepends the seperator if first is true
 		array.forEach((element, i) => {
@@ -26,6 +46,8 @@ const array = {
 	},
 
 	/**
+	 *
+	 *
 	 * @param {Array} array, The array that is supposed to be converted.
 	 * @param {*} seperator, A string seperator to seperate the elements.
 	 */
@@ -40,12 +62,16 @@ const array = {
 	 * @param {Object} object The object that is supposed to be converted.
 	 */
 	fromObject: object => {
-		return Object.keys(object).map(key => {
-			return key;
+		let array = [];
+		Object.keys(object).forEach(key => {
+			array.push(key);
 		});
+		return array;
 	},
 
 	/**
+	 *
+	 *
 	 * @param {Array} array,
 	 */
 	toObject: array => {
@@ -57,16 +83,20 @@ const array = {
 	},
 
 	/**
+	 *
+	 *
 	 * @param {Number} n,
 	 * @param {Number} min,
 	 * @param {Number} max,
 	 * @param {Number} float,
 	 */
 	random: (n = 100, min = 0, max = 100, float = false) => {
-		return new Array(n).fill(0).map(i => {
+		let arr = [];
+		for (let i = 0; i < n; i++) {
 			let rand = Math.random() * max + min;
-			return float ? rand : Math.floor(rand);
-		});
+			arr[i] = float ? rand : Math.floor(rand);
+		}
+		return arr;
 	}
 };
 

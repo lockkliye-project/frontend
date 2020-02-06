@@ -228,13 +228,13 @@ class Text extends Element {
 			KEYS.SPECIAL.getKey('Tab').symbol
 		];
 
+		const ContextList = ContextWrapper.ContextList;
+		const Context = ContextWrapper.Context;
+
 		console.log(attributes);
 		console.log(pointer);
 		console.log(text);
 		console.log(this.ref.current);
-
-		const ContextList = ContextWrapper.ContextList;
-		const Context = ContextWrapper.Context;
 
 		return (
 			<div id='textContainer' className='screen'>
@@ -242,7 +242,7 @@ class Text extends Element {
 					config={[
 						ContextList('Font-Styles', [
 							Context('button', 'Bold', 'bold'),
-							Context('button', 'Italic', 'itali c'),
+							Context('button', 'Italic', 'italic'),
 							Context('button', 'Underline', 'underline')
 						]),
 
@@ -314,3 +314,83 @@ class Text extends Element {
 }
 
 export default Text;
+
+/*
+keypress = event => {
+	event.preventDefault();
+
+	const key = event.key;
+	const keycode = event.keyCode;
+
+	let pointer = this.state.pointer;
+
+	// TODO: Temporary
+	if (keycode === NAVIGATION.RIGHT) {
+		pointer.column++;
+		try {
+			this.setCaretIndex(0, pointer.column);
+		} catch (e) {
+			pointer.column--;
+		}
+		this.setState({ pointer: pointer });
+		return;
+	} else if (keycode === NAVIGATION.LEFT) {
+		pointer.column--;
+		try {
+			this.setCaretIndex(0, pointer.column);
+		} catch (e) {
+			pointer.column++;
+		}
+		this.setState({ pointer: pointer });
+		return;
+	}
+
+	// TODO: Temporary
+	if (keycode === 32) {
+		let text = this.state.text;
+		let word = text[0][0];
+		word =
+			word.substring(0, pointer.column) +
+			' ' +
+			word.substring(pointer.column, word.length);
+		text[0][0] = word;
+
+		this.setState({ text: text }, () => {
+			pointer.column++;
+			this.setCaretIndex(0, pointer.column);
+			this.setState({ pointer: pointer });
+		});
+		return;
+	}
+
+	const whitelisted = (() => {
+		let bool = false;
+		for (const string of WHITELIST) {
+			if (string.includes(key.toLowerCase())) {
+				bool = true;
+				break;
+			}
+		}
+		return bool;
+	})();
+	if (!whitelisted) {
+		error(key + ': ' + keycode);
+		return;
+	}
+	success(key + ': ' + keycode);
+
+	let text = this.state.text;
+	let word = text[0][0];
+	word =
+		word.substring(0, pointer.column) +
+		key +
+		word.substring(pointer.column, word.length);
+	text[0][0] = word;
+
+	this.setState({ text: text }, () => {
+		pointer.column++;
+		this.setCaretIndex(0, pointer.column);
+		this.setState({ pointer: pointer });
+	});
+};
+*/

@@ -2,18 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Notifications from './components/Notifications/Notifications';
-import Application from './components/Application/Application';
+import App from './App';
 
 import * as serviceWorker from './services/serviceWorker';
 
-import { DEBUG } from './config.js';
-
 import './style/index.css';
-
-if (DEBUG) {
-	console.warn = () => {};
-	console.error = () => {};
-}
 
 document.addEventListener('contextmenu', event => {
 	event.preventDefault();
@@ -22,7 +15,7 @@ document.addEventListener('contextmenu', event => {
 ReactDOM.render(
 	<React.Fragment>
 		<Notifications />
-		<Application />
+		<App />
 	</React.Fragment>,
 	document.getElementById('root')
 );

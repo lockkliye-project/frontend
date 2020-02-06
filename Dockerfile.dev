@@ -1,0 +1,14 @@
+# Stage 1: Building stage
+FROM node:12.9-alpine as build
+
+# Setting the working directory in the VM
+WORKDIR /lockkliye_webapp
+
+COPY package*.json /lockkliye_webapp/
+COPY yarn.lock /lockkliye_webapp/
+
+# Using yarn because its able to install packages in parallel
+RUN yarn install
+
+# Copying the source code (excluding the .dockerignore instructions) into the workdir
+COPY . ./

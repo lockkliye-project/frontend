@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+    lockkliye_webapp:
+        build:
+            context: .
+            dockerfile: Dockerfile.dev
+            network: host
+        command: yarn start
+        container_name: lockkliye_webapp
+        env_file: .env
+        environment:
+            - NODE_ENV=development
+            - GENERATE_SOURCEMAP=true
+            - HOST=0.0.0.0
+            - PORT=443
+            - HTTPS=true
+        networks:
+            - lockkliye_local
+        ports:
+            - 443:443
+        volumes:
+            - '.:/lockkliye_webapp'
+
+networks:
+    lockkliye_local:
+        driver: bridge
+        external: true
+        name: lockkliye_local
