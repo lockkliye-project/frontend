@@ -1,11 +1,9 @@
 /**
- * (C)reated by Burak Günaydin @ Fraunhofer IPK (2019)
+ * Copyright (c) https://github.com/arsonite
+ * Burak Günaydin (2019/2020)
  */
 import { DEBUG } from 'config.js';
 
-/**
- *
- */
 class Logger {
 	constructor(className) {
 		this.className = className;

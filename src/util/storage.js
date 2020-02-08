@@ -1,75 +1,79 @@
 /**
- * (C)reated by Burak Günaydin @ Fraunhofer IPK (2019)
+ * Copyright (c) https://github.com/arsonite
+ * Burak Günaydin (2019/2020)
  */
 import CryptoJS from 'crypto-js';
 
-/* */
-const config = {
-	mode: CryptoJS.mode.ECB
-};
+class Storage {
+	static CONFIG = {
+		mode: CryptoJS.mode.ECB
+	};
 
-// TODO: Temporär, stattdessen API-key vom Server beim einloggen erhalten und in cookie speichern
-const API_KEY = 'RnJhdW5ob2ZlcklQS1Zpc2lvblNlcnZpY2U=';
-const HASHED_KEY = CryptoJS.AES.encrypt(API_KEY, API_KEY, config);
+	// TODO: Temporär, stattdessen API-key vom Server beim einloggen erhalten und in cookie speichern
+	static API_KEY = 'RnJhdW5ob2ZlcklQS1Zpc2lvblNlcnZpY2U=';
+	static HASHED_KEY = CryptoJS.AES.encrypt(
+		Storage.API_KEY,
+		Storage.API_KEY,
+		Storage.CONFIG
+	);
 
-/**
- *
- * @param {*} value
- */
-function hash(value) {
-	const json = JSON.stringify(value);
-	return CryptoJS.AES.encrypt(json, HASHED_KEY, config);
-}
+	/**
+	 *
+	 * @param {*} value
+	 */
+	static hash = value => {
+		const json = JSON.stringify(value);
+		return CryptoJS.AES.encrypt(json, Storage.HASHED_KEY, Storage.CONFIG);
+	};
 
-/**
- *
- * @param {*} value
- */
-function unhash(value) {
-	const string = value.toString();
-	const bytes = CryptoJS.AES.decrypt(string, HASHED_KEY, config);
-	const json = bytes.toString(CryptoJS.enc.Utf8);
-	return JSON.parse(json);
-}
+	/**
+	 *
+	 * @param {*} value
+	 */
+	static unhash = value => {
+		const string = value.toString();
+		const bytes = CryptoJS.AES.decrypt(
+			string,
+			Storage.HASHED_KEY,
+			Storage.CONFIG
+		);
+		const json = bytes.toString(CryptoJS.enc.Utf8);
+		return JSON.parse(json);
+	};
 
-/**
- * Helper functions written as class methods for easy, global access.
- * Can be used for various local- and localStorage-specific-operations.
- */
-const Storage = {
 	/**
 	 *
 	 * @param {*} key
 	 * @param {*} value
 	 */
-	set: (key, value) => {
-		localStorage.setItem(hash(key), hash(value));
-	},
+	set = (key, value) => {
+		localStorage.setItem(Storage.hash(key), Storage.hash(value));
+	};
 
 	/**
 	 *
 	 * @param {*} key
 	 */
-	get: key => {
-		const hashedKey = hash(key);
+	get = key => {
+		const hashedKey = Storage.hash(key);
 		const json = localStorage.getItem(hashedKey);
 
 		if (json === null) return null;
 
-		return unhash(json);
-	},
+		return Storage.unhash(json);
+	};
 
 	/**
 	 *
 	 * @param {*} key
 	 */
-	clear: (key = null) => {
+	clear = (key = null) => {
 		if (key === null) {
 			localStorage.clear();
 			return;
 		}
-		localStorage.removeItem(hash(key));
-	}
-};
+		localStorage.removeItem(Storage.hash(key));
+	};
+}
 
 export default Storage;

@@ -1,5 +1,6 @@
 /**
- * (C)reated by Burak Günaydin @ Fraunhofer IPK (2019)
+ * Copyright (c) https://github.com/arsonite
+ * Burak Günaydin (2019/2020)
  *
  * Main custom configuration file, easier to maintain and understand than plain .json files.
  */

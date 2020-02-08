@@ -1,14 +1,12 @@
 /**
- * (C)reated by Burak Günaydin (2019)
+ * Copyright (c) https://github.com/arsonite
+ * Burak Günaydin (2019/2020)
  */
 
-/**
- *
- */
 class Key {
 	/**
-	 *
-	 *
+	 * @param {String} identifier
+	 * @param {Number} code
 	 * @param {String} symbol
 	 */
 	constructor(identifier, code, symbol) {
@@ -18,13 +16,8 @@ class Key {
 	}
 }
 
-/**
- *
- */
 class Keys {
 	/**
-	 *
-	 *
 	 * @param {Array} keys
 	 */
 	constructor(...keys) {
@@ -49,12 +42,8 @@ class Keys {
 	};
 }
 
-/**
- *
- */
-export const KEYS = {
-	/* */
-	WHITELIST: [
+class KEYS {
+	static WHITELIST = [
 		new Key('Numbers', NaN, '1234567890'),
 		new Key('QWERTZ', NaN, 'abcdefghijklmnopqrstuvwxyz'),
 		new Key('Umlauts', NaN, 'äöü'),
@@ -68,10 +57,9 @@ export const KEYS = {
 			'{[]}\\`' + // ALT-Numbers
 				'@|~€' // ALT-QWERTZ
 		)
-	],
+	];
 
-	/* */
-	SPECIAL: new Keys(
+	static SPECIAL = new Keys(
 		new Key('Backspace', 8, '\b'),
 		new Key('Tab', 9, '	'),
 		new Key('Enter', 13, '\n'),
@@ -82,18 +70,16 @@ export const KEYS = {
 		new Key('Space', 32, ' '),
 		new Key('Meta', 91, ''),
 		new Key('fn', 255, '')
-	),
+	);
 
-	/* */
-	NAVIGATION: new Keys(
+	static NAVIGATION = new Keys(
 		new Key('Left', 37, ''),
 		new Key('Up', 38, ''),
 		new Key('Right', 39, ''),
 		new Key('Down', 40, '')
-	),
+	);
 
-	/* */
-	SHORTCUT: new Keys(
+	static SHORTCUT = new Keys(
 		new Key('F1', 112, ''),
 		new Key('F2', 113, ''),
 		new Key('F3', 114, ''),
@@ -104,5 +90,7 @@ export const KEYS = {
 		new Key('F8', 119, ''),
 		new Key('F9', 120, ''),
 		new Key('F10', 121, '')
-	)
-};
+	);
+}
+
+export { Key, Keys, KEYS };

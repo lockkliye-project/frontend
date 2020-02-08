@@ -1,19 +1,16 @@
 /**
- * (C)reated by Burak Günaydin @ Fraunhofer IPK (2019)
- *
- * Helper functions written as class methods for easy, global access.
- * Can be used for various array-specific-operations.
+ * Copyright (c) https://github.com/arsonite
+ * Burak Günaydin (2019/2020)
  */
-const Array = {
+
+class Array {
 	/**
-	 *
-	 *
 	 * @param {Array} array
 	 * @param {Boolean} comparator
 	 */
-	sort: (array, comparator) => {
+	static sort = (array, comparator) => {
 		Array.sort(array, comparator);
-	},
+	};
 
 	/**
 	 * Converts the elements of an array to a consecutive concatenated string.
@@ -27,7 +24,7 @@ const Array = {
 	 *
 	 * @return {String} The concatenated string consisting of all array-elements.
 	 */
-	toString: (
+	static toString = (
 		array,
 		seperator = '',
 		from = 0,
@@ -43,17 +40,15 @@ const Array = {
 			string += element + (i < end ? seperator : '');
 		});
 		return string;
-	},
+	};
 
 	/**
-	 *
-	 *
 	 * @param {Array} array, The array that is supposed to be converted.
 	 * @param {*} seperator, A string seperator to seperate the elements.
 	 */
-	fromString: (string, seperator = '', regex = '') => {
+	static fromString = (string, seperator = '', regex = '') => {
 		return string.split(seperator);
-	},
+	};
 
 	/**
 	 * Converts an object into an array by using the keys as elements
@@ -61,43 +56,39 @@ const Array = {
 	 *
 	 * @param {Object} object The object that is supposed to be converted.
 	 */
-	fromObject: object => {
+	static fromObject = object => {
 		let array = [];
 		Object.keys(object).forEach(key => {
 			array.push(key);
 		});
 		return array;
-	},
+	};
 
 	/**
-	 *
-	 *
 	 * @param {Array} array,
 	 */
-	toObject: array => {
+	static toObject = array => {
 		let obj;
 		array.forEach(element => {
 			obj[element] = null;
 		});
 		return obj;
-	},
+	};
 
 	/**
-	 *
-	 *
 	 * @param {Number} n,
 	 * @param {Number} min,
 	 * @param {Number} max,
 	 * @param {Number} float,
 	 */
-	random: (n = 100, min = 0, max = 100, float = false) => {
+	static random = (n = 100, min = 0, max = 100, float = false) => {
 		let arr = [];
 		for (let i = 0; i < n; i++) {
 			let rand = Math.random() * max + min;
 			arr[i] = float ? rand : Math.floor(rand);
 		}
 		return arr;
-	}
-};
+	};
+}
 
-export default array;
+export default Array;

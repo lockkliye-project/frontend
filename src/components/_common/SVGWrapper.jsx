@@ -1,5 +1,6 @@
 /**
- * (C)reated by Burak Günaydin @ Fraunhofer IPK (2019)
+ * Copyright (c) https://github.com/arsonite
+ * Burak Günaydin (2019/2020)
  *
  * SVG-component from 'react-inlinesvg' created by @matthewwithanm at https://github.com/matthewwithanm
  * transfered to and maintained by @gilbarbara at https://github.com/gilbarbara

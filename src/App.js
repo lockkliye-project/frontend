@@ -1,27 +1,19 @@
 /**
- * (C)reated by Burak Günaydin @ Fraunhofer IPK (2019)
+ * Copyright (c) https://github.com/arsonite
+ * Burak Günaydin (2019/2020)
  */
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
 
 /* Components */
+import Element from 'components/_common/Element';
 
 /* Pages */
 
 /* APIs */
-import { decodeURL, encodeURL } from 'api/http';
 
 /* Utility */
-import { hitBreakpoint, NAVIGATION, path } from 'config.js';
-import Array from 'util/Array.js';
-import Storage from './util/Storage.js';
 
 /* Styles */
-
-const components = [];
-
-/* The treshold (in pixel) when the locally scoped scroll-event is supposed to fire */
-const scrollTreshold = 1;
 
 /**
  * Main-Aplication component, which harbors the navigation, side-navigation and main-component.
@@ -52,32 +44,7 @@ class App extends Element {
 	};
 
 	componentDidMount = () => {
-		/* Disables non-crucial console warnings */
-		console.warn = warning => {};
-		/* Disable critical console-logging to enable react error-handling */
-		console.error = error => {};
-
-		this.updateNodes();
-
-		// TODO: Use below method for polyfill only, otherwise smarter solution, like device orientation
-		const resize = () => {
-			if (hitBreakpoint('mobile') || hitBreakpoint('tablet')) {
-				this.collapseSidebar();
-			}
-		};
-		window.addEventListener('resize', resize);
-		resize();
-
-		this.setState({ isLoggedIn: Storage.get('user') !== null });
-
 		this._isMounted = true;
-	};
-
-	componentWillMount = async () => {
-		let sharedData = this.state.sharedData;
-		this.setState({
-			sharedData: sharedData
-		});
 	};
 
 	render() {

@@ -1,25 +1,54 @@
 /**
- * (C)reated by Burak Günaydin @ Fraunhofer IPK (2019)
+ * Copyright (c) https://github.com/arsonite
+ * Burak Günaydin (2019/2020)
  */
 
-/**
- * Helper functions written as class methods for easy, global access.
- * Can be used for various xml-specific-operations.
- */
-const xml = {
+class XML {
+	/*
+	const token = '#text';
+
+	let services = [];
+	xmlFiles.forEach(xmlFile => {
+		let temp = xml.toJSON(
+			new DOMParser().parseFromString(xmlFile, 'text/xml')
+		);
+		temp = temp['ServiceInformations'];
+		temp = temp['GeneralInfomation'];
+
+		let tags = [];
+		temp.tags.tag.forEach(tag => {
+			tags.push(tag[token]);
+		});
+
+		let service = {
+			id: temp.id[token],
+			name: temp.serviceName[token],
+			author: temp.author[token],
+			place: temp.place[token],
+			date: temp.date[token],
+			tags: tags,
+			shortInfo: temp.shortInfo[token],
+			longInfo: temp.longInfo[token]
+		};
+
+		services.push(service);
+	});
+	*/
+
 	/**
 	 * A recursive algorithm to convert a XML-file to JSON.
 	 *
 	 * @param {XML} file The XML content that is supposed to be transformed.
 	 * @return {JSON} The converted json.
 	 */
-	toJSON: file => {
+	static toJSON = file => {
 		let temp = {};
 		if (file.nodeType === 1) {
 			if (file.attributes.length > 0) {
 				temp['@attributes'] = {};
 				file.attributes.forEach(attribute => {
-					temp['@attributes'][attribute.nodeName] = attribute.nodeValue;
+					temp['@attributes'][attribute.nodeName] =
+						attribute.nodeValue;
 				});
 			}
 		} else if (file.nodeType === 3) {
@@ -30,58 +59,27 @@ const xml = {
 				let item = child;
 				let nodeName = item.nodeName;
 				if (temp[nodeName] === undefined) {
-					temp[nodeName] = xml.toJSON(item);
+					temp[nodeName] = XML.toJSON(item);
 				} else {
 					if (temp[nodeName].push === undefined) {
 						let old = temp[nodeName];
 						temp[nodeName] = [];
 						temp[nodeName].push(old);
 					}
-					temp[nodeName].push(xml.toJSON(item));
+					temp[nodeName].push(XML.toJSON(item));
 				}
 			});
 		}
 		return temp;
-	},
-
-	/**
-	 *
-	 */
-	fromJSON: json => {
-		let file = '';
-		return file;
-	}
-};
-
-export default xml;
-
-/*
-const token = '#text';
-
-let services = [];
-xmlFiles.forEach(xmlFile => {
-	let temp = xml.toJSON(
-		new DOMParser().parseFromString(xmlFile, 'text/xml')
-	);
-	temp = temp['ServiceInformations'];
-	temp = temp['GeneralInfomation'];
-
-	let tags = [];
-	temp.tags.tag.forEach(tag => {
-		tags.push(tag[token]);
-	});
-
-	let service = {
-		id: temp.id[token],
-		name: temp.serviceName[token],
-		author: temp.author[token],
-		place: temp.place[token],
-		date: temp.date[token],
-		tags: tags,
-		shortInfo: temp.shortInfo[token],
-		longInfo: temp.longInfo[token]
 	};
 
-	services.push(service);
-});
-*/
+	/**
+	 * @param {String} json
+	 */
+	static fromJSON = json => {
+		let file = '';
+		return file;
+	};
+}
+
+export default XML;

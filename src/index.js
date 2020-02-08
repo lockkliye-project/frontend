@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import Notifications from './components/Notifications/Notifications';
 import App from './App';
 
-import * as serviceWorker from './services/serviceWorker';
+import * as serviceWorker from './api/serviceWorker';
 
 import './style/index.css';
 
