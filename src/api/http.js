@@ -1,5 +1,6 @@
 /**
- * (C)reated by Burak Günaydin (2019)
+ * Copyright (c) https://github.com/arsonite
+ * Burak Günaydin (2019/2020)
  */
 import axios from 'axios';
 import https from 'https';
@@ -17,11 +18,8 @@ const httpsAgent = new https.Agent({
 	key: key,
 	passphrase: 'YYY'
 });
-/**************************************************/
 
-/**
- *
- */
+/* */
 const ENCODING = {
 	SPACE: '+',
 	TAB: '-',
@@ -71,19 +69,11 @@ function request(uri) {
 }
 
 /**
- *
- * @param {String} jwt
- */
-function setToken(jwt) {
-	axios.defaults.headers.common['x-auth-token'] = jwt;
-}
-
-/**
  * If you only pass one argument, it's only going to encode the URL without snapping it
  *
  * @param {*} args
  */
-export function encodeURL(...args) {
+function encodeURL(...args) {
 	let url = '';
 	args.forEach(arg => {
 		url += '/' + arg;
@@ -92,10 +82,9 @@ export function encodeURL(...args) {
 }
 
 /**
- *
  * @param {String} url
  */
-export function decodeURL(url) {
+function decodeURL(url) {
 	let uri = url.toString();
 	let space = new RegExp('\\' + ENCODING.SPACE, 'gm');
 	uri = uri.replace(space, ' ');
@@ -107,10 +96,65 @@ export default {
 	post: axios.post,
 	put: axios.put,
 	delete: axios.delete,
-	patch: axios.patch,
-
-	setToken,
-	request,
-
-	httpsAgent
+	patch: axios.patch
 };
+
+export { encodeURL, decodeURL, request, httpsAgent };
+
+/* HTTP-Status-Codes
+ * 100 Continue
+ * 101 Switching Protocol
+ *
+ * 200 OK
+ * 201 Created
+ * 202 Accepted
+ * 203 Non-Authoritative Information
+ * 204 No Content
+ * 205 Reset Content
+ * 206 Partial Content
+ *
+ * 300 Multiple Choice
+ * 301 Moved Permanently
+ * 302 Found
+ * 303 See Other
+ * 304 Not Modified
+ * 305 Use Proxy
+ * 306 unused
+ * 307 Temporary Redirect
+ * 308 Permanent Redirect
+ *
+ * 400 Bad Request
+ * 401 Unauthorized
+ * 402 Payment Required
+ * 403 Forbidden
+ * 404 Not Found
+ * 405 Method Not Allowed
+ * 406 Not Acceptable
+ * 407 Proxy Authentication Required
+ * 408 Request Timeout
+ * 409 Conflict
+ * 410 Gone
+ * 411 Length Required
+ * 412 Precondition Failed
+ * 413 Payload Too Large
+ * 414 URI Too Long
+ * 415 Unsupported Media Type
+ * 416 Requested Range Not Satisfiable
+ * 417 Expectation Failed
+ * 421 Misdirected Request
+ * 426 Upgrade Required
+ * 428 Precondition Required
+ * 429 Too Many Requests
+ * 431 Request Header Fields Too Large
+ * 451 Unavailable For Legal Reasons
+ *
+ * 500 Internal Server Error
+ * 501 Not Implemented
+ * 502 Bad Gateway
+ * 503 Service Unavailable
+ * 504 Gateway Timeout
+ * 505 HTTP Version Not Supported
+ * 506 Variant Also Negotiates
+ * 507 Variant Also Negotiates
+ * 511 Network Authentication Required
+ */
