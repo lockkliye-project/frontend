@@ -1,4 +1,6 @@
+:: Turns off verbose-messages in command prompt
 @ECHO OFF
-SETLOCAL EnableDelayedExpansion
 
-..\createNetwork.bat && docker-compose -f ..\..\..\docker-compose.dev.yml build
+:: Runs network creation script and builds the container with the custom file flag -f
+CALL ..\createNetwork.bat
+docker-compose -f ..\..\..\docker-compose.dev.yml build

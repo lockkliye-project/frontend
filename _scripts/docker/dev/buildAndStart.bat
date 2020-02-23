@@ -1,3 +1,6 @@
+:: Turns off verbose-messages in command prompt
 @ECHO OFF
 
-..\createNetwork.bat && build.bat && docker-compose -f ..\..\..\docker-compose.dev.yml up
+:: Builds and starts the container
+CALL build.bat
+docker-compose -f ..\..\..\docker-compose.dev.yml up

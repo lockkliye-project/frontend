@@ -1,3 +1,6 @@
+:: Turns off verbose-messages in command prompt
 @ECHO OFF
 
-..\createNetwork.bat && docker-compose -f ..\..\..\docker-compose.prod.yml up -d
+:: Runs network creation script and starts the container with the custom file flag -f in detached mode
+CALL ..\createNetwork.bat
+docker-compose -f ..\..\..\docker-compose.prod.yml up -d
