@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import ContextWrapper from 'components/Context/ContextWrapper';
-
 import './styles/Toolbar.css';
 
 class Toolbar extends Component {
@@ -9,27 +7,9 @@ class Toolbar extends Component {
 		mode: 0,
 	};
 
-	/**
-	 *
-	 */
-	popModifier = (modifier) => {};
-
 	render() {
-		const ContextList = ContextWrapper.ContextList;
-		const Context = ContextWrapper.Context;
-
 		return (
 			<div id='toolbar'>
-				<ContextWrapper
-					config={[
-						ContextList('Settings', [
-							Context('button', 'Color', 'color'),
-							Context('button', 'Size', 'size'),
-						]),
-					]}
-					popModifier={this.popModifier}
-				/>
-
 				<div id='modes'>
 					<div id='create' className='mode'>
 						Create

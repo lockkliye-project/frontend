@@ -1,34 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import './styles/List.css';
 
-class List extends Component {
-	state = {};
+function List(props) {
+	const data = props.data;
+	console.log(data);
 
-	render() {
-		const data = this.props.data;
-
-		return (
-			<ul id={this.props.id} className='list'>
-				{Object.keys(data).map((entry) => {
-					return (
-						<li
-							key={entry}
-							className='nav'
-							onClick={() => {
-								const entryData = data[entry];
-								typeof entryData === 'string' || entryData instanceof String
-									? this.props.popCurrentCard(entryData)
-									: this.props.createSubList(entryData);
-							}}
-						>
-							{entry}
-						</li>
-					);
-				})}
-			</ul>
-		);
-	}
+	return (
+		<ul id={props.id} className='list'>
+			{Object.keys(data).map((entry) => {
+				return (
+					<li
+						className='nav'
+						onClick={() => {
+							const entryData = data[entry];
+							typeof entryData === 'string' || entryData instanceof String
+								? props.popCurrentCard(entryData)
+								: props.createSubList(entryData);
+						}}
+					>
+						{entry.name}
+					</li>
+				);
+			})}
+		</ul>
+	);
 }
 
 export default List;

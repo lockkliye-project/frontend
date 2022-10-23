@@ -2,7 +2,7 @@ import React from 'react';
 
 import Word from './Word';
 import Element from 'components/Common/Element';
-import ContextWrapper from 'components/Context/ContextWrapper';
+import ContextWrapper from 'components/Common/Context/ContextWrapper';
 
 import ID from 'util/ID';
 import { KEYS } from 'util/Keys.js';

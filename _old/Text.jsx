@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Word from './Word';
+import Word from '../src/components/Display/Word';
 import Element from 'components/Common/Element';
 import ContextWrapper from 'components/Context/ContextWrapper';
 

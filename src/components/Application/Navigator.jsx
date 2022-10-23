@@ -2,22 +2,44 @@ import React, { Component } from 'react';
 
 import List from './List';
 import Resizable from 'components/Common/Resizable';
-import ContextWrapper from 'components/Context/ContextWrapper';
 
 import './styles/Navigator.css';
 
 class Navigator extends Component {
 	state = {
-		_promiseResolved: false,
 		treeDepth: 0,
 		index: -1,
+
+		data: [
+			{
+				meta: {
+					identifier: '',
+					name: 'Testfolder 1',
+					description: '',
+					author: 'Test User 1',
+					type: 'folder',
+					amountOfSubfolders: 1,
+					amountOfFiles: 0,
+				},
+			},
+			{
+				meta: {
+					identifier: '',
+					name: 'Testfile 1',
+					description: '',
+					author: 'Test User 1',
+					type: 'file',
+				},
+			},
+		],
+
 		lists: [],
-		data: {},
 	};
 
 	componentDidMount = async () => {
-		this.setState({ data: this.props.data, _promiseResolved: true }, () => {
-			this.createSubList(this.props.data);
+		const { data } = this.state;
+		this.setState({ data: data }, () => {
+			this.createSubList(data);
 		});
 	};
 
@@ -25,10 +47,9 @@ class Navigator extends Component {
 	 *
 	 */
 	createSubList = (data) => {
-		let lists = this.state.lists;
+		let { lists } = this.state;
 		lists.push(
 			<List
-				key={Math.random() * 1000}
 				data={data}
 				popCurrentCard={this.props.popCurrentCard}
 				createSubList={this.createSubList}
@@ -37,16 +58,8 @@ class Navigator extends Component {
 		this.setState({ lists: lists });
 	};
 
-	/**
-	 *
-	 */
-	popModifier = (modifier) => {};
-
 	render() {
-		if (!this.state._promiseResolved) return null;
-
-		const ContextList = ContextWrapper.ContextList;
-		const Context = ContextWrapper.Context;
+		const { data, lists } = this.state;
 
 		return (
 			<Resizable
@@ -54,16 +67,7 @@ class Navigator extends Component {
 				className='screen'
 				content={
 					<React.Fragment>
-						<ContextWrapper
-							config={ContextList('Settings', [
-								Context('button', 'Color', 'color'),
-								Context('button', 'Size', 'size'),
-								Context('button', 'Lock', 'lock'),
-							])}
-							popModifier={this.popModifier}
-						/>
-
-						{this.state.lists.map((list) => {
+						{lists.map((list) => {
 							return list;
 						})}
 					</React.Fragment>
@@ -74,3 +78,77 @@ class Navigator extends Component {
 }
 
 export default Navigator;
+
+/*
+[
+	{
+		meta: {
+			identifier: '',
+			name: 'Testfolder 1',
+			description: '',
+			author: 'Test User 1',
+			type: 'folder',
+			amountOfSubfolders: 1,
+			amountOfFiles: 0,
+		},
+		subfolders: [
+			{
+				meta: {
+					identifier: '',
+					type: 'folder',
+					name: 'Testfolder 1.1',
+					description: '',
+					author: 'Test User 1',
+					amountOfSubfolders: 0,
+					amountOfFiles: 0,
+				},
+				subfolders: [],
+				files: [],
+			},
+		],
+		files: [],
+	},
+	{
+		meta: {
+			identifier: '',
+			name: 'Testfile 1',
+			description: '',
+			author: 'Test User 1',
+			type: 'file',
+			version: 1,
+		},
+		content: '',
+	},
+]
+*/
+
+/*
+folder: {
+meta: {
+	identifier: string,
+	type: 'folder',
+	name: string,
+	description: string,
+	author: string,
+	amountOfSubfolders: integer,
+	amountOfFiles: integer,
+},
+subfolders: array of folders,
+files: array of files
+}
+*/
+
+/*
+file: {
+meta: {
+	identifier: string,
+	type: 'file',
+	subtype: one of ['note', 'binary', 'archive', 'image', 'audio', 'video', 'list', 'diagram'],
+	name: string,
+	description: string,
+	author: string,
+	version: integer
+},
+content: ''
+}
+*/

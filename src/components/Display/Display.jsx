@@ -6,17 +6,8 @@ import Element from 'components/Common/Element';
 
 import './styles/Display.css';
 
-/**
- *
- */
 class Display extends Element {
 	state = {};
-
-	constructor(props) {
-		super(props);
-
-		this.ref = React.createRef();
-	}
 
 	render() {
 		return (
