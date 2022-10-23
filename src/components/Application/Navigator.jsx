@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
 import List from './List';
-import Resizable from 'components/_common/Resizable';
+import Resizable from 'components/Common/Resizable';
 import ContextWrapper from 'components/Context/ContextWrapper';
 
-import './style/Navigator.css';
+import './styles/Navigator.css';
 
 class Navigator extends Component {
 	state = {
@@ -12,7 +12,7 @@ class Navigator extends Component {
 		treeDepth: 0,
 		index: -1,
 		lists: [],
-		data: {}
+		data: {},
 	};
 
 	componentDidMount = async () => {
@@ -24,7 +24,7 @@ class Navigator extends Component {
 	/**
 	 *
 	 */
-	createSubList = data => {
+	createSubList = (data) => {
 		let lists = this.state.lists;
 		lists.push(
 			<List
@@ -40,7 +40,7 @@ class Navigator extends Component {
 	/**
 	 *
 	 */
-	popModifier = modifier => {};
+	popModifier = (modifier) => {};
 
 	render() {
 		if (!this.state._promiseResolved) return null;
@@ -58,12 +58,12 @@ class Navigator extends Component {
 							config={ContextList('Settings', [
 								Context('button', 'Color', 'color'),
 								Context('button', 'Size', 'size'),
-								Context('button', 'Lock', 'lock')
+								Context('button', 'Lock', 'lock'),
 							])}
 							popModifier={this.popModifier}
 						/>
 
-						{this.state.lists.map(list => {
+						{this.state.lists.map((list) => {
 							return list;
 						})}
 					</React.Fragment>

@@ -1,0 +1,66 @@
+@import '../../../styles/global.less';
+
+.context {
+	overflow: hidden;
+
+	position: relative;
+
+	display: block;
+	padding: 2%;
+
+	transition: @trans250;
+
+	animation-name: expand;
+	animation-duration: 250ms;
+	animation-fill-mode: forwards;
+	animation-timing-function: cubic-bezier();
+}
+
+.context.label {
+	font-weight: bold;
+	color: #eee;
+	background-color: #353535;
+}
+
+.context.button {
+	color: #353535;
+	background-color: #eee;
+}
+
+.context:first-child {
+	border-top-left-radius: 0.25em;
+	border-top-right-radius: 0.25em;
+}
+
+.context:last-child {
+	border-bottom-left-radius: 0.25em;
+	border-bottom-right-radius: 0.25em;
+}
+
+.context.label {
+	cursor: default;
+}
+
+.context.button:hover {
+	cursor: pointer;
+
+	padding-left: 5%;
+
+	background-color: #fff;
+}
+
+/* Standard syntax */
+@keyframes expand {
+	from {
+		height: 0;
+		width: 0;
+
+		opacity: 0;
+	}
+	to {
+		height: 2rem;
+		width: 15rem;
+
+		opacity: 1;
+	}
+}

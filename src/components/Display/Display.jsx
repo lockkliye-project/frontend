@@ -2,9 +2,9 @@ import React from 'react';
 
 import Toolbar from './Toolbar';
 import Text from './Text';
-import Element from 'components/_common/Element';
+import Element from 'components/Common/Element';
 
-import './style/Display.css';
+import './styles/Display.css';
 
 /**
  *

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Context from './Context';
 
-import './style/ContextMenu.css';
+import './styles/ContextMenu.css';
 
 class ContextMenu extends Component {
 	constructor(props) {
@@ -23,7 +23,7 @@ class ContextMenu extends Component {
 				ref={this.ref}
 				style={{
 					top: this.props.context.pos.y,
-					left: this.props.context.pos.x
+					left: this.props.context.pos.x,
 				}}
 				onBlur={this.props.collapse}
 			>

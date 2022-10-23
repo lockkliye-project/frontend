@@ -1,23 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 
-import Notifications from './components/Notifications/Notifications';
-import App from './App';
+import Application from './components/Application/Application';
 
-import * as serviceWorker from './api/serviceWorker';
+import reportWebVitals from './reportWebVitals';
 
-import './style/index.css';
+import './styles/index.css';
 
-document.addEventListener('contextmenu', event => {
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+document.addEventListener('contextmenu', (event) => {
 	event.preventDefault();
 });
 
-ReactDOM.render(
-	<React.Fragment>
-		<Notifications />
-		<App />
-	</React.Fragment>,
-	document.getElementById('root')
+root.render(
+	<React.StrictMode>
+		<Application />
+	</React.StrictMode>
 );
 
-serviceWorker.unregister();
+reportWebVitals(console.log);

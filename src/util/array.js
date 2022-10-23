@@ -1,10 +1,18 @@
-/**
- * Copyright (c) https://github.com/arsonite
- * Burak Günaydin (2019/2020)
- */
-
 class Array {
 	/**
+	 * A wrapper function to consume the JavaScript Array.isArray function
+	 * to prevent a dirty namespace.
+	 *
+	 * @param {Array} array
+	 * @returns {Boolean}
+	 */
+	static isArray = (array) => {
+		return Object.prototype.toString.call(array) === '[object Array]';
+	};
+
+	/**
+	 *
+	 *
 	 * @param {Array} array
 	 * @param {Boolean} comparator
 	 */
@@ -24,14 +32,7 @@ class Array {
 	 *
 	 * @return {String} The concatenated string consisting of all array-elements.
 	 */
-	static toString = (
-		array,
-		seperator = '',
-		from = 0,
-		to = null,
-		first = false,
-		last = false
-	) => {
+	static toString = (array, seperator = '', from = 0, to = null, first = false, last = false) => {
 		const end = to === null ? array.length : to;
 		let string = first ? seperator : ''; // Prepends the seperator if first is true
 		array.forEach((element, i) => {
@@ -43,6 +44,8 @@ class Array {
 	};
 
 	/**
+	 *
+	 *
 	 * @param {Array} array, The array that is supposed to be converted.
 	 * @param {*} seperator, A string seperator to seperate the elements.
 	 */
@@ -56,26 +59,30 @@ class Array {
 	 *
 	 * @param {Object} object The object that is supposed to be converted.
 	 */
-	static fromObject = object => {
+	static fromObject = (object) => {
 		let array = [];
-		Object.keys(object).forEach(key => {
+		Object.keys(object).forEach((key) => {
 			array.push(key);
 		});
 		return array;
 	};
 
 	/**
+	 *
+	 *
 	 * @param {Array} array,
 	 */
-	static toObject = array => {
+	static toObject = (array) => {
 		let obj;
-		array.forEach(element => {
+		array.forEach((element) => {
 			obj[element] = null;
 		});
 		return obj;
 	};
 
 	/**
+	 *
+	 *
 	 * @param {Number} n,
 	 * @param {Number} min,
 	 * @param {Number} max,

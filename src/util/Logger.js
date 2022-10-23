@@ -29,11 +29,7 @@ class Logger {
 				'color: #AAA'
 			);
 			if (data === undefined) {
-				if (
-					msg instanceof Object ||
-					typeof msg === 'object' ||
-					Array.isArray(msg)
-				) {
+				if (msg instanceof Object || typeof msg === 'object' || Array.isArray(msg)) {
 					console.log(`%c[${this.className}]`, logColor);
 					console.log(msg);
 				} else {

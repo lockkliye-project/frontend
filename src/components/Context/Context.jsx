@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './style/Context.css';
+import './styles/Context.css';
 
 function Context(props) {
 	return (
@@ -11,7 +11,7 @@ function Context(props) {
 					index: props.index,
 					type: props.type,
 					option: props.option,
-					flag: props.flag
+					flag: props.flag,
 				});
 			}}
 		>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './style/Word.css';
+import './styles/Word.css';
 
 class Word extends Component {
 	state = {
@@ -13,7 +13,7 @@ class Word extends Component {
 
 		size: null,
 
-		link: null
+		link: null,
 	};
 
 	componentDidMount = () => {};
@@ -21,10 +21,10 @@ class Word extends Component {
 	/**
 	 *
 	 */
-	word = string => {
+	word = (string) => {
 		let flags = [];
 		let flagString = '';
-		flags.forEach(flag => {
+		flags.forEach((flag) => {
 			flagString += ' #' + flag;
 		});
 
@@ -47,7 +47,7 @@ class Word extends Component {
 
 		let flag = '';
 		if (!whitespace) {
-			this.props.flag.split('_').forEach(string => {
+			this.props.flag.split('_').forEach((string) => {
 				flag += `flag_${string} `;
 			});
 		}

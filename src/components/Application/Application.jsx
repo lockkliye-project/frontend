@@ -3,27 +3,25 @@ import React, { Component } from 'react';
 import Navigator from './Navigator';
 import Display from 'components/Display/Display.jsx';
 
-import test_entries from 'test_entries.json';
-
-import './style/Application.css';
+import './styles/Application.css';
 import ContextWrapper from '../Context/ContextWrapper';
 
 class Application extends Component {
 	_isMounted = false;
 
 	state = {
-		data: {}
+		data: {},
 	};
 
 	componentDidMount() {
-		this.setState({ data: test_entries });
+		this.setState({ data: [] });
 		this._isMounted = true;
 	}
 
 	/**
 	 *
 	 */
-	dynamicImport = async modules => {
+	dynamicImport = async (modules) => {
 		/* Using experimental dynamic imports to parse needed modules from response-body */
 		modules.split(',').forEach(async (m, i) => {
 			let component = m.trim();

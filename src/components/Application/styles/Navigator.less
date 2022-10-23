@@ -1,0 +1,26 @@
+@import '../../../styles/global.less';
+
+#nav {
+	z-index: @zNeutral;
+
+	@bg: #111;
+
+	.list {
+		background: url('../../../resources/img/pattern_b2.png');
+		border-right: 1px solid @bg;
+
+		li {
+			color: #aaa;
+			border-bottom: 1px solid @bg;
+		}
+
+		li:hover {
+			background-color: lighten(@bg, 7);
+		}
+
+		.current {
+			color: #fff;
+			background-color: lighten(@bg, 14);
+		}
+	}
+}

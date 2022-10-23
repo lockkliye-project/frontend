@@ -1,0 +1,51 @@
+@import '../../../styles/global.less';
+
+.switcher {
+	display: flex;
+	flex-direction: column;
+
+	margin: auto;
+	height: fit-content;
+	width: fit-content;
+	max-height: 100%;
+	max-width: 100%;
+
+	transition: @trans_250;
+
+	.label {
+		margin: 0 auto;
+		margin-bottom: 5%;
+		height: fit-content;
+		width: fit-content;
+
+		font-weight: bold;
+		text-align: center;
+	}
+
+	.switches {
+		display: flex;
+		justify-content: center;
+		height: auto;
+		width: auto;
+
+		transition: inherit;
+
+		.switch {
+			padding: 2.5% 5%;
+			margin-right: 2.5%;
+			height: fit-content;
+			width: fit-content;
+
+			border-radius: 1rem;
+
+			font-weight: bold;
+			text-align: center;
+
+			transition: inherit;
+		}
+
+		.switch:hover {
+			cursor: pointer;
+		}
+	}
+}

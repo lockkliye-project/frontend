@@ -14,13 +14,13 @@ const SRC = {
 	icon: '/icon',
 	nav: '/icon/nav',
 	sidebar: '/icon/sidebar',
-	modules: '/icon/modules'
+	modules: '/icon/modules',
 };
 
 /* */
 const BREAKPOINTS = {
 	mobile: 500,
-	tablet: 750
+	tablet: 750,
 };
 
 /* Debug flag, enables certain features for development
@@ -40,7 +40,7 @@ export const API = {
 	port: DEBUG ? 8080 : 443,
 	root: 'api',
 
-	uri: ['register', 'login', 'workspace', 'settings']
+	uri: ['register', 'login', 'workspace', 'settings'],
 };
 
 /* The barebone navigation of the web-application.

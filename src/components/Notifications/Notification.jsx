@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './style/Notification.css';
+import './styles/Notification.css';
 
 class Notification extends Component {
 	state = {};

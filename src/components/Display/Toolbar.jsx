@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 
 import ContextWrapper from 'components/Context/ContextWrapper';
 
-import './style/Toolbar.css';
+import './styles/Toolbar.css';
 
 class Toolbar extends Component {
 	state = {
-		mode: 0
+		mode: 0,
 	};
 
 	/**
 	 *
 	 */
-	popModifier = modifier => {};
+	popModifier = (modifier) => {};
 
 	render() {
 		const ContextList = ContextWrapper.ContextList;
@@ -24,8 +24,8 @@ class Toolbar extends Component {
 					config={[
 						ContextList('Settings', [
 							Context('button', 'Color', 'color'),
-							Context('button', 'Size', 'size')
-						])
+							Context('button', 'Size', 'size'),
+						]),
 					]}
 					popModifier={this.popModifier}
 				/>

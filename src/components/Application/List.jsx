@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './style/List.css';
+import './styles/List.css';
 
 class List extends Component {
 	state = {};
@@ -10,7 +10,7 @@ class List extends Component {
 
 		return (
 			<ul id={this.props.id} className='list'>
-				{Object.keys(data).map(entry => {
+				{Object.keys(data).map((entry) => {
 					return (
 						<li
 							key={entry}
