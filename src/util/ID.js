@@ -1,14 +1,10 @@
-/**
- * (C)reated by Burak Günaydin @ Fraunhofer IPK (2021)
- *
- * A port of my custom ID class from python to JavaScript for use of frontend internal identifiers
- * that don't get sent to the backend.
- */
 import { uuid } from 'uuidv4';
 
 class ID {
 	static hex = (decimal) => {
-		return Number(decimal).toString(16).padStart(2, '0');
+		return Number(decimal)
+			.toString(16)
+			.padStart(2, '0');
 	};
 
 	/**

@@ -6,7 +6,7 @@ const ENCRYPTION_CONFIG = {
 };
 
 // TODO: Temporär, stattdessen API-key vom Server beim einloggen erhalten und in cookie speichern
-const API_KEY = 'Logic.App.';
+const API_KEY = 'lockkliye';
 const HASHED_KEY = CryptoJS.AES.encrypt(API_KEY, API_KEY, ENCRYPTION_CONFIG);
 
 /**
