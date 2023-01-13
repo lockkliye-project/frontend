@@ -9,11 +9,18 @@ import './styles/Application.css';
 class Application extends Component {
 	state = {};
 
-	componentDidMount() {}
+	componentDidMount = () => {};
 
-	/**
-	 *
-	 */
+	componentDidUpdate = () => {};
+
+	componentWillUnmount = () => {};
+
+	static getDerivedStateFromProps(props, state) {
+		return null;
+	}
+
+	getSnapshotBeforeUpdate(prevProps, prevState) {}
+
 	collapse = () => {
 		let context = this.state.context;
 		context.active = false;
@@ -27,9 +34,9 @@ class Application extends Component {
 			<div id='application'>
 				<div id='lockScreen'></div>
 
-				<Notifications />
+				{/* <Notifications />
 
-				<Navigator />
+				<Navigator /> */}
 
 				<Display />
 			</div>

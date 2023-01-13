@@ -4,7 +4,6 @@ import './styles/List.css';
 
 function List(props) {
 	const data = props.data;
-	console.log(data);
 
 	return (
 		<ul id={props.id} className='list'>

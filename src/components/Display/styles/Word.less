@@ -4,52 +4,54 @@
 	display: inline-block;
 
 	padding: 0;
-	margin: 0;
+	margin-right: 0;
 	width: fit-content;
+	border-spacing: 1rem;
+	border-radius: 0.25rem;
 }
 
-.word.flag_bold {
+.word.whitespace {
+	margin-right: 0.25rem;
+
+	color: #fff;
+	background-color: transparent;
+}
+
+.word.bold {
 	font-weight: bold;
 }
 
-.word.flag_italic {
+.word.italic {
 	font-style: italic;
 }
 
-.word.flag_underline {
+.word.underline {
 	text-decoration: underline;
 }
 
-.word.flag_tiny {
+.word.tiny {
 	font-size: 8px;
 }
 
-.word.flag_small {
+.word.small {
 	font-size: 12px;
 }
 
-.word.flag_neutral {
+.word.neutral {
 	font-size: 16px;
 }
 
-.word.flag_big {
+.word.big {
 	font-size: 20px;
 }
 
-.word.flag_huge {
+.word.huge {
 	font-size: 24px;
 }
 
 .word:hover {
-	cursor: pointer;
+	cursor: text;
 
 	color: #ff8800;
 	background-color: #555;
-}
-
-.word.whitespace:hover {
-	cursor: text;
-
-	color: #fff;
-	background-color: transparent;
 }

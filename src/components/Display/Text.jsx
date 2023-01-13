@@ -14,16 +14,12 @@ import './styles/Text.css';
  */
 class Text extends Element {
 	state = {
-		dirty: false, //
+		dirty: false,
+		whitespaceSwitch: false,
 
-		attributes: [['']], //
-		text: [['']], //
+		content: [],
 
-		pointer: {
-			line: 0,
-			word: 0,
-			letter: 0,
-		},
+		index: 0,
 	};
 
 	constructor(props) {
@@ -33,39 +29,46 @@ class Text extends Element {
 		this.firstBlockRef = React.createRef();
 	}
 
-	componentDidMount = () => {};
-
-	componentDidUpdate = () => {};
-
-	componentWillUnmount = () => {};
-
-	static getDerivedStateFromProps(props, state) {
-		return null;
-	}
-
-	getSnapshotBeforeUpdate(prevProps, prevState) {}
+	componentDidMount = () => {
+		this.setState({
+			content: [<Word id={ID.generate()} index={0} keypress={this.catchKeypress} />],
+		});
+	};
 
 	catchKeypress = (event) => {
 		const { key, keyCode, target } = event;
-		console.log(event.target);
+
+		let { content, index, whitespaceSwitch } = this.state;
+
+		if (whitespaceSwitch) {
+			content.push(
+				<Word id={ID.generate()} index={index + 1} keypress={this.catchKeypress}></Word>
+			);
+
+			this.setState({ content: content, index: index + 1, whitespaceSwitch: false }, () => {
+				this.setCaret(this.mainRef.current, index + 1);
+			});
+			return;
+		}
 
 		if (key === ' ') {
 			event.preventDefault();
 
-			let div = document.createElement('div');
-			div.contentEditable = true;
-			div.id = ID.generate();
-			div.className = 'block';
-			div.onkeydown = this.catchKeypress;
+			content.push(
+				<Word
+					id={ID.generate()}
+					whitespace={true}
+					index={index + 1}
+					keypress={this.catchKeypress}
+				></Word>
+			);
 
-			this.mainRef.current.append(div);
-			this.mainRef.current.childNodes.forEach((childNode, index) => {
-				if (childNode.id === div.id) {
-					this.setCaret(this.mainRef.current, index);
-				}
+			this.setState({ content: content, index: index + 1, whitespaceSwitch: true }, () => {
+				this.setCaret(this.mainRef.current, index + 1);
 			});
 			return;
 		} else if (key === 'Enter') {
+		} else if (key === 'Backspace') {
 		}
 	};
 
@@ -81,50 +84,26 @@ class Text extends Element {
 	};
 
 	render() {
-		const { attributes, pointer, text } = this.state;
-		const whitespaces = [
-			KEYS.SPECIAL.getKey('Space').symbol,
-			KEYS.SPECIAL.getKey('Tab').symbol,
-		];
-
-		const ContextList = ContextWrapper.ContextList;
-		const Context = ContextWrapper.Context;
+		const { content } = this.state;
 
 		return (
 			<div id='textContainer' className='screen'>
-				<ContextWrapper
-					config={[
-						ContextList('Font-Styles', [
-							Context('button', 'Bold', 'bold'),
-							Context('button', 'Italic', 'italic'),
-							Context('button', 'Underline', 'underline'),
-						]),
-
-						ContextList('Font-Sizes', [
-							Context('button', 'Preset: Tiny', 'tiny'),
-							Context('button', 'Preset: Small', 'small'),
-							Context('button', 'Preset: Neutral', 'neutral'),
-							Context('button', 'Preset: Big', 'big'),
-							Context('button', 'Preset: Huge', 'huge'),
-						]),
-					]}
-					popModifier={this.popModifier}
-				/>
-
 				<div id='lines'>
-					{text.map((line, i) => {
+					{content.map((line, i) => {
 						return <p key={i}>{i + 1}</p>;
 					})}
 				</div>
 
-				<div id='text' ref={this.mainRef}>
-					<div
-						contentEditable
-						ref={this.firstBlockRef}
-						id={ID.generate()}
-						className='block'
-						onKeyDown={this.catchKeypress}
-					></div>
+				<div
+					id='text'
+					ref={this.mainRef}
+					onClick={(event) => {
+						this.mainRef.current.focus();
+					}}
+				>
+					{content.map((word) => {
+						return word;
+					})}
 				</div>
 			</div>
 		);

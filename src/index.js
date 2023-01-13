@@ -9,9 +9,9 @@ import './styles/index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-document.addEventListener('contextmenu', (event) => {
-	event.preventDefault();
-});
+// document.addEventListener('contextmenu', (event) => {
+// 	event.preventDefault();
+// });
 
 root.render(
 	<React.StrictMode>
@@ -19,4 +19,4 @@ root.render(
 	</React.StrictMode>
 );
 
-reportWebVitals(console.log);
+// reportWebVitals(console.log);
